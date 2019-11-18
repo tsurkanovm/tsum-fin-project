@@ -14,14 +14,12 @@
                 comment="Entity ID"/>
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Cash Flow Item Title"/>
         <column xsi:type="varchar" name="move" nullable="false" length="10" comment="Cash Flow Item Type"/>
-        <column xsi:type="smallint" name="is_regular" padding="6" unsigned="false" nullable="false" identity="false"
-                default="1" comment="Is Cash Flow Item Regular"/>
+        <column xsi:type="boolean" name="is_regular"  nullable="false" default="1" comment="Is Cash Flow Item Regular"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Cash Flow Item Creation Time"/>
         <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Cash Flow Item Modification Time"/>
-        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
-                default="1" comment="Is Cash Flow Item Active"/>
+        <column xsi:type="boolean" name="is_active"  nullable="false" default="1" comment="Is Cash Flow Item Active"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="cf_item_id"/>
         </constraint>
@@ -35,10 +33,26 @@
                 comment="Storage Creation Time"/>
         <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Storage Modification Time"/>
-        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
-                default="1" comment="Is CashFlow Storage Active"/>
+        <column xsi:type="boolean" name="is_active" default="1" comment="Is CashFlow Storage Active"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="storage_id"/>
+        </constraint>
+    </table>
+    <table name="tsum_cf_document" resource="default" engine="innodb" comment="Cash Flow Item Table">
+        <column xsi:type="int" name="entity_id" padding="9" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="boolean" name="is_active"  nullable="false" default="1" comment="Is Document Active"/>
+        <column xsi:type="timestamp" name="registration_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Registration Time"/>
+        <column xsi:type="int" name="user_id" nullable="false" padding="10" comment="Author ID"/>
+        <column xsi:type="boolean" name="is_transfer"  nullable="false" default="1" comment="Transfer Document"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Modification Time"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
         </constraint>
     </table>
 </schema>
