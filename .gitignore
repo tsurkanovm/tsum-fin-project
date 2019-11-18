@@ -4,7 +4,6 @@
 /pub/sitemap
 /pub/sitemap.xml
 /app/config_sandbox
-/app/etc/config.php
 /app/temp
 /app/etc/env.php
 /app/code/Magento/TestModule*
