@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/** Grid menu xml
+ * @category  Webkul
+ * @package   Tsum_CashFlow
+ * @author    Webkul
+ * @copyright Copyright (c) 2010-2017 Webkul Software Private Limited (https://webkul.com)
+ * @license   https://store.webkul.com/license.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tsum_CashFlow::manager" title="Cash Flow" module="Tsum_CashFlow" sortOrder="10" resource="Tsum_CashFlow::manager" />
+        <add id="Tsum_CashFlow::storage" title="Storage" module="Tsum_CashFlow" sortOrder="20" parent="Tsum_CashFlow::manager" action="cashflow/storage" resource="Tsum_CashFlow::storage"/>
+        <add id="Tsum_CashFlow::cfitem" title="Cash Flow Item" module="Tsum_CashFlow" sortOrder="30" parent="Tsum_CashFlow::manager" action="cashflow/cfitem" resource="Tsum_CashFlow::cfitem"/>
+    </menu>
+</config>

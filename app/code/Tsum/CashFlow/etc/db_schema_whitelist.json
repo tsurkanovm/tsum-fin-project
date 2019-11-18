@@ -1,0 +1,30 @@
+{
+    "tsum_cf_project": {
+        "column": {
+            "project_id": true,
+            "title": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_item": {
+        "column": {
+            "cf_item_id": true,
+            "title": true,
+            "type": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_storage": {
+        "column": {
+            "storage_id": true,
+            "title": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}
