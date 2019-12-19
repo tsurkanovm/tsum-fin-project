@@ -67,7 +67,7 @@
                 <dataScope>title</dataScope>
             </settings>
         </field>
-        <field name="move" formElement="select">
+        <field name="type_id" formElement="select">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">cfitem</item>
@@ -76,7 +76,7 @@
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Moving Type</label>
-                <dataScope>move</dataScope>
+                <dataScope>type_id</dataScope>
             </settings>
             <formElements>
                 <select>

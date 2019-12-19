@@ -3,23 +3,23 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">cfitem_record_grid_list.grid_cfitem_list_data_source</item>
-            <item name="deps" xsi:type="string">cfitem_record_grid_list.grid_cfitem_list_data_source</item>
+            <item name="provider" xsi:type="string">document_record_grid_list.grid_document_list_data_source</item>
+            <item name="deps" xsi:type="string">document_record_grid_list.grid_document_list_data_source</item>
         </item>
-        <item name="spinner" xsi:type="string">cfitem_columns</item>
+        <item name="spinner" xsi:type="string">document_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
                 <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Cash Flow Item</item>
+                <item name="label" xsi:type="string" translate="true">Add New CF Document</item>
                 <item name="class" xsi:type="string">primary</item>
                 <item name="url" xsi:type="string">*/*/add</item>
             </item>
         </item>
     </argument>
-    <dataSource name="grid_cfitem_list_data_source">
+    <dataSource name="grid_document_list_data_source">
         <argument name="dataProvider" xsi:type="configurableObject">
             <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
-            <argument name="name" xsi:type="string">grid_cfitem_list_data_source</argument>
+            <argument name="name" xsi:type="string">grid_document_list_data_source</argument>
             <argument name="primaryFieldName" xsi:type="string">cf_item_id</argument>
             <argument name="requestFieldName" xsi:type="string">title</argument>
             <argument name="data" xsi:type="array">
@@ -46,9 +46,9 @@
         <filters name="listing_filters">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="columnsProvider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns</item>
+                    <item name="columnsProvider" xsi:type="string">document_record_grid_list.document_record_grid_list.document_columns</item>
                     <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.listing_top.bookmarks</item>
+                        <item name="provider" xsi:type="string">document_record_grid_list.document_record_grid_list.listing_top.bookmarks</item>
                         <item name="namespace" xsi:type="string">current.filters</item>
                     </item>
                     <item name="templates" xsi:type="array">
@@ -60,9 +60,9 @@
                         </item>
                     </item>
                     <item name="childDefaults" xsi:type="array">
-                        <item name="provider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.listing_top.listing_filters</item>
+                        <item name="provider" xsi:type="string">document_record_grid_list.document_record_grid_list.listing_top.listing_filters</item>
                         <item name="imports" xsi:type="array">
-                            <item name="visible" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns.${ $.index }:visible</item>
+                            <item name="visible" xsi:type="string">document_record_grid_list.document_record_grid_list.document_columns.${ $.index }:visible</item>
                         </item>
                     </item>
                 </item>
@@ -71,99 +71,40 @@
                 </item>
             </argument>
         </filters>
-        <massaction name="listing_massaction">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns.ids</item>
-                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
-                    <item name="indexField" xsi:type="string">cf_item_id</item>
-                </item>
-            </argument>
-            <!-- Mass actions which you want to add in your grid-->
-            <action name="delete">
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="type" xsi:type="string">delete</item>
-                        <item name="label" xsi:type="string" translate="true">Delete</item>
-                        <item name="url" xsi:type="url" path="cashflow/cfitem/massDelete"/>
-                        <item name="confirm" xsi:type="array">
-                            <item name="title" xsi:type="string" translate="true">Delete</item>
-                            <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>
-                        </item>
-                    </item>
-                </argument>
-            </action>
-            <action name="edit">
-                <settings>
-                    <callback>
-                        <target>editSelected</target>
-                        <provider>cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns_editor</provider>
-                    </callback>
-                    <type>edit</type>
-                    <label translate="true">Edit</label>
-                </settings>
-            </action>
-        </massaction>
         <paging name="listing_paging">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.listing_top.bookmarks</item>
+                        <item name="provider" xsi:type="string">document_record_grid_list.document_record_grid_list.listing_top.bookmarks</item>
                         <item name="namespace" xsi:type="string">current.paging</item>
                     </item>
-                    <item name="selectProvider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">document_record_grid_list.document_record_grid_list.document_columns.ids</item>
                 </item>
             </argument>
         </paging>
     </container>
-    <columns name="cfitem_columns">
-        <settings>
-            <editorConfig>
-                <param name="clientConfig" xsi:type="array">
-                    <item name="saveUrl" xsi:type="url" path="cashflow/cfitem/inlineEdit"/>
-                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
-                </param>
-                <param name="indexField" xsi:type="string">cf_item_id</param>
-                <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns.ids</param>
-            </editorConfig>
-            <childDefaults>
-                <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns_editor</item>
-                    <item name="target" xsi:type="string">startEdit</item>
-                    <item name="params" xsi:type="array">
-                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
-                        <item name="1" xsi:type="boolean">true</item>
-                    </item>
-                </param>
-            </childDefaults>
-        </settings>
+    <columns name="document_columns">
         <selectionsColumn name="ids">
            <argument name="data" xsi:type="array">
                <item name="config" xsi:type="array">
-                   <item name="indexField" xsi:type="string">cf_item_id</item>
+                   <item name="indexField" xsi:type="string">entity_id</item>
                    <item name="sorting" xsi:type="string">desc</item>
                    <item name="sortOrder" xsi:type="number">0</item>
                </item>
            </argument>
        </selectionsColumn>
-        <column name="cf_item_id">
+        <column name="entity_id">
             <settings>
                 <filter>textRange</filter>
                 <label translate="true">ID</label>
                 <sorting>asc</sorting>
             </settings>
         </column>
-        <column name="title">
+        <column name="registration_time" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">
             <settings>
-                <filter>text</filter>
-                <editor>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                    </validation>
-                    <editorType>text</editorType>
-                </editor>
-                <label translate="true">Title</label>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Registration date</label>
             </settings>
         </column>
         <column name="is_active" component="Magento_Ui/js/grid/columns/select">
@@ -177,7 +118,7 @@
                 <label translate="true">Status</label>
             </settings>
         </column>
-        <column name="is_regular" component="Magento_Ui/js/grid/columns/select">
+        <column name="is_transfer" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <options class="Tsum\CashFlow\Model\Source\Status"/>
                 <filter>select</filter>
@@ -185,18 +126,19 @@
                     <editorType>select</editorType>
                 </editor>
                 <dataType>select</dataType>
-                <label translate="true">Regularity</label>
+                <label translate="true">Transfer</label>
             </settings>
         </column>
-        <column name="type_id" component="Magento_Ui/js/grid/columns/select">
+        <column name="user_id">
             <settings>
-                <options class="Tsum\CashFlow\Model\Source\CfItem\MoveType"/>
-                <filter>select</filter>
+                <filter>text</filter>
                 <editor>
-                    <editorType>select</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">true</rule>
+                    </validation>
+                    <editorType>text</editorType>
                 </editor>
-                <dataType>select</dataType>
-                <label translate="true">Moving Type</label>
+                <label translate="true">User</label>
             </settings>
         </column>
         <column name="creation_time" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date">

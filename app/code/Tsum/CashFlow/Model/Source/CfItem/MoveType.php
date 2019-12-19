@@ -13,9 +13,9 @@ class MoveType implements OptionSourceInterface
     public function getOptionArray()
     {
         $options = [
-            'in' => __('IN'),
-            'out' => __('OUT'),
-            'trans' => __('TRANSFER')
+            0 => __('IN'),
+            1 => __('OUT'),
+            2 => __('TRANSFER')
         ];
 
         return $options;
