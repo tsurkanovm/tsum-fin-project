@@ -224,8 +224,11 @@ return [
         'Klarna_Kp' => 0,
         'Magento_PaypalReCaptcha' => 0,
         'MSP_TwoFactorAuth' => 1,
+        'MageSpices_Core' => 1,
+        'MageSpices_Mage2Dark' => 1,
         'Temando_Shipping' => 0,
         'Tsum_CashFlow' => 1,
+        'Tsum_Digits' => 1,
         'Tsum_Knowledge' => 1,
         'Tsum_TrainBrain' => 1,
         'Yotpo_Yotpo' => 0

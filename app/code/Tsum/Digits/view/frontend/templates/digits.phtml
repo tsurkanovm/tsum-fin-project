@@ -1,0 +1,16 @@
+<div id="digits-render-block" data-bind="scope: 'digitsComponent'">
+    <!-- ko template: getTemplate() --><!--/ko-->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "digitsComponent": {
+                        "component": "Tsum_Digits/js/digits"
+                    }
+                }
+            }
+        }
+    }
+</script>

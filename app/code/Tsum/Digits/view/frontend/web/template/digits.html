@@ -1,0 +1,30 @@
+<div class="digits-container" data-bind="event: {keyup: handleKeyup}">
+    <div class="size-switcher">
+        <div>
+            <input type="radio" name="size" id="radio-four" value="4" checked="checked"
+                   data-bind="checked: size, enable: noMoves">
+            <label for="radio-four" data-bind="i18n: '4 digits'"></label>
+        </div>
+        <div>
+            <input type="radio" name="size" id="radio-five" value="5"
+                   data-bind="checked: size, enable: noMoves">
+            <label for="radio-five" data-bind="i18n: '5 digits'"></label>
+        </div>
+    </div>
+    <h4>Game #</h4>
+    <ul data-bind="foreach:  strokeHistory">
+        <li>
+            <span data-bind="text: stroke"> </span>
+            <span data-bind="text: score"> </span>
+        </li>
+    </ul>
+    <p data-bind="css: { error: strokeValue.hasError }">
+        <input type="text" name="stroke" required minlength="4" size="6"
+               data-bind="visible: isStrokeInputVisible, textInput: strokeValue,
+           attr: {maxlength: size(), placeholder: getStrokePlaceholder() }">
+        <button data-bind="visible: isStrokeBtnVisible, click: addStroke">Shoot!</button>
+        <span data-bind='visible: strokeValue.hasError, text: strokeValue.validationMessage'> </span>
+        <span data-bind='visible: gameOver, text: gameOverMessage()'> </span>
+    </p>
+</div>
+
