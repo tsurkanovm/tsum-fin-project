@@ -130,4 +130,3 @@ class CfItem extends AbstractModel
         return $this->setData(self::MOVE, $type);
     }
 }
-
