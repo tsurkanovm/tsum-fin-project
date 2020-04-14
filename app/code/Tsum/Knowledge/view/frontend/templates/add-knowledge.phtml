@@ -1,0 +1,111 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var Magento\Framework\View\Element\Template $block */
+
+
+?>
+
+<div class="new-knowledge-wrapper">
+    <div class="icon">
+        <h2 onclick="togglePopdown()">+</h2>
+    </div>
+    <div class="new-knowledge-content">
+        <form class="form subscribe"
+              novalidate
+              action="#"
+              method="post"
+              data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+              id="newsletter-validate-detail">
+            <div class="field newsletter">
+                <label class="label" for="newsletter"><span><?= $block->escapeHtml(__('Sign Up for Our Newsletter:')) ?></span></label>
+                <div class="control">
+                    <input name="email" type="email" id="newsletter"
+                           placeholder="<?= $block->escapeHtmlAttr(__('Email address')) ?>"
+                           data-validate="{required:true, 'validate-email':true}"/>
+                    <div class="popup-error-msg"></div>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="subscribe-mini-button action subscribe primary" title="<?= $block->escapeHtmlAttr(__('SUBMIT')) ?>" type="submit">
+                    <span>Add new knowledge</span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div onclick="togglePopdown()" class="invisible-button" style="background-color: transparent; height: 200px; display: block;">
+
+    </div>
+</div>
+<script>
+    var _popdownToggle = 0;
+    function togglePopdown() {
+        if (_popdownToggle === 0) {
+            _popdownToggle = 1;
+            document.getElementById("popupHomePage").style.height = "422px";
+
+        }
+        else if (_popdownToggle === 1)
+        {
+            _popdownToggle = 0;
+            document.getElementById("popupHomePage").style.height = "20px";
+        }
+    }
+</script>
+<script>
+
+    require.config({
+        deps: [
+            'jquery'
+        ],
+        callback: function ($) {
+            var button = $("form.subscribe button.action.subscribe");
+
+            $(button).click(function () {
+
+                var form = $(this).parents('form:first');
+                var email = form.find("#newsletter").val().trim();
+                var url = form.attr('action');
+                var self = $(this);
+                var errorBox = form.find(".popup-error-msg");
+                if(email ==""){
+                    errorBox.html("Please enter your email."); return false;
+                }
+                if(!validateEmail(email)){
+                    errorBox.html("Your email is incorrect. Please double check."); return false;
+                }
+                try{
+                    self.attr("disabled","disabled");
+                    self.children("span").html("Please wait...")
+                    $.ajax({
+                        url: url,
+                        dataType: 'json',
+                        type: 'POST',
+                        data: {email: email},
+                        success: function (data){
+                            if(data.status != "ERROR"){
+                                form.html("<h3>Thank you for signing up</h3>");
+                            }
+                            else{
+                                self.removeAttr("disabled");
+                                self.children("span").html("Subscribe")
+                                errorBox.html(data.msg); return false;
+
+                            }
+                        }.bind(this)
+                    });
+                } catch (e){
+                    self.removeAttr("disabled");
+                    self.children("span").html("Subscribe")
+                }
+                return false;
+            })
+        }
+    })
+</script>
+
