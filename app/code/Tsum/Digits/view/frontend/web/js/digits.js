@@ -2,8 +2,9 @@ define([
     'uiComponent',
     'ko',
     'Tsum_Digits/js/timer',
+    'mage/storage',
     'mage/translate'
-], function (Component, ko, timer, $t) {
+], function (Component, ko, timer, storage, $t) {
     'use strict';
     return Component.extend({
         defaults: {
@@ -29,9 +30,6 @@ define([
             this.strokeValue.subscribe(function (newValue) {
                 self.strokeValueHandler(newValue);
             });
-            // this.strokeHistory.toString = function () {
-            //     return 'test!!';
-            // };
             return this;
         },
 
@@ -59,7 +57,7 @@ define([
             let self = this;
             if (self.noMoves()) {
                 self.initiateGoal();
-                alert(self.goal);
+                console.log(self.goal);
                 timer.start();
                 self.noMoves(false);
             }
@@ -95,7 +93,27 @@ define([
         },
 
         sendResultToSever: function () {
-            console.dir({hits:this.strokeHistory().length, time: timer.stop()});
+            let payload = {
+                hits:this.strokeHistory().length,
+                creation_time: timer.stop(),
+                customer_id: 1,
+                size: this.size
+            };
+            let serviceUrl        = 'rest/V1/digits/save';
+
+            storage.post(
+                serviceUrl,
+                JSON.stringify(payload)
+            ).done(function (response) {
+                alert({
+                    content: $t('Action Successfully completed.')
+                });
+            }).fail(function (response) {
+                alert({
+                    content: $t('There was error during saving data')
+                });
+            });
+
         },
 
         getStrokePlaceholder: function () {

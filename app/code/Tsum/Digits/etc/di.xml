@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Tsum\Digits\Api\Data\ResultInterface" type="Tsum\Digits\Model\Result" />
+    <preference for="Tsum\Digits\Api\ResultRepositoryInterface" type="Tsum\Digits\Model\ResultRepository" />
+</config>

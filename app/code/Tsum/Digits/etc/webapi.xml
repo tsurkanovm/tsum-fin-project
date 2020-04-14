@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/digits/last/:customer_id" method="GET">
+        <service class="Tsum\Digits\Api\ResultRepositoryInterface" method="getLastUserResult"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/digits/best" method="GET">
+        <service class="Tsum\Digits\Api\ResultRepositoryInterface" method="getThreeVeryBest"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/digits/save" method="POST">
+        <service class="Tsum\Digits\Api\ResultRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

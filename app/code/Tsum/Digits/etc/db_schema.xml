@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="tsum_digit_result" resource="default" engine="innodb" comment="Digits Result Table">
+        <column xsi:type="smallint" name="entity_id" padding="6" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="tinyint" name="customer_id" padding="3" unsigned="true" nullable="false" comment="Customer ID"/>
+        <column xsi:type="tinyint" name="hits" padding="3" unsigned="true" nullable="false"/>
+        <column xsi:type="tinyint" name="size" padding="2" unsigned="true" nullable="false"/>
+        <column xsi:type="smallint" name="time" padding="4" unsigned="true" nullable="false"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="The Result Creation Time"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>
