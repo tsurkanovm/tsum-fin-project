@@ -230,7 +230,6 @@ return [
         'Tsum_CashFlow' => 1,
         'Tsum_Digits' => 1,
         'Tsum_Knowledge' => 1,
-        'Tsum_TrainBrain' => 0,
         'Yotpo_Yotpo' => 0
     ]
 ];

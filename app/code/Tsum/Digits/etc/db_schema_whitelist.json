@@ -1,0 +1,15 @@
+{
+    "tsum_digit_result": {
+        "column": {
+            "entity_id": true,
+            "customer_id": true,
+            "hits": true,
+            "size": true,
+            "time": true,
+            "creation_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

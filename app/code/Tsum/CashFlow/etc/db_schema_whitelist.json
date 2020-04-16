@@ -5,25 +5,83 @@
             "title": true
         },
         "constraint": {
-            "PRIMARY": true
+            "PRIMARY": true,
+            "TSUM_CF_PROJECT_TITLE": true
         }
     },
     "tsum_cf_item": {
         "column": {
             "cf_item_id": true,
             "title": true,
-            "type": true
+            "type": true,
+            "type_id": true,
+            "is_regular": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
         },
         "constraint": {
-            "PRIMARY": true
+            "PRIMARY": true,
+            "TSUM_CF_ITEM_TITLE_TYPE_ID": true,
+            "TSUM_CF_ITEM_TYPE_ID_TSUM_CF_TYPE_ENTITY_ID": true
         }
     },
     "tsum_cf_storage": {
         "column": {
             "storage_id": true,
+            "title": true,
+            "type": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "TSUM_CF_STORAGE_TITLE": true
+        }
+    },
+    "tsum_cf_type": {
+        "column": {
+            "entity_id": true,
             "title": true
         },
         "constraint": {
+            "TSUM_CF_TYPE_TITLE": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_document": {
+        "column": {
+            "entity_id": true,
+            "is_active": true,
+            "registration_time": true,
+            "user_id": true,
+            "is_transfer": true,
+            "creation_time": true,
+            "update_time": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_document_items": {
+        "column": {
+            "entity_id": true,
+            "document_id": true,
+            "storage_id": true,
+            "flow_id": true,
+            "project_id": true,
+            "type_id": true,
+            "currency": true,
+            "commentary": true,
+            "total": true
+        },
+        "constraint": {
+            "TSUM_CF_DOCUMENT_ITEMS_DOCUMENT_ID_TSUM_CF_DOCUMENT_ENTITY_ID": true,
+            "TSUM_CF_DOCUMENT_ITEMS_STORAGE_ID_TSUM_CF_STORAGE_STORAGE_ID": true,
+            "TSUM_CF_DOCUMENT_ITEMS_FLOW_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
+            "TSUM_CF_DOCUMENT_ITEMS_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true,
+            "TSUM_CF_DOCUMENT_ITEMS_TYPE_ID_TSUM_CF_TYPE_ENTITY_ID": true,
             "PRIMARY": true
         }
     }
