@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Tsum\CashFlow\Api\Data\StorageSearchResultsInterface"
-                type="Magento\Framework\Api\SearchResults" />
-    <preference for="Tsum\CashFlow\Api\Data\StorageInterface" type="Tsum\CashFlow\Model\Storage" />
-    <preference for="Tsum\CashFlow\Api\StorageRepositoryInterface" type="Tsum\CashFlow\Model\StorageRepository" />
+    <type name="Magento\Catalog\Helper\Product\Flat\Indexer">
+        <plugin name="tsum_define_flat_attribute" type="Tsum\CashFlow\Plugin\Product\Flat\Indexer"/>
+    </type>
 
     <!--  Data provider settings  START -->
     <virtualType name="Tsum\CashFlow\Storage\DataProvider\SearchResult"

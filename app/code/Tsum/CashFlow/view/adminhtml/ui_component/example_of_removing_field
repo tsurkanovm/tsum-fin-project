@@ -1,0 +1,6 @@
+<field name="qty" component="Magento_CatalogInventory/js/components/qty-validator-changer" sortOrder="200" formElement="input">
+    <argument name="data" xsi:type="array">
+        <item name="config" xsi:type="array">
+            <item name="componentDisabled" xsi:type="boolean">true</item>
+        </item>
+    </argument>
