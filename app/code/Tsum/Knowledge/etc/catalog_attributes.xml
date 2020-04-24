@@ -7,7 +7,6 @@
         <attribute name="short_description" />
         <attribute name="sku" />
         <attribute name="tag" />
-        <attribute name="currency" />
         <attribute name="category_ids" />
     </group>
 </config>
