@@ -4,15 +4,7 @@
     <type name="Magento\Catalog\Helper\Product\Flat\Indexer">
         <plugin name="tsum_define_flat_attribute" type="Tsum\CashFlow\Plugin\Product\Flat\Indexer"/>
     </type>
-
     <!--  Data provider settings  START -->
-    <virtualType name="Tsum\CashFlow\Storage\DataProvider\SearchResult"
-                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
-        <arguments>
-            <argument name="mainTable" xsi:type="string">tsum_cf_storage</argument>
-            <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Storage</argument>
-        </arguments>
-    </virtualType>
     <virtualType name="Tsum\CashFlow\CfItem\DataProvider\SearchResult"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
