@@ -89,5 +89,24 @@
         "column": {
             "cf_item": true
         }
+    },
+    "tsum_cf_incomes": {
+        "column": {
+            "cf_incomes_id": true,
+            "storage_id": true,
+            "cf_item_id": true,
+            "project_id": true,
+            "commentary": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true,
+            "total": true
+        },
+        "constraint": {
+            "TSUM_CF_INCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "TSUM_CF_INCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
+            "TSUM_CF_INCOMES_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true,
+            "PRIMARY": true
+        }
     }
 }
