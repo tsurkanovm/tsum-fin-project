@@ -117,27 +117,27 @@
         </paging>
     </container>
     <columns name="incomes_columns">
-<!--        <settings>-->
-<!--            <editorConfig>-->
-<!--                <param name="clientConfig" xsi:type="array">-->
-<!--                    <item name="saveUrl" xsi:type="url" path="cashflow/cfitem/inlineEdit"/>-->
-<!--                    <item name="validateBeforeSave" xsi:type="boolean">false</item>-->
-<!--                </param>-->
-<!--                <param name="indexField" xsi:type="string">cf_item_id</param>-->
-<!--                <param name="enabled" xsi:type="boolean">true</param>-->
-<!--                <param name="selectProvider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns.ids</param>-->
-<!--            </editorConfig>-->
-<!--            <childDefaults>-->
-<!--                <param name="fieldAction" xsi:type="array">-->
-<!--                    <item name="provider" xsi:type="string">cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns_editor</item>-->
-<!--                    <item name="target" xsi:type="string">startEdit</item>-->
-<!--                    <item name="params" xsi:type="array">-->
-<!--                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>-->
-<!--                        <item name="1" xsi:type="boolean">true</item>-->
-<!--                    </item>-->
-<!--                </param>-->
-<!--            </childDefaults>-->
-<!--        </settings>-->
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="cashflow/incomes/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">cf_incomes_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">incomes_grid_list.incomes_grid_list.incomes_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">incomes_grid_list.incomes_grid_list.incomes_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids">
            <argument name="data" xsi:type="array">
                <item name="config" xsi:type="array">

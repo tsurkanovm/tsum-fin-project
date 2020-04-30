@@ -18,6 +18,7 @@
                 <resource id="Tsum_CashFlow::document" title="Cash Flow Document">
                     <resource id="Tsum_CashFlow::document_config" title="Cash Flow Document options" />
                 </resource>
+            <resource id="Tsum_CashFlow::incomes" title="Incomes"/>
             </resource>
         </resources>
     </acl>
