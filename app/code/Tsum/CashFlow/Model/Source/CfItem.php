@@ -35,7 +35,6 @@ class CfItem implements OptionSourceInterface
         $this->cfType = $cfType;
     }
 
-
     /**
      * Get Grid row type array for option element.
      * @return array
@@ -58,7 +57,7 @@ class CfItem implements OptionSourceInterface
         return $this->getOptions();
     }
 
-    private function getCfItems() : array
+    public function getCfItems() : array
     {
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();

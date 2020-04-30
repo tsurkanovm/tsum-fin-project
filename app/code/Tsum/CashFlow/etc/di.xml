@@ -1,10 +1,33 @@
 <?xml version="1.0"?>
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!--  Data provider settings  START -->
+    <virtualType name="Tsum\CashFlow\CfItem\DataProvider\SearchResult"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tsum_cf_item</argument>
+            <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\CfItem</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Tsum\CashFlow\Incomes\DataProvider\SearchResult"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tsum_cf_incomes</argument>
+            <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Incomes</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="grid_cfitem_list_data_source" xsi:type="string">Tsum\CashFlow\CfItem\DataProvider\SearchResult</item>
+                <item name="incomes_data_source" xsi:type="string">Tsum\CashFlow\Incomes\DataProvider\SearchResult</item>
+            </argument>
+        </arguments>
+    </type>
+    <!--  Data provider settings  END -->
     <!--  @todo move it to the knowledge module -->
     <type name="Magento\Catalog\Helper\Product\Flat\Indexer">
         <plugin name="tsum_define_flat_attribute" type="Tsum\CashFlow\Plugin\Product\Flat\Indexer"/>
     </type>
     <!-- -->
-
 </config>
