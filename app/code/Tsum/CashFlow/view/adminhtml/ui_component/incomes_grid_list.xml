@@ -71,39 +71,38 @@
                 </item>
             </argument>
         </filters>
-<!--        <massaction name="listing_massaction">-->
-<!--            <argument name="data" xsi:type="array">-->
-<!--                <item name="config" xsi:type="array">-->
-<!--                    <item name="selectProvider" xsi:type="string">incomes_grid_list.incomes_grid_list.incomes_columns.ids</item>-->
-<!--                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>-->
-<!--                    <item name="indexField" xsi:type="string">cf_incomes_id</item>-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--            &lt;!&ndash; Mass actions which you want to add in your grid&ndash;&gt;-->
-<!--            <action name="delete">-->
-<!--                <argument name="data" xsi:type="array">-->
-<!--                    <item name="config" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">delete</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Delete</item>-->
-<!--                        <item name="url" xsi:type="url" path="cashflow/cfitem/massDelete"/>-->
-<!--                        <item name="confirm" xsi:type="array">-->
-<!--                            <item name="title" xsi:type="string" translate="true">Delete</item>-->
-<!--                            <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                </argument>-->
-<!--            </action>-->
-<!--            <action name="edit">-->
-<!--                <settings>-->
-<!--                    <callback>-->
-<!--                        <target>editSelected</target>-->
-<!--                        <provider>cfitem_record_grid_list.cfitem_record_grid_list.cfitem_columns_editor</provider>-->
-<!--                    </callback>-->
-<!--                    <type>edit</type>-->
-<!--                    <label translate="true">Edit</label>-->
-<!--                </settings>-->
-<!--            </action>-->
-<!--        </massaction>-->
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">incomes_grid_list.incomes_grid_list.incomes_columns.ids</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">cf_incomes_id</item>
+                </item>
+            </argument>
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="cashflow/incomes/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+            <action name="edit">
+                <settings>
+                    <callback>
+                        <target>editSelected</target>
+                        <provider>incomes_grid_list.incomes_grid_list.incomes_columns_editor</provider>
+                    </callback>
+                    <type>edit</type>
+                    <label translate="true">Edit</label>
+                </settings>
+            </action>
+        </massaction>
         <paging name="listing_paging">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
