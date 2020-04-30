@@ -1,8 +1,5 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
+
 namespace Tsum\CashFlow\Controller\Adminhtml\CfItem;
 
 use Magento\Backend\App\Action\Context;
@@ -12,7 +9,6 @@ use Tsum\CashFlow\Model\CfItem as CfItemModel;
 use Tsum\CashFlow\Model\CfItemFactory;
 
 /**
- * CashFlow storage grid inline edit controller
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
@@ -26,17 +22,17 @@ class InlineEdit extends \Magento\Backend\App\Action
     /**
      * @var CfItem
      */
-    protected $cfItem;
+    private $cfItem;
 
     /**
      * @var CfItemFactory
      */
-    protected $cfItemFactory;
+    private $cfItemFactory;
 
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
-    protected $jsonFactory;
+    private $jsonFactory;
 
     /**
      * InlineEdit constructor.
