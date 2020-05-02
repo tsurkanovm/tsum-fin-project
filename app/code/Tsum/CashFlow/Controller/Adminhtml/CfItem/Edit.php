@@ -1,16 +1,16 @@
 <?php
 namespace Tsum\CashFlow\Controller\Adminhtml\CfItem;
 
+use Magento\Backend\Model\View\Result\Page;
+use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Backend\App\Action;
+use Magento\Framework\View\Result\PageFactory;
 use Tsum\CashFlow\Model\ResourceModel\CfItem;
 use Tsum\CashFlow\Model\CfItem as CfItemModel;
 use Tsum\CashFlow\Model\CfItemFactory;
 
-/**
- * Edit CMS page action.
- */
-class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
+class Edit extends Action implements HttpGetActionInterface
 {
     /**
      * Authorization level of a basic admin session
@@ -20,44 +20,34 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
     const ADMIN_RESOURCE = 'Tsum_CashFlow::cfitem';
 
     /**
-     * Core registry
-     *
-     * @var \Magento\Framework\Registry
+     * @var PageFactory
      */
-    protected $_coreRegistry;
-
-    /**
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
-    protected $resultPageFactory;
+    private $resultPageFactory;
 
     /**
      * @var CfItem
      */
-    protected $cfItem;
+    private $cfItem;
 
     /**
      * @var CfItemFactory
      */
-    protected $cfItemFactory;
+    private $cfItemFactory;
 
     /**
      * Edit constructor.
      * @param Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Registry $registry
+     * @param PageFactory $resultPageFactory
      * @param CfItem $cfItem
      * @param CfItemFactory $cfItemFactory
      */
     public function __construct(
         Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Registry $registry,
+        PageFactory $resultPageFactory,
         CfItem $cfItem,
         CfItemFactory $cfItemFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
-        $this->_coreRegistry = $registry;
         $this->cfItem = $cfItem;
         $this->cfItemFactory = $cfItemFactory;
         parent::__construct($context);
@@ -66,12 +56,12 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
     /**
      * Init actions
      *
-     * @return \Magento\Backend\Model\View\Result\Page
+     * @return Page
      */
     protected function _initAction()
     {
         // load layout, set active menu and breadcrumbs
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
+        /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Tsum_CashFlow::cfitem')
             ->addBreadcrumb(__('CF item'), __('CF item'))
@@ -80,32 +70,24 @@ class Edit extends \Magento\Backend\App\Action implements HttpGetActionInterface
     }
 
     /**
-     * Edit CMS page
-     *
-     * @return \Magento\Backend\Model\View\Result\Page|\Magento\Backend\Model\View\Result\Redirect
+     * @return Page|Redirect
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
     {
-        // 1. Get ID and create model
         $id = $this->getRequest()->getParam(CfItemModel::ENTITY_ID);
         $model = $this->cfItemFactory->create();
 
-        // 2. Initial checking
         if ($id) {
             $this->cfItem->load($model, $id);
             if (!$model->getId()) {
                 $this->messageManager->addErrorMessage(__('This item no longer exists.'));
-                /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
+                /** @var Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
         }
 
-        $this->_coreRegistry->register('tsum_cfitem', $model);
-
-        // 5. Build edit form
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(
             $id ? __('Edit Cash Flow Item') : __('New Cash Flow Item'),

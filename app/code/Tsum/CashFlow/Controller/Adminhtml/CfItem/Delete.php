@@ -1,8 +1,4 @@
 <?php
-/**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 namespace Tsum\CashFlow\Controller\Adminhtml\CfItem;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
@@ -11,9 +7,6 @@ use Tsum\CashFlow\Model\ResourceModel\CfItem;
 use Tsum\CashFlow\Model\CfItem as CfItemModel;
 use Tsum\CashFlow\Model\CfItemFactory;
 
-/**
- * Delete CashFlow Storage action.
- */
 class Delete extends \Magento\Backend\App\Action implements HttpPostActionInterface
 {
     /**
@@ -26,13 +19,12 @@ class Delete extends \Magento\Backend\App\Action implements HttpPostActionInterf
     /**
      * @var CfItem
      */
-    protected $cfItem;
+    private $cfItem;
 
     /**
      * @var CfItemFactory
      */
-    protected $cfItemFactory;
-
+    private $cfItemFactory;
 
     public function __construct(
         Context $context,
