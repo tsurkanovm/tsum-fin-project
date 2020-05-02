@@ -6,10 +6,8 @@ use \Magento\Framework\Model\AbstractModel;
 
 class Incomes extends AbstractModel
 {
-    /**
-     * Initialize resource model
-     * @return void
-     */
+    const ENTITY_ID = 'cf_incomes_id';
+
     public function _construct()
     {
         $this->_init('Tsum\CashFlow\Model\ResourceModel\Incomes');

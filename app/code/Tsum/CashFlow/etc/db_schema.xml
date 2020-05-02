@@ -50,7 +50,7 @@
         <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
-        <column xsi:type="varchar" name="commentary" nullable="false" length="255" comment="Income commentary"/>
+        <column xsi:type="varchar" name="commentary" nullable="true" length="255" default="" comment="Income commentary"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Incomes Creation Time"/>

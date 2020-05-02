@@ -7,12 +7,10 @@ use \Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 class Incomes extends AbstractDb
 {
     /**
-     * Initialize resource
-     *
      * @return void
      */
     public function _construct()
     {
-        $this->_init('tsum_cf_incomes', 'cf_incomes_id');
+        $this->_init('tsum_cf_incomes', \Tsum\CashFlow\Model\Incomes::ENTITY_ID);
     }
 }
