@@ -61,9 +61,7 @@
                     column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
         <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_incomes"
                     column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="foreign" referenceId="CF_PROJECT_ID" table="tsum_cf_incomes"
-                    column="project_id" referenceTable="tsum_cf_project" referenceColumn="project_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
+       <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="cf_incomes_id"/>
         </constraint>
     </table>
