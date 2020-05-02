@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tsum\CashFlow\Plugin\Product\Flat;
+namespace Tsum\Knowledge\Plugin\Product\Flat;
 
 use Magento\Catalog\Model\Attribute\Config;
 
@@ -13,7 +13,6 @@ class Indexer
     private $attributeConfig;
 
     /**
-     * Indexer constructor.
      * @param Config $attributeConfig
      */
     public function __construct(Config $attributeConfig)

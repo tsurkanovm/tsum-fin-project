@@ -25,9 +25,4 @@
         </arguments>
     </type>
     <!--  Data provider settings  END -->
-    <!--  @todo move it to the knowledge module -->
-    <type name="Magento\Catalog\Helper\Product\Flat\Indexer">
-        <plugin name="tsum_define_flat_attribute" type="Tsum\CashFlow\Plugin\Product\Flat\Indexer"/>
-    </type>
-    <!-- -->
 </config>

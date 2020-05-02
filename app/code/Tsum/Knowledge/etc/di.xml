@@ -8,4 +8,7 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Catalog\Helper\Product\Flat\Indexer">
+        <plugin name="tsum_define_flat_attribute" type="Tsum\Knowledge\Plugin\Product\Flat\Indexer"/>
+    </type>
 </config>
