@@ -100,13 +100,16 @@
             "creation_time": true,
             "update_time": true,
             "is_active": true,
-            "total": true
+            "total": true,
+            "storage_type_id": true,
+            "currency": true
         },
         "constraint": {
             "TSUM_CF_INCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
             "TSUM_CF_INCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
             "TSUM_CF_INCOMES_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true,
-            "PRIMARY": true
+            "PRIMARY": true,
+            "TSUM_CF_INCOMES_STORAGE_TYPE_ID_TSUM_STORAGE_TYPE_ENTITY_ID": true
         }
     },
     "tsum_cf_registry": {
@@ -139,6 +142,37 @@
         "constraint": {
             "TSUM_CF_STORAGE_AGGRED_STORAGE_ID_CAT_PRD_ENTT_ENTT_ID": true,
             "TSUM_CF_STORAGE_AGGREGATED_STORAGE_ID_AGGREGATION_DATE": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_storage_type": {
+        "column": {
+            "entity_id": true,
+            "title": true
+        },
+        "constraint": {
+            "TSUM_STORAGE_TYPE_TITLE": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_outcomes": {
+        "column": {
+            "cf_outcomes_id": true,
+            "storage_id": true,
+            "cf_item_id": true,
+            "storage_type_id": true,
+            "project_id": true,
+            "commentary": true,
+            "total": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true,
+            "currency": true
+        },
+        "constraint": {
+            "TSUM_CF_OUTCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "TSUM_CF_OUTCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
+            "TSUM_CF_OUTCOMES_STORAGE_TYPE_ID_TSUM_STORAGE_TYPE_ENTITY_ID": true,
             "PRIMARY": true
         }
     }
