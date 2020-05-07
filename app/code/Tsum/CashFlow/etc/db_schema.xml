@@ -104,7 +104,4 @@
             <column name="storage_agg_id"/>
         </constraint>
     </table>
-    <table name="quote_item" resource="checkout" comment="Sales Flat Quote Item">
-        <column xsi:type="smallint" name="cf_item" padding="6" unsigned="false" nullable="true"/>
-    </table>
 </schema>

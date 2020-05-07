@@ -45,12 +45,6 @@ class StorageAttributes extends AbstractModifier
                 $meta,
                 0
             );
-//            $disableValueArr = ['arguments' => ['data' => ['config' => ['visible' => 0]]]];
-//            $qtyPath = $this->arrayManager->findPath('qty', $meta);
-//            $qtyLinkPath = $this->arrayManager->findPath('advanced_inventory_button', $meta);
-//            $containerPath = $this->arrayManager->findPath('quantity_and_stock_status_qty', $meta);
-//            $meta = $this->arrayManager->merge($qtyPath, $meta, $disableValueArr);
-//            $meta = $this->arrayManager->merge($qtyLinkPath, $meta, $disableValueArr);
         }
 
         return $meta;

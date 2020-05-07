@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="tsum_cf_incomes_save_after">
-        <observer name="tsum_cf_incomes_set_inventory_qty" instance="Tsum\CashFlow\Observer\Incomes\SetQty" />
-    </event>
-</config>

@@ -12,8 +12,6 @@
             <argument name="cfType" xsi:type="string">OUT</argument>
         </arguments>
     </virtualType>
-    <preference for="Magento\Sales\Block\Adminhtml\Order\Create\Search\Grid"
-               type="Tsum\CashFlow\Block\Adminhtml\Order\Create\Search\Grid"/>
     <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
         <arguments>
             <argument name="modifiers" xsi:type="array">
@@ -24,12 +22,6 @@
             </argument>
         </arguments>
     </virtualType>
-    <type name="Magento\Quote\Model\Quote">
-        <plugin name="tsum_cf_items_set_to_quote" type="Tsum\CashFlow\Plugin\Quote\Model\Quote" />
-    </type>
-    <type name="Magento\Quote\Model\Quote\Item">
-        <plugin name="tsum_separated_quote_items_rows_by_cf_items" type="Tsum\CashFlow\Plugin\Quote\Model\Item" />
-    </type>
     <!-- Admin theme. Start -->
     <type name="Magento\Theme\Model\View\Design">
         <arguments>
