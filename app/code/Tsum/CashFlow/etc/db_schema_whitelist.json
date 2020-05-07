@@ -108,5 +108,38 @@
             "TSUM_CF_INCOMES_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true,
             "PRIMARY": true
         }
+    },
+    "tsum_cf_registry": {
+        "column": {
+            "cf_registry_id": true,
+            "storage_id": true,
+            "type_id": true,
+            "cf_item_id": true,
+            "project_id": true,
+            "total": true,
+            "registry_date": true,
+            "document_id": true,
+            "currency": true,
+            "base_total": true
+        },
+        "constraint": {
+            "TSUM_CF_REGISTRY_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "TSUM_CF_REGISTRY_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
+            "TSUM_CF_REGISTRY_TYPE_ID_TSUM_CF_TYPE_ENTITY_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_storage_aggregated": {
+        "column": {
+            "storage_agg_id": true,
+            "storage_id": true,
+            "total": true,
+            "aggregation_date": true
+        },
+        "constraint": {
+            "TSUM_CF_STORAGE_AGGRED_STORAGE_ID_CAT_PRD_ENTT_ENTT_ID": true,
+            "TSUM_CF_STORAGE_AGGREGATED_STORAGE_ID_AGGREGATION_DATE": true,
+            "PRIMARY": true
+        }
     }
 }
