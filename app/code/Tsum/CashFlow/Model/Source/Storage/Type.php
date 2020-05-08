@@ -12,7 +12,7 @@ class Type implements OptionSourceInterface
      */
     public function getOptionArray()
     {
-        $options = ['cashless' => __('Cashless'),'cash' => __('Cash')];
+        $options = [1 => __('Cashless'),2 => __('Cash')];
 
         return $options;
     }

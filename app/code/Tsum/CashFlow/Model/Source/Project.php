@@ -30,7 +30,7 @@ class Project implements OptionSourceInterface
     private function getOptions() : array
     {
         $res = [];
-        foreach ($this->getCfItems() as $item) {
+        foreach ($this->getProjects() as $item) {
             $res[] = ['value' => $item['project_id'], 'label' => $item['title']];
         }
 
@@ -45,7 +45,7 @@ class Project implements OptionSourceInterface
         return $this->getOptions();
     }
 
-    public function getCfItems() : array
+    public function getProjects() : array
     {
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
