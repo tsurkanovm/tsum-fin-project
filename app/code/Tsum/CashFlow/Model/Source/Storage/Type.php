@@ -1,54 +1,40 @@
 <?php
-
+declare(strict_types=1);
 namespace Tsum\CashFlow\Model\Source\Storage;
 
+use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
 use Magento\Framework\Data\OptionSourceInterface;
+use Tsum\CashFlow\Model\ResourceModel\StorageType\Collection as TypeCollection;
+use Tsum\CashFlow\Model\ResourceModel\StorageType\CollectionFactory;
 
-class Type implements OptionSourceInterface
+class Type extends AbstractSource implements OptionSourceInterface
 {
     /**
-     * Get Grid row status type labels array.
-     * @return array
+     * @var CollectionFactory
      */
-    public function getOptionArray()
-    {
-        $options = [1 => __('Cashless'),2 => __('Cash')];
+    private $typeCollectionFactory;
 
-        return $options;
+    /**
+     * @param CollectionFactory $typeCollectionFactory
+     */
+    public function __construct(CollectionFactory $typeCollectionFactory)
+    {
+        $this->typeCollectionFactory = $typeCollectionFactory;
     }
 
     /**
-     * Get Grid row status labels array with empty value for option element.
-     *
+     * @param bool $withEmpty
+     * @param bool $defaultValues
      * @return array
      */
-    public function getAllOptions()
+    public function getAllOptions($withEmpty = true, $defaultValues = false) : array
     {
-        $res = $this->getOptions();
-        array_unshift($res, ['value' => '', 'label' => '']);
-
-        return $res;
-    }
-
-    /**
-     * Get Grid row type array for option element.
-     * @return array
-     */
-    public function getOptions()
-    {
-        $res = [];
-        foreach ($this->getOptionArray() as $index => $value) {
-            $res[] = ['value' => $index, 'label' => $value];
+        if (!$this->_options) {
+            /** @var  TypeCollection $collection */
+            $collection = $this->typeCollectionFactory->create();
+            $this->_options = $collection->load()->toOptionArray();
         }
 
-        return $res;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toOptionArray()
-    {
-        return $this->getOptions();
+        return $this->_options;
     }
 }

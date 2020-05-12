@@ -1,17 +1,6 @@
 <?xml version="1.0"?>
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="tsum_cf_type" resource="default" engine="innodb" comment="Project Table">
-        <column xsi:type="tinyint" name="entity_id" padding="2" unsigned="false" nullable="false" identity="true"
-                comment="Entity ID"/>
-        <column xsi:type="varchar" name="title" nullable="false" length="10" comment="Type"/>
-        <constraint xsi:type="unique" referenceId="CF_TYPE_TITLE_UNIQUE">
-            <column name="title"/>
-        </constraint>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="entity_id"/>
-        </constraint>
-    </table>
     <table name="tsum_storage_type" resource="default" engine="innodb">
         <column xsi:type="tinyint" name="entity_id" padding="2" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
@@ -38,7 +27,7 @@
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Cash Flow Item Title"/>
-        <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" comment="Type ID"/>
+        <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" default="1" comment="Type ID"/>
         <column xsi:type="boolean" name="is_regular"  nullable="false" default="1" comment="Is Cash Flow Item Regular"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Cash Flow Item Creation Time"/>
@@ -49,89 +38,64 @@
             <column name="title"/>
             <column name="type_id"/>
         </constraint>
-        <constraint xsi:type="foreign" referenceId="CF_ITEM_TYPE_ID" table="tsum_cf_item"
-                    column="type_id" referenceTable="tsum_cf_type" referenceColumn="entity_id" onDelete="NO ACTION"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="cf_item_id"/>
         </constraint>
     </table>
     <table name="tsum_cf_incomes" resource="default" engine="innodb" comment="Cash Flow Incomes Table">
-        <column xsi:type="smallint" name="cf_incomes_id" padding="6" unsigned="true" nullable="false" identity="true"
+        <column xsi:type="int" name="cf_incomes_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
-        <column xsi:type="tinyint" name="storage_type_id" padding="2" unsigned="true" nullable="false"/>
+        <column xsi:type="tinyint" name="type_id" padding="2" unsigned="true" nullable="false" default="1"/>
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
         <column xsi:type="varchar" name="commentary" nullable="true" length="255" default="" comment="Income commentary"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
+        <column xsi:type="timestamp" name="registration_time" default="CURRENT_TIMESTAMP"
+                comment="Incomes Registration Time"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Incomes Creation Time"/>
         <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Incomes Modification Time"/>
         <column xsi:type="boolean" name="is_active"  nullable="false" default="1"/>
-        <column xsi:type="varchar" name="currency" nullable="false" length="3" comment="Movement Currency"/>
         <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_incomes"
                     column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
         <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_incomes"
                     column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="foreign" referenceId="STORAGE_TYPE_ID" table="tsum_cf_incomes"
-                    column="storage_type_id" referenceTable="tsum_storage_type" referenceColumn="entity_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
+       <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="cf_incomes_id"/>
         </constraint>
     </table>
-    <table name="tsum_cf_outcomes" resource="default" engine="innodb" comment="Cash Flow Outcomes Table">
-        <column xsi:type="int" name="cf_outcomes_id" padding="10" unsigned="true" nullable="false" identity="true"
+
+    <table name="tsum_cf" resource="default" engine="innodb" comment="Cash Flow registry">
+        <column xsi:type="smallint" name="cash_flow_id" padding="7" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
-        <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
-        <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
-        <column xsi:type="tinyint" name="storage_type_id" padding="2" unsigned="true" nullable="false"/>
-        <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
-        <column xsi:type="varchar" name="commentary" nullable="true" length="255" default=""/>
-        <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
-        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
-        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"/>
-        <column xsi:type="boolean" name="is_active"  nullable="false" default="1"/>
-        <column xsi:type="varchar" name="currency" nullable="false" length="3" comment="Movement Currency"/>
-        <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_outcomes"
-                    column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_outcomes"
-                    column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="foreign" referenceId="STORAGE_TYPE_ID" table="tsum_cf_outcomes"
-                    column="storage_type_id" referenceTable="tsum_storage_type" referenceColumn="entity_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="cf_outcomes_id"/>
-        </constraint>
-    </table>
-    <table name="tsum_cf_registry" resource="default" engine="innodb" comment="Cash Flow registry">
-        <column xsi:type="smallint" name="cf_registry_id" padding="7" unsigned="true" nullable="false" identity="true"
-                comment="Entity ID"/>
-        <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
         <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" comment="Type ID"/>
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
         <column xsi:type="decimal" name="base_total" scale="4" precision="12" comment="Income total in base currency"/>
-        <column xsi:type="timestamp" name="registry_date"  default="CURRENT_TIMESTAMP" comment="Document date"/>
-        <column xsi:type="int" name="document_id" padding="10" unsigned="true" nullable="false"/>
+        <column xsi:type="date" name="aggregation_date"/>
         <column xsi:type="varchar" name="currency" nullable="false" length="3" comment="Movement Currency"/>
-       <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_incomes"
-                    column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_incomes"
+           <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_incomes"
                     column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="foreign" referenceId="CF_ITEM_TYPE_ID" table="tsum_cf_item"
-                    column="type_id" referenceTable="tsum_cf_type" referenceColumn="entity_id" onDelete="NO ACTION"/>
+        <constraint xsi:type="unique" referenceId="CF_AGG_UNIQUE">
+            <column name="cf_item_id"/>
+            <column name="project_id"/>
+            <column name="aggregation_date"/>
+        </constraint>
         <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="cf_registry_id"/>
+            <column name="cash_flow_id"/>
         </constraint>
     </table>
 
-    <table name="tsum_cf_storage_aggregated" resource="default" engine="innodb">
-        <column xsi:type="smallint" name="storage_agg_id" padding="7" unsigned="true" nullable="false" identity="true"
+    <table name="tsum_cf_remains" resource="default" engine="innodb">
+        <column xsi:type="smallint" name="storage_agg_id" padding="6" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
         <column xsi:type="date" name="aggregation_date"/>
+        <column xsi:type="tinyint" name="storage_type"/>
        <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_incomes"
                     column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
         <constraint xsi:type="unique" referenceId="CF_STORAGE_AGG_UNIQUE">

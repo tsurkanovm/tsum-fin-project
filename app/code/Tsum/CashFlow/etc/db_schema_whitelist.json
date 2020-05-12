@@ -1,150 +1,4 @@
 {
-    "tsum_cf_project": {
-        "column": {
-            "project_id": true,
-            "title": true
-        },
-        "constraint": {
-            "PRIMARY": true,
-            "TSUM_CF_PROJECT_TITLE": true
-        }
-    },
-    "tsum_cf_item": {
-        "column": {
-            "cf_item_id": true,
-            "title": true,
-            "type": true,
-            "type_id": true,
-            "is_regular": true,
-            "creation_time": true,
-            "update_time": true,
-            "is_active": true
-        },
-        "constraint": {
-            "PRIMARY": true,
-            "TSUM_CF_ITEM_TITLE_TYPE_ID": true,
-            "TSUM_CF_ITEM_TYPE_ID_TSUM_CF_TYPE_ENTITY_ID": true
-        }
-    },
-    "tsum_cf_storage": {
-        "column": {
-            "storage_id": true,
-            "title": true,
-            "type": true,
-            "creation_time": true,
-            "update_time": true,
-            "is_active": true
-        },
-        "constraint": {
-            "PRIMARY": true,
-            "TSUM_CF_STORAGE_TITLE": true
-        }
-    },
-    "tsum_cf_type": {
-        "column": {
-            "entity_id": true,
-            "title": true
-        },
-        "constraint": {
-            "TSUM_CF_TYPE_TITLE": true,
-            "PRIMARY": true
-        }
-    },
-    "tsum_cf_document": {
-        "column": {
-            "entity_id": true,
-            "is_active": true,
-            "registration_time": true,
-            "user_id": true,
-            "is_transfer": true,
-            "creation_time": true,
-            "update_time": true
-        },
-        "constraint": {
-            "PRIMARY": true
-        }
-    },
-    "tsum_cf_document_items": {
-        "column": {
-            "entity_id": true,
-            "document_id": true,
-            "storage_id": true,
-            "flow_id": true,
-            "project_id": true,
-            "type_id": true,
-            "currency": true,
-            "commentary": true,
-            "total": true
-        },
-        "constraint": {
-            "TSUM_CF_DOCUMENT_ITEMS_DOCUMENT_ID_TSUM_CF_DOCUMENT_ENTITY_ID": true,
-            "TSUM_CF_DOCUMENT_ITEMS_STORAGE_ID_TSUM_CF_STORAGE_STORAGE_ID": true,
-            "TSUM_CF_DOCUMENT_ITEMS_FLOW_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
-            "TSUM_CF_DOCUMENT_ITEMS_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true,
-            "TSUM_CF_DOCUMENT_ITEMS_TYPE_ID_TSUM_CF_TYPE_ENTITY_ID": true,
-            "PRIMARY": true
-        }
-    },
-    "quote_item": {
-        "column": {
-            "cf_item": true
-        }
-    },
-    "tsum_cf_incomes": {
-        "column": {
-            "cf_incomes_id": true,
-            "storage_id": true,
-            "cf_item_id": true,
-            "project_id": true,
-            "commentary": true,
-            "creation_time": true,
-            "update_time": true,
-            "is_active": true,
-            "total": true,
-            "storage_type_id": true,
-            "currency": true
-        },
-        "constraint": {
-            "TSUM_CF_INCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
-            "TSUM_CF_INCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
-            "TSUM_CF_INCOMES_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true,
-            "PRIMARY": true,
-            "TSUM_CF_INCOMES_STORAGE_TYPE_ID_TSUM_STORAGE_TYPE_ENTITY_ID": true
-        }
-    },
-    "tsum_cf_registry": {
-        "column": {
-            "cf_registry_id": true,
-            "storage_id": true,
-            "type_id": true,
-            "cf_item_id": true,
-            "project_id": true,
-            "total": true,
-            "registry_date": true,
-            "document_id": true,
-            "currency": true,
-            "base_total": true
-        },
-        "constraint": {
-            "TSUM_CF_REGISTRY_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
-            "TSUM_CF_REGISTRY_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
-            "TSUM_CF_REGISTRY_TYPE_ID_TSUM_CF_TYPE_ENTITY_ID": true,
-            "PRIMARY": true
-        }
-    },
-    "tsum_cf_storage_aggregated": {
-        "column": {
-            "storage_agg_id": true,
-            "storage_id": true,
-            "total": true,
-            "aggregation_date": true
-        },
-        "constraint": {
-            "TSUM_CF_STORAGE_AGGRED_STORAGE_ID_CAT_PRD_ENTT_ENTT_ID": true,
-            "TSUM_CF_STORAGE_AGGREGATED_STORAGE_ID_AGGREGATION_DATE": true,
-            "PRIMARY": true
-        }
-    },
     "tsum_storage_type": {
         "column": {
             "entity_id": true,
@@ -155,24 +9,79 @@
             "PRIMARY": true
         }
     },
-    "tsum_cf_outcomes": {
+    "tsum_cf_project": {
         "column": {
-            "cf_outcomes_id": true,
+            "project_id": true,
+            "title": true
+        },
+        "constraint": {
+            "TSUM_CF_PROJECT_TITLE": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_item": {
+        "column": {
+            "cf_item_id": true,
+            "title": true,
+            "type_id": true,
+            "is_regular": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "constraint": {
+            "TSUM_CF_ITEM_TITLE_TYPE_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_incomes": {
+        "column": {
+            "cf_incomes_id": true,
             "storage_id": true,
             "cf_item_id": true,
-            "storage_type_id": true,
+            "type_id": true,
             "project_id": true,
             "commentary": true,
             "total": true,
+            "registration_time": true,
             "creation_time": true,
             "update_time": true,
-            "is_active": true,
+            "is_active": true
+        },
+        "constraint": {
+            "TSUM_CF_INCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "TSUM_CF_INCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf": {
+        "column": {
+            "cash_flow_id": true,
+            "type_id": true,
+            "cf_item_id": true,
+            "project_id": true,
+            "total": true,
+            "base_total": true,
+            "aggregation_date": true,
             "currency": true
         },
         "constraint": {
-            "TSUM_CF_OUTCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
-            "TSUM_CF_OUTCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
-            "TSUM_CF_OUTCOMES_STORAGE_TYPE_ID_TSUM_STORAGE_TYPE_ENTITY_ID": true,
+            "TSUM_CF_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
+            "TSUM_CF_CF_ITEM_ID_PROJECT_ID_AGGREGATION_DATE": true,
+            "PRIMARY": true
+        }
+    },
+    "tsum_cf_remains": {
+        "column": {
+            "storage_agg_id": true,
+            "storage_id": true,
+            "total": true,
+            "aggregation_date": true,
+            "storage_type": true
+        },
+        "constraint": {
+            "TSUM_CF_REMAINS_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "TSUM_CF_REMAINS_STORAGE_ID_AGGREGATION_DATE": true,
             "PRIMARY": true
         }
     }
