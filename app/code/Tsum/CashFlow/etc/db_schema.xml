@@ -27,7 +27,7 @@
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Cash Flow Item Title"/>
-        <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" default="1" comment="Type ID"/>
+        <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" default="1" comment="Move Type (In-Out)"/>
         <column xsi:type="boolean" name="is_regular"  nullable="false" default="1" comment="Is Cash Flow Item Regular"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Cash Flow Item Creation Time"/>

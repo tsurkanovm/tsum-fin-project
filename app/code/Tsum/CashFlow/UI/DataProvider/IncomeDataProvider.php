@@ -14,7 +14,7 @@ class IncomeDataProvider extends AbstractDataProvider
     /**
      * @var DataPersistorInterface
      */
-    protected $dataPersistor;
+    private $dataPersistor;
 
     /**
      * @var array

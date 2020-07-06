@@ -3,7 +3,7 @@
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">incomes_form.incomes_form_data_source</item>
+            <item name="provider" xsi:type="string">incomes_form_in.incomes_form_in_data_source</item>
         </item>
         <item name="label" xsi:type="string" translate="true">Cash Flow Income</item>
         <item name="template" xsi:type="string">templates/form/collapsible</item>
@@ -14,13 +14,13 @@
             <button name="delete" class="Tsum\CashFlow\Block\Adminhtml\Button\Incomes\DeleteButton"/>
             <button name="back" class="Tsum\CashFlow\Block\Adminhtml\Button\BackButton"/>
         </buttons>
-        <namespace>incomes_form</namespace>
+        <namespace>incomes_form_in</namespace>
         <dataScope>data</dataScope>
         <deps>
-            <dep>incomes_form.incomes_form_data_source</dep>
+            <dep>incomes_form_in.incomes_form_in_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="incomes_form_data_source">
+    <dataSource name="incomes_form_in_data_source">
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
                 <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
@@ -29,7 +29,8 @@
         <settings>
             <submitUrl path="cashflow/incomes/save"/>
         </settings>
-        <dataProvider class="Tsum\CashFlow\UI\DataProvider\IncomeDataProvider" name="incomes_form_data_source">
+        <dataProvider class="Tsum\CashFlow\UI\DataProvider\IncomeDataProvider"
+                      name="incomes_form_in_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>cf_incomes_id</primaryFieldName>
@@ -108,7 +109,7 @@
             <formElements>
                 <select>
                     <settings>
-                        <options class="Tsum\CashFlow\CfItemOut"/>
+                        <options class="Tsum\CashFlow\CfItemIn"/>
                         <caption translate="true">-- Please Select --</caption>
                     </settings>
                 </select>
@@ -186,7 +187,7 @@
             </settings>
         </field>
         <hidden name="type_id">
-            <argument name="value" xsi:type="string">1</argument>
+            <argument name="value" xsi:type="string">0</argument>
         </hidden>
     </fieldset>
 </form>

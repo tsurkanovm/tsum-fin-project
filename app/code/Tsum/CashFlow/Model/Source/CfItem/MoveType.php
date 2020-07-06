@@ -3,6 +3,7 @@
 namespace Tsum\CashFlow\Model\Source\CfItem;
 
 use Magento\Framework\Data\OptionSourceInterface;
+use Tsum\CashFlow\Model\CfItem;
 
 class MoveType implements OptionSourceInterface
 {
@@ -13,8 +14,8 @@ class MoveType implements OptionSourceInterface
     public function getOptionArray()
     {
         $options = [
-            1 => __('OUT'),
-            2 => __('IN')
+            CfItem::MOVE_OUT_ID => __('OUT'),
+            CfItem::MOVE_IN_ID => __('IN')
         ];
 
         return $options;

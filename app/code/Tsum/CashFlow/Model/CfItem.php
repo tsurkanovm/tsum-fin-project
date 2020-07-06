@@ -11,7 +11,10 @@ class CfItem extends AbstractModel
     const CREATION_TIME = 'creation_time';
     const UPDATE_TIME   = 'update_time';
     const IS_ACTIVE     = 'is_active';
-    const MOVE          = 'move';
+    const MOVE          = 'type_id';
+
+    const MOVE_IN_ID = 0;
+    const MOVE_OUT_ID = 1;
 
     /**
      * Initialize resource model

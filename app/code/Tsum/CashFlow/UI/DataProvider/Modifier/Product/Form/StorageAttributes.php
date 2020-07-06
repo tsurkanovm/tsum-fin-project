@@ -1,6 +1,6 @@
 <?php
 
-namespace Tsum\CashFlow\UI\DataProvider\Product\Form\Modifier;
+namespace Tsum\CashFlow\UI\DataProvider\Modifier\Product\Form;
 
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;

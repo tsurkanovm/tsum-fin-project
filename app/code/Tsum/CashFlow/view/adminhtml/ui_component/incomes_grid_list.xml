@@ -9,10 +9,16 @@
         <item name="spinner" xsi:type="string">incomes_columns</item>
         <item name="buttons" xsi:type="array">
             <item name="add" xsi:type="array">
-                <item name="name" xsi:type="string">add</item>
-                <item name="label" xsi:type="string" translate="true">Add New Income</item>
+                <item name="name" xsi:type="string">add out</item>
+                <item name="label" xsi:type="string" translate="true">Add New Out</item>
                 <item name="class" xsi:type="string">primary</item>
-                <item name="url" xsi:type="string">*/*/add</item>
+                <item name="url" xsi:type="string">*/*/edit</item>
+            </item>
+            <item name="add_in" xsi:type="array">
+                <item name="name" xsi:type="string">add in</item>
+                <item name="label" xsi:type="string" translate="true">Add New In</item>
+                <item name="class" xsi:type="string">primary</item>
+                <item name="url" xsi:type="string">*/*/editin</item>
             </item>
         </item>
     </argument>
