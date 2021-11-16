@@ -12,6 +12,21 @@
             <column name="entity_id"/>
         </constraint>
     </table>
+    <table name="tsum_cf_storage" resource="default" engine="innodb" comment="Cash Flow Storage Table">
+        <column xsi:type="smallint" name="storage_id" padding="6" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Cash Flow Storage Title"/>
+        <column xsi:type="smallint" name="type_id" padding="2" unsigned="false" nullable="false" default="1" comment="Storage Type"/>
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Storage Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Storage Modification Time"/>
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Is CashFlow Storage Active"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="storage_id"/>
+        </constraint>
+    </table>
     <table name="tsum_cf_project" resource="default" engine="innodb" comment="Project Table">
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="false" identity="true"
                 comment="Entity ID"/>
@@ -67,6 +82,7 @@
         </constraint>
     </table>
 
+<!--    @todo - delete?-->
     <table name="tsum_cf" resource="default" engine="innodb" comment="Cash Flow registry">
         <column xsi:type="smallint" name="cash_flow_id" padding="7" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
