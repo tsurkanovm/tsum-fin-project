@@ -4,41 +4,30 @@ declare(strict_types=1);
 namespace Tsum\CashFlow\Model\Source;
 
 use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Data\OptionSourceInterface;
-use Tsum\CashFlow\Helper\Config;
+use Tsum\CashFlow\Api\Data\StorageInterface;
+use Tsum\CashFlow\Api\StorageRepositoryInterface;
 
 class Storage implements OptionSourceInterface
 {
     /**
-     * @var ProductRepositoryInterface
+     * @var StorageRepositoryInterface
      */
-    private $productRepo;
+    private $storageRepository;
 
     /**
      * @var SearchCriteriaBuilder
      */
     private $searchCriteria;
 
-    /**
-     * @var Config
-     */
-    private $config;
 
-    /**
-     * @param ProductRepositoryInterface $productRepo
-     * @param SearchCriteriaBuilder $searchCriteria
-     * @param Config $config
-     */
     public function __construct(
-        ProductRepositoryInterface $productRepo,
-        SearchCriteriaBuilder $searchCriteria,
-        Config $config
+        StorageRepositoryInterface $storageRepository,
+        SearchCriteriaBuilder $searchCriteria
     ) {
-        $this->productRepo = $productRepo;
+        $this->storageRepository = $storageRepository;
         $this->searchCriteria = $searchCriteria;
-        $this->config = $config;
     }
 
     /**
@@ -47,9 +36,9 @@ class Storage implements OptionSourceInterface
     private function getOptions() : array
     {
         $res = [];
-        /** @var ProductInterface $item */
+        /** @var StorageInterface $item */
         foreach ($this->getStorages() as $item) {
-            $res[] = ['value' => $item->getId(), 'label' => $item->getName()];
+            $res[] = ['value' => $item->getId(), 'label' => $item->getTitle()];
         }
 
         return $res;
@@ -63,10 +52,13 @@ class Storage implements OptionSourceInterface
         return $this->getOptions();
     }
 
+    /**
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
     public function getStorages() : array
     {
-        $this->searchCriteria->addFilter('attribute_set_id', $this->config->getStorageAttributeSetId());
+        $this->searchCriteria->addFilter('is_active', 1);
 
-        return $this->productRepo->getList($this->searchCriteria->create())->getItems();
+        return $this->storageRepository->getList($this->searchCriteria->create())->getItems();
     }
 }

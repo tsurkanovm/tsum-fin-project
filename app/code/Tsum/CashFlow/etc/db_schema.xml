@@ -57,6 +57,7 @@
             <column name="cf_item_id"/>
         </constraint>
     </table>
+<!--    @todo add currency -->
     <table name="tsum_cf_incomes" resource="default" engine="innodb" comment="Cash Flow Incomes Table">
         <column xsi:type="int" name="cf_incomes_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
@@ -82,29 +83,7 @@
         </constraint>
     </table>
 
-<!--    @todo - delete?-->
-    <table name="tsum_cf" resource="default" engine="innodb" comment="Cash Flow registry">
-        <column xsi:type="smallint" name="cash_flow_id" padding="7" unsigned="true" nullable="false" identity="true"
-                comment="Entity ID"/>
-        <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" comment="Type ID"/>
-        <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
-        <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
-        <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
-        <column xsi:type="decimal" name="base_total" scale="4" precision="12" comment="Income total in base currency"/>
-        <column xsi:type="date" name="aggregation_date"/>
-        <column xsi:type="varchar" name="currency" nullable="false" length="3" comment="Movement Currency"/>
-           <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_incomes"
-                    column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
-        <constraint xsi:type="unique" referenceId="CF_AGG_UNIQUE">
-            <column name="cf_item_id"/>
-            <column name="project_id"/>
-            <column name="aggregation_date"/>
-        </constraint>
-        <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="cash_flow_id"/>
-        </constraint>
-    </table>
-
+    <!--    @todo add currency -->
     <table name="tsum_cf_remains" resource="default" engine="innodb">
         <column xsi:type="smallint" name="storage_agg_id" padding="6" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>

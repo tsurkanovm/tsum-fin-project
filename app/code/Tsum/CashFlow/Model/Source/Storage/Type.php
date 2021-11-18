@@ -27,7 +27,7 @@ class Type extends AbstractSource implements OptionSourceInterface
      * @param bool $defaultValues
      * @return array
      */
-    public function getAllOptions($withEmpty = true, $defaultValues = false) : array
+    public function getAllOptions(bool $withEmpty = true, $defaultValues = false) : array
     {
         if (!$this->_options) {
             /** @var  TypeCollection $collection */

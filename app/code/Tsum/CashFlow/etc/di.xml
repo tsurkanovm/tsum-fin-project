@@ -1,12 +1,24 @@
 <?xml version="1.0"?>
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Tsum\CashFlow\Api\Data\StorageSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Tsum\CashFlow\Api\Data\StorageInterface" type="Tsum\CashFlow\Model\Storage" />
+    <preference for="Tsum\CashFlow\Api\StorageRepositoryInterface" type="Tsum\CashFlow\Model\StorageRepository" />
+
     <!--  Data provider settings  START -->
     <virtualType name="Tsum\CashFlow\CfItem\DataProvider\SearchResult"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tsum_cf_item</argument>
             <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\CfItem</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Tsum\CashFlow\Storage\DataProvider\SearchResult"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tsum_cf_storage</argument>
+            <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Storage</argument>
         </arguments>
     </virtualType>
     <virtualType name="Tsum\CashFlow\Incomes\DataProvider\SearchResult"
@@ -19,6 +31,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
+                <item name="grid_storage_list_data_source" xsi:type="string">Tsum\CashFlow\Storage\DataProvider\SearchResult</item>
                 <item name="grid_cfitem_list_data_source" xsi:type="string">Tsum\CashFlow\CfItem\DataProvider\SearchResult</item>
                 <item name="incomes_data_source" xsi:type="string">Tsum\CashFlow\Incomes\DataProvider\SearchResult</item>
             </argument>
