@@ -57,16 +57,17 @@
             <column name="cf_item_id"/>
         </constraint>
     </table>
-<!--    @todo add currency -->
+
     <table name="tsum_cf_incomes" resource="default" engine="innodb" comment="Cash Flow Incomes Table">
         <column xsi:type="int" name="cf_incomes_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
-        <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
+        <column xsi:type="smallint" name="storage_id" padding="6" unsigned="false" nullable="false" comment="Storage ID"/>
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
         <column xsi:type="tinyint" name="type_id" padding="2" unsigned="true" nullable="false" default="1"/>
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
         <column xsi:type="varchar" name="commentary" nullable="true" length="255" default="" comment="Income commentary"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
+        <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Income currency"/>
         <column xsi:type="timestamp" name="registration_time" default="CURRENT_TIMESTAMP"
                 comment="Incomes Registration Time"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
@@ -75,26 +76,27 @@
                 comment="Incomes Modification Time"/>
         <column xsi:type="boolean" name="is_active"  nullable="false" default="1"/>
         <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_incomes"
-                    column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
+                    column="storage_id" referenceTable="tsum_cf_storage" referenceColumn="storage_id" onDelete="NO ACTION"/>
         <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_incomes"
                     column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
-       <constraint xsi:type="primary" referenceId="PRIMARY">
+        <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="cf_incomes_id"/>
         </constraint>
     </table>
 
-    <!--    @todo add currency -->
     <table name="tsum_cf_remains" resource="default" engine="innodb">
         <column xsi:type="smallint" name="storage_agg_id" padding="6" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
-        <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
+        <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Remains total"/>
+        <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Remains currency"/>
         <column xsi:type="date" name="aggregation_date"/>
         <column xsi:type="tinyint" name="storage_type"/>
        <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_incomes"
                     column="storage_id" referenceTable="catalog_product_entity" referenceColumn="entity_id" onDelete="NO ACTION"/>
         <constraint xsi:type="unique" referenceId="CF_STORAGE_AGG_UNIQUE">
             <column name="storage_id"/>
+            <column name="currency"/>
             <column name="aggregation_date"/>
         </constraint>
         <constraint xsi:type="primary" referenceId="PRIMARY">

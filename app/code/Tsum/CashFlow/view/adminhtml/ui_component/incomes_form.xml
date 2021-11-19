@@ -149,7 +149,21 @@
                 <dataScope>total</dataScope>
             </settings>
         </field>
-        <field name="is_active" sortOrder="20" formElement="checkbox">
+        <field name="currency" sortOrder="25" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Currency</label>
+                <dataScope>currency</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tsum\CashFlow\Model\Source\Currency"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="is_active" sortOrder="50" formElement="checkbox">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">incomes</item>

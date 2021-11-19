@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Tsum_Knowledge::manager" title="Knowledge" module="Tsum_Knowledge" sortOrder="10" resource="Tsum_Knowledge::manager" />
+        <add id="Tsum_Knowledge::add" title="Add knowledge" module="Tsum_Knowledge" sortOrder="20" parent="Tsum_Knowledge::manager" action="know/add/" resource="Tsum_Knowledge::add"/>
+     </menu>
+</config>

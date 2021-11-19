@@ -135,6 +135,20 @@
                 </select>
             </formElements>
         </field>
+        <field name="currency" sortOrder="25" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Currency</label>
+                <dataScope>currency</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tsum\CashFlow\Model\Source\Currency"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
         <field name="total" sortOrder="30" formElement="input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">

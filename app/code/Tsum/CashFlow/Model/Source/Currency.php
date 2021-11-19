@@ -1,37 +1,37 @@
 <?php
+
 namespace Tsum\CashFlow\Model\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 
-class Status implements OptionSourceInterface
+class Currency implements OptionSourceInterface
 {
     /**
-     * Get Grid row status type labels array.
      * @return array
      */
-    public function getOptionArray()
+    public function getOptionArray(): array
     {
-        $options = ['1' => __('Enabled'),'0' => __('Disabled')];
-        return $options;
+        return ['UAH' => __('UAH'),
+            'USD' => __('USD'),
+            'EUR' => __('EUR')
+        ];
     }
 
     /**
-     * Get Grid row status labels array with empty value for option element.
-     *
      * @return array
      */
-    public function getAllOptions()
+    public function getAllOptions(): array
     {
         $res = $this->getOptions();
         array_unshift($res, ['value' => '', 'label' => '']);
+
         return $res;
     }
 
     /**
-     * Get Grid row type array for option element.
      * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         $res = [];
         foreach ($this->getOptionArray() as $index => $value) {
@@ -43,7 +43,7 @@ class Status implements OptionSourceInterface
     /**
      * {@inheritdoc}
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return $this->getOptions();
     }

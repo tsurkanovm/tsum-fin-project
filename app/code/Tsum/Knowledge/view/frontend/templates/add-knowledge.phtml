@@ -15,7 +15,7 @@
     <div class="icon">
         <h2 onclick="togglePopdown()">+</h2>
     </div>
-    <div class="new-knowledge-content">
+    <div id="new-knowledge-content" style="visibility: hidden">
         <form class="form subscribe"
               novalidate
               action="#"
@@ -33,27 +33,30 @@
             </div>
             <div class="actions">
                 <button class="subscribe-mini-button action subscribe primary" title="<?= $block->escapeHtmlAttr(__('SUBMIT')) ?>" type="submit">
-                    <span>Add new knowledge</span>
+                    <span>Save</span>
                 </button>
             </div>
         </form>
     </div>
     <div onclick="togglePopdown()" class="invisible-button" style="background-color: transparent; height: 200px; display: block;">
-
+        <button class="subscribe-mini-button action subscribe primary" title="<?= $block->escapeHtmlAttr(__('Add new knowledge')) ?>">
+            Add new knowledge
+        </button>
     </div>
 </div>
 <script>
-    var _popdownToggle = 0;
+    let _popdownToggle = 0;
     function togglePopdown() {
+        //alert(77);
         if (_popdownToggle === 0) {
             _popdownToggle = 1;
-            document.getElementById("popupHomePage").style.height = "422px";
-
+            document.getElementById("new-knowledge-content").style.visibility = "block";
         }
         else if (_popdownToggle === 1)
         {
+            //alert(55);
             _popdownToggle = 0;
-            document.getElementById("popupHomePage").style.height = "20px";
+            document.getElementById("new-knowledge-content").style.visibility = "hidden";
         }
     }
 </script>
@@ -64,7 +67,7 @@
             'jquery'
         ],
         callback: function ($) {
-            var button = $("form.subscribe button.action.subscribe");
+            let button = $("form.subscribe button.action.subscribe");
 
             $(button).click(function () {
 

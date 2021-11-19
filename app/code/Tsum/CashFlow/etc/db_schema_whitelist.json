@@ -46,12 +46,15 @@
             "registration_time": true,
             "creation_time": true,
             "update_time": true,
-            "is_active": true
+            "is_active": true,
+            "currency": true
         },
         "constraint": {
             "TSUM_CF_INCOMES_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
             "TSUM_CF_INCOMES_CF_ITEM_ID_TSUM_CF_ITEM_CF_ITEM_ID": true,
-            "PRIMARY": true
+            "PRIMARY": true,
+            "TSUM_CF_INCOMES_STORAGE_ID_TSUM_CF_STORAGE_STORAGE_ID": true,
+            "TSUM_CF_INCOMES_PROJECT_ID_TSUM_CF_PROJECT_PROJECT_ID": true
         }
     },
     "tsum_cf": {
@@ -77,11 +80,26 @@
             "storage_id": true,
             "total": true,
             "aggregation_date": true,
-            "storage_type": true
+            "storage_type": true,
+            "currency": true
         },
         "constraint": {
             "TSUM_CF_REMAINS_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
             "TSUM_CF_REMAINS_STORAGE_ID_AGGREGATION_DATE": true,
+            "PRIMARY": true,
+            "TSUM_CF_REMAINS_STORAGE_ID_CURRENCY_AGGREGATION_DATE": true
+        }
+    },
+    "tsum_cf_storage": {
+        "column": {
+            "storage_id": true,
+            "title": true,
+            "type_id": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "constraint": {
             "PRIMARY": true
         }
     }
