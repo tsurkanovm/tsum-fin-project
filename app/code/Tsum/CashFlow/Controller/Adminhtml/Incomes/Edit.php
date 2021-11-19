@@ -5,6 +5,7 @@ use Magento\Backend\Model\View\Result\Page;
 use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Backend\App\Action;
+use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Tsum\CashFlow\Model\ResourceModel\Incomes as IncomesResource;
 use Tsum\CashFlow\Model\Incomes;
@@ -37,15 +38,22 @@ class Edit extends Action implements HttpGetActionInterface
      */
     private $incomesFactory;
 
+    /**
+     * @var DataPersistorInterface
+     */
+    private $dataPersistor;
+
     public function __construct(
         Action\Context $context,
         PageFactory $resultPageFactory,
         IncomesResource $incomesResource,
-        IncomesFactory $incomesFactory
+        IncomesFactory $incomesFactory,
+        DataPersistorInterface $dataPersistor
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->incomesResource = $incomesResource;
         $this->incomesFactory = $incomesFactory;
+        $this->dataPersistor = $dataPersistor;
         parent::__construct($context);
     }
 
@@ -70,6 +78,7 @@ class Edit extends Action implements HttpGetActionInterface
      */
     public function execute()
     {
+        $this->dataPersistor->set('tsum_incomes_in', 0);
         $id = $this->getRequest()->getParam(Incomes::ENTITY_ID);
         $model = $this->incomesFactory->create();
 

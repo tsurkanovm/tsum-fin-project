@@ -186,8 +186,8 @@
                 <dataScope>commentary</dataScope>
             </settings>
         </field>
-        <hidden name="type_id">
+        <field name="type_id" formElement="hidden">
             <argument name="value" xsi:type="string">0</argument>
-        </hidden>
+        </field>
     </fieldset>
 </form>

@@ -9,6 +9,7 @@ use Tsum\CashFlow\Helper\CfStorageHelper;
 
 class InMovement extends AbstractModifier
 {
+    // @todo delete this class
     /**
      * @var ArrayManager
      */

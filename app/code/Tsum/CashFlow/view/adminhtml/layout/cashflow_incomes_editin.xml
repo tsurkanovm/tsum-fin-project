@@ -4,7 +4,7 @@
     <update handle="editor"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="incomes_form"/>
+            <uiComponent name="incomes_form_in"/>
         </referenceContainer>
     </body>
 </page>

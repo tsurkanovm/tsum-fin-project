@@ -1,15 +1,29 @@
 <?php
 namespace Tsum\CashFlow\Block\Adminhtml\Button\Incomes;
 
+use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 use Magento\Ui\Component\Control\Container;
 
 class SaveButton implements ButtonProviderInterface
 {
     /**
+     * @var DataPersistorInterface
+     */
+    private $dataPersistor;
+
+    /**
+     * @param DataPersistorInterface $dataPersistor
+     */
+    public function __construct(DataPersistorInterface $dataPersistor)
+    {
+        $this->dataPersistor = $dataPersistor;
+    }
+
+    /**
      * @return array
      */
-    public function getButtonData()
+    public function getButtonData(): array
     {
         return [
             'label' => __('Save'),
@@ -19,7 +33,7 @@ class SaveButton implements ButtonProviderInterface
                     'buttonAdapter' => [
                         'actions' => [
                             [
-                                'targetName' => 'incomes_form.incomes_form',
+                                'targetName' => $this->getTargetName(),
                                 'actionName' => 'save',
                                 'params' => [
                                     false
@@ -51,7 +65,7 @@ class SaveButton implements ButtonProviderInterface
                         'buttonAdapter' => [
                             'actions' => [
                                 [
-                                    'targetName' => 'cfitem_form.cfitem_form',
+                                    'targetName' => $this->getTargetName(),
                                     'actionName' => 'save',
                                     'params' => [
                                         true
@@ -65,5 +79,12 @@ class SaveButton implements ButtonProviderInterface
         ];
 
         return $options;
+    }
+
+    private function getTargetName(): string
+    {
+        return $this->dataPersistor->get('tsum_incomes_in')
+            ? 'incomes_form_in.incomes_form_in'
+            : 'incomes_form.incomes_form';
     }
 }
