@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Mview/etc/mview.xsd">
+    <view id="tsum_remains_aggregate" group="indexer"
+          class="Tsum\CashFlow\Model\Indexer\Mview\RemainsAction">
+        <subscriptions>
+            <table name="tsum_cf_incomes" entity_column="cf_incomes_id"/>
+            <table name="tsum_cf_transfer" entity_column="cf_transfer_id"/>
+        </subscriptions>
+    </view>
+</config>
