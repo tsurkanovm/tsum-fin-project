@@ -102,5 +102,26 @@
         "constraint": {
             "PRIMARY": true
         }
+    },
+    "tsum_cf_transfer": {
+        "column": {
+            "cf_transfer_id": true,
+            "storage_id_out": true,
+            "total_out": true,
+            "currency_out": true,
+            "storage_id_in": true,
+            "total_in": true,
+            "currency_in": true,
+            "commentary": true,
+            "registration_time": true,
+            "creation_time": true,
+            "update_time": true,
+            "is_active": true
+        },
+        "constraint": {
+            "TSUM_CF_TRANSFER_STORAGE_ID_OUT_TSUM_CF_STORAGE_STORAGE_ID": true,
+            "TSUM_CF_TRANSFER_STORAGE_ID_IN_TSUM_CF_STORAGE_STORAGE_ID": true,
+            "PRIMARY": true
+        }
     }
 }

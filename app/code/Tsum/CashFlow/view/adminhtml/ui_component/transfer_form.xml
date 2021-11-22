@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">transfer_form.transfer_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Cash Flow Income</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <buttons>
+            <button name="save" class="Tsum\CashFlow\Block\Adminhtml\Button\Transfer\SaveButton"/>
+            <button name="delete" class="Tsum\CashFlow\Block\Adminhtml\Button\Transfer\DeleteButton"/>
+            <button name="back" class="Tsum\CashFlow\Block\Adminhtml\Button\BackButton"/>
+        </buttons>
+        <namespace>transfer_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>transfer_form.transfer_form_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="transfer_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="cashflow/transfer/save"/>
+        </settings>
+        <dataProvider class="Tsum\CashFlow\UI\DataProvider\TransferDataProvider" name="transfer_form_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>cf_transfer_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="from" sortOrder="10">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">From</label>
+        </settings>
+        <field name="storage_id_out" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Storage</label>
+                <dataScope>storage_id_out</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tsum\CashFlow\Model\Source\Storage"/>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="total_out" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Total</label>
+                <dataScope>total_out</dataScope>
+            </settings>
+        </field>
+        <field name="currency_out" sortOrder="25" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Currency</label>
+                <dataScope>currency_out</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tsum\CashFlow\Model\Source\Currency"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="to" sortOrder="20">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">To</label>
+        </settings>
+        <field name="storage_id_in" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Storage</label>
+                <dataScope>storage_id_in</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tsum\CashFlow\Model\Source\Storage"/>
+                        <caption translate="true">-- Please Select --</caption>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="total_in" sortOrder="30" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Total</label>
+                <dataScope>total_in</dataScope>
+            </settings>
+        </field>
+        <field name="currency_in" sortOrder="25" formElement="select">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Currency</label>
+                <dataScope>currency_in</dataScope>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Tsum\CashFlow\Model\Source\Currency"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="general" sortOrder="30">
+        <settings>
+            <label translate="true">General</label>
+        </settings>
+        <field name="cf_transfer_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <visible>false</visible>
+                <dataScope>cf_transfer_id</dataScope>
+            </settings>
+        </field>
+        <field name="registration_time" formElement="date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                    <rule name="validate-date" xsi:type="boolean">true</rule>
+                </validation>
+                <dataType>text</dataType>
+                <label translate="true">Registration Date</label>
+                <dataScope>registration_time</dataScope>
+            </settings>
+        </field>
+        <field name="is_active" sortOrder="50" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Enable Income</label>
+                <dataScope>is_active</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+        <field name="commentary" sortOrder="60" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">transfer</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Commentary</label>
+                <dataScope>commentary</dataScope>
+            </settings>
+        </field>
+    </fieldset>
+</form>

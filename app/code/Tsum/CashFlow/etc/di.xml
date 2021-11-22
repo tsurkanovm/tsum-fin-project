@@ -28,12 +28,20 @@
             <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Incomes</argument>
         </arguments>
     </virtualType>
+    <virtualType name="Tsum\CashFlow\Transfer\DataProvider\SearchResult"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tsum_cf_transfer</argument>
+            <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Transfer</argument>
+        </arguments>
+    </virtualType>
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
                 <item name="grid_storage_list_data_source" xsi:type="string">Tsum\CashFlow\Storage\DataProvider\SearchResult</item>
                 <item name="grid_cfitem_list_data_source" xsi:type="string">Tsum\CashFlow\CfItem\DataProvider\SearchResult</item>
                 <item name="incomes_data_source" xsi:type="string">Tsum\CashFlow\Incomes\DataProvider\SearchResult</item>
+                <item name="transfer_data_source" xsi:type="string">Tsum\CashFlow\Transfer\DataProvider\SearchResult</item>
             </argument>
         </arguments>
     </type>
