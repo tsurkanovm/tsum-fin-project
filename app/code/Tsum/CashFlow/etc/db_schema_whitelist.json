@@ -81,7 +81,9 @@
             "total": true,
             "aggregation_date": true,
             "storage_type": true,
-            "currency": true
+            "currency": true,
+            "cf_remains_id": true,
+            "total_default": true
         },
         "constraint": {
             "TSUM_CF_REMAINS_STORAGE_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,

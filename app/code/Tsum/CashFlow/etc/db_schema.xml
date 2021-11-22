@@ -108,11 +108,16 @@
         </constraint>
     </table>
 
+    <!--
+    - Remains calculates for every month, for every storage aggregation_date = endOfTheMonth
+     - for storage currency and for USD (default currency from config)
+    -->
     <table name="tsum_cf_remains" resource="default" engine="innodb">
-        <column xsi:type="smallint" name="storage_agg_id" padding="6" unsigned="true" nullable="false" identity="true"
+        <column xsi:type="smallint" name="cf_remains_id" padding="6" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="int" name="storage_id" padding="10" unsigned="true" nullable="false" comment="Storage ID"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Remains total"/>
+        <column xsi:type="decimal" name="total_default" scale="4" precision="12" comment="Total in default currency (USD)"/>
         <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Remains currency"/>
         <column xsi:type="date" name="aggregation_date"/>
         <column xsi:type="tinyint" name="storage_type"/>
@@ -124,7 +129,7 @@
             <column name="aggregation_date"/>
         </constraint>
         <constraint xsi:type="primary" referenceId="PRIMARY">
-            <column name="storage_agg_id"/>
+            <column name="cf_remains_id"/>
         </constraint>
     </table>
 </schema>
