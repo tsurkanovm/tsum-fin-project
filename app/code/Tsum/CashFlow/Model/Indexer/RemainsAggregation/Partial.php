@@ -20,9 +20,9 @@ class Partial
         $this->logger = $logger;
     }
 
-    public function executeList(array $ids): Partial
+    public function executeList(array $periods): Partial
     {
-        $this->logger->debug("Partial Agg Index works! " . print_r($ids));
+        $this->logger->debug("Partial Agg Index works! " . print_r($periods));
 
         return $this;
     }

@@ -69,7 +69,7 @@
         <column xsi:type="varchar" name="commentary" nullable="true" length="255" default="" comment="Income commentary"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
         <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Income currency"/>
-        <column xsi:type="timestamp" name="registration_time" default="CURRENT_TIMESTAMP"
+        <column xsi:type="date" name="registration_time" nullable="false"
                 comment="Incomes Registration Time"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Incomes Creation Time"/>
@@ -95,7 +95,7 @@
         <column xsi:type="decimal" name="total_in" scale="4" precision="12"/>
         <column xsi:type="varchar" name="currency_in" nullable="false" length="3" default="UAH"/>
         <column xsi:type="varchar" name="commentary" nullable="true" length="255" default=""/>
-        <column xsi:type="timestamp" name="registration_time" default="CURRENT_TIMESTAMP"/>
+        <column xsi:type="date" name="registration_time" nullable="false"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
         <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"/>
         <column xsi:type="boolean" name="is_active"  nullable="false" default="1"/>

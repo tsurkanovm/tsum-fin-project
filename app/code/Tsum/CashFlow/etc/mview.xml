@@ -5,8 +5,10 @@
     <view id="tsum_remains_aggregate" group="indexer"
           class="Tsum\CashFlow\Model\Indexer\Mview\RemainsAction">
         <subscriptions>
-            <table name="tsum_cf_incomes" entity_column="cf_incomes_id"/>
-            <table name="tsum_cf_transfer" entity_column="cf_transfer_id"/>
+            <table name="tsum_cf_incomes" entity_column="registration_time"
+            subscription_model="Tsum\CashFlow\Model\Indexer\Mview\RemainsAggregationSubscription"/>
+            <table name="tsum_cf_transfer" entity_column="registration_time"
+                   subscription_model="Tsum\CashFlow\Model\Indexer\Mview\RemainsAggregationSubscription"/>
         </subscriptions>
     </view>
 </config>
