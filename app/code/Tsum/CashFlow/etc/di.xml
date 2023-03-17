@@ -3,8 +3,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Tsum\CashFlow\Api\Data\StorageSearchResultsInterface"
                 type="Magento\Framework\Api\SearchResults" />
+    <preference for="Tsum\CashFlow\Api\Data\CfItemSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\StorageInterface" type="Tsum\CashFlow\Model\Storage" />
+    <preference for="Tsum\CashFlow\Api\Data\CfItemInterface" type="Tsum\CashFlow\Model\CfItem" />
     <preference for="Tsum\CashFlow\Api\StorageRepositoryInterface" type="Tsum\CashFlow\Model\StorageRepository" />
+    <preference for="Tsum\CashFlow\Api\CfItemRepositoryInterface" type="Tsum\CashFlow\Model\CfItemRepository" />
 
     <!--  Data provider settings  START -->
     <virtualType name="Tsum\CashFlow\CfItem\DataProvider\SearchResult"

@@ -3,82 +3,54 @@
 namespace Tsum\CashFlow\Model;
 
 use \Magento\Framework\Model\AbstractModel;
+use Tsum\CashFlow\Api\Data\CfItemInterface;
 
-class CfItem extends AbstractModel
+class CfItem extends AbstractModel implements CfItemInterface
 {
-    const ENTITY_ID     = 'cf_item_id';
-    const TITLE         = 'title';
-    const CREATION_TIME = 'creation_time';
-    const UPDATE_TIME   = 'update_time';
-    const IS_ACTIVE     = 'is_active';
-    const MOVE          = 'type_id';
-
-    const MOVE_IN_ID = 0;
-    const MOVE_OUT_ID = 1;
-
-    /**
-     * Initialize resource model
-     * @return void
-     */
     public function _construct()
     {
         $this->_init('Tsum\CashFlow\Model\ResourceModel\CfItem');
     }
 
-    /**
-     * Get EntityId.
-     *
-     * @return int
-     */
     public function getEntityId()
     {
         return $this->getData(self::ENTITY_ID);
     }
 
     /**
-     * Get Title.
-     *
-     * @return string
+     * @inheirtDoc
      */
-    public function getTitle()
+    public function getTitle():?string
     {
         return $this->getData('title');
     }
 
     /**
-     * Get creation time
-     *
-     * @return string
+     * @inheirtDoc
      */
-    public function getCreationTime()
+    public function getCreationTime():?string
     {
         return $this->getData(self::CREATION_TIME);
     }
 
     /**
-     * Get update time
-     *
-     * @return string
+     * @inheirtDoc
      */
-    public function getUpdateTime()
+    public function getUpdateTime():?string
     {
         return $this->getData(self::UPDATE_TIME);
     }
 
     /**
-     * Is active
-     *
-     * @return bool
+     * @inheirtDoc
      */
-    public function isActive()
+    public function isActive():?bool
     {
         return (bool)$this->getData(self::IS_ACTIVE);
     }
 
     /**
-     * Get move
-     *
-     * @return string
+     * @inheirtDoc
      */
     public function getMove()
     {
@@ -86,18 +58,15 @@ class CfItem extends AbstractModel
     }
 
     /**
-     * Set ID
-     *
-     * @param int $id
-     * @return $this
+     * @inheirtDoc
      */
     public function setId($id)
     {
         return $this->setData(self::ENTITY_ID, $id);
     }
+
     /**
-     * @param string $entityId
-     * @return $this
+     * @inheirtDoc
      */
     public function setEntityId($entityId)
     {
@@ -105,8 +74,7 @@ class CfItem extends AbstractModel
     }
 
     /**
-     * @param string $title
-     * @return $this
+     * @@inheirtDoc
      */
     public function setTitle($title)
     {
@@ -114,10 +82,7 @@ class CfItem extends AbstractModel
     }
 
     /**
-     * Set is active
-     *
-     * @param int|bool $isActive
-     * @return $this
+     * @inheirtDoc
      */
     public function setIsActive($isActive)
     {
@@ -125,8 +90,7 @@ class CfItem extends AbstractModel
     }
 
     /**
-     * @param string $type
-     * @return $this
+     * @inheirtDoc
      */
     public function setMove($type)
     {
