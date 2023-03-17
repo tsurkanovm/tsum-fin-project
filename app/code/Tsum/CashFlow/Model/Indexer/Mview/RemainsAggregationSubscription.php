@@ -28,7 +28,8 @@ class RemainsAggregationSubscription extends Subscription
     private $ignoredUpdateColumnsBySubscription = [
         'tsum_remains_aggregate' => [
             'tsum_cf_incomes' => [
-                'project_id'
+                'project_id',
+                'cf_item_id'
             ]
         ]
     ];

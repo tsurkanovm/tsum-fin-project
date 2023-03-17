@@ -3,29 +3,13 @@
 namespace Tsum\CashFlow\Model\Indexer;
 
 use Magento\Framework\Indexer\ActionInterface;
-use Tsum\CashFlow\Model\Indexer\RemainsAggregation\Full;
-use Tsum\CashFlow\Model\Indexer\RemainsAggregation\Partial;
+use Tsum\CashFlow\Model\RemainsAggregation\Processor;
 
 class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\ActionInterface
 {
     const INDEXER_ID = 'tsum_remains_aggregate';
 
-    /**
-     * @var Full
-     */
-    private $indexerFull;
-
-    /**
-     * @var Partial
-     */
-    private $indexerPartial;
-
-    public function __construct(
-        Full $indexerFull,
-        Partial $indexerPartial
-    ) {
-        $this->indexerFull = $indexerFull;
-        $this->indexerPartial = $indexerPartial;
+    public function __construct(private readonly Processor $processor) {
     }
 
     /**
@@ -33,7 +17,7 @@ class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\Ac
      */
     public function executeFull()
     {
-        $this->indexerFull->execute();
+        $this->processor->fullProcessing();
     }
 
     /**
@@ -41,7 +25,9 @@ class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\Ac
      */
     public function executeList(array $ids)
     {
-        $this->indexerPartial->executeList($ids);
+        $startDate = $this->getStartDate($ids);
+
+        $this->processor->byDateProcessing($startDate);
     }
 
     /**
@@ -49,7 +35,7 @@ class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\Ac
      */
     public function executeRow($id)
     {
-        $this->indexerPartial->executeList([$id]);
+        $this->processor->byDateProcessing($id);
     }
 
     /**
@@ -57,6 +43,13 @@ class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\Ac
      */
     public function execute($ids)
     {
-        $this->indexerPartial->executeList($ids);
+        $startDate = $this->getStartDate($ids);
+
+        $this->processor->byDateProcessing($startDate);
+    }
+
+    private function getStartDate(array $ids): string
+    {
+        return min($ids);
     }
 }
