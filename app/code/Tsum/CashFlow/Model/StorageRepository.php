@@ -5,6 +5,7 @@ namespace Tsum\CashFlow\Model;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Tsum\CashFlow\Api\Data\StorageInterface;
 use Tsum\CashFlow\Api\Data\StorageSearchResultsInterface;
+use Tsum\CashFlow\Helper\Config;
 use Tsum\CashFlow\Model\ResourceModel\Storage\CollectionFactory;
 use Tsum\CashFlow\Model\ResourceModel\Storage\Collection;
 use Tsum\CashFlow\Model\StorageFactory;
@@ -49,12 +50,20 @@ class StorageRepository implements StorageRepositoryInterface
     public function getById(int|string $storageId): StorageInterface
     {
         $storage = $this->storageFactory->create();
-        $storage->load($storageId);
+        $this->resource->load($storage, $storageId);
         if (!$storage->getId()) {
             throw new NoSuchEntityException(__('The CashFlow storage with the "%1" ID doesn\'t exist.', $storageId));
         }
 
         return $storage;
+    }
+
+    public function getIdByOnesId(int $onesId): ?int
+    {
+        $storage = $this->storageFactory->create();
+        $this->resource->load($storage, $onesId, Config::ONES_CODE_FIELD);
+
+        return $storage->getId();
     }
 
     /**

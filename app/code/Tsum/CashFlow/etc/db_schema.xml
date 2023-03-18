@@ -17,6 +17,7 @@
                 comment="Entity ID"/>
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Cash Flow Storage Title"/>
         <column xsi:type="smallint" name="type_id" padding="2" unsigned="false" nullable="false" default="1" comment="Storage Type"/>
+        <column xsi:type="smallint" name="ones_id" padding="2" unsigned="false" nullable="true" comment="1C code"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Storage Creation Time"/>
         <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
@@ -31,6 +32,7 @@
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Project Title"/>
+        <column xsi:type="smallint" name="ones_id" padding="2" unsigned="false" nullable="true" comment="1C code"/>
         <constraint xsi:type="unique" referenceId="PROJECT_TITLE_UNIQUE">
             <column name="title"/>
         </constraint>
@@ -44,6 +46,7 @@
         <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Cash Flow Item Title"/>
         <column xsi:type="tinyint" name="type_id" padding="2" unsigned="false" nullable="false" default="1" comment="Move Type (In-Out)"/>
         <column xsi:type="boolean" name="is_regular"  nullable="false" default="1" comment="Is Cash Flow Item Regular"/>
+        <column xsi:type="smallint" name="ones_id" padding="2" unsigned="false" nullable="true" comment="1C code"/>
         <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Cash Flow Item Creation Time"/>
         <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"

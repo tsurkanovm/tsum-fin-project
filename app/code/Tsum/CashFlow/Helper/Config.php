@@ -8,7 +8,8 @@ use Magento\Store\Model\ScopeInterface;
 
 class Config extends AbstractHelper
 {
-    const XML_PATH_STORAGE_ATTR_SET = 'cash_flow/general/storage_attribute_set';
+    public const ONES_CODE_FIELD = 'ones_id';
+    public const XML_PATH_STORAGE_ATTR_SET = 'cash_flow/general/storage_attribute_set';
 
     /**
      * @return string

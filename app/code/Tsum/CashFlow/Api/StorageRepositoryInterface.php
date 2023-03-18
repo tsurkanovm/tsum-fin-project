@@ -21,6 +21,8 @@ interface StorageRepositoryInterface
      */
     public function getById(int|string $storageId): StorageInterface;
 
+    public function getIdByOnesId(int $onesId): ?int;
+
     public function getList(SearchCriteriaInterface $searchCriteria): StorageSearchResultsInterface;
 
     /**

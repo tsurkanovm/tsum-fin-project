@@ -8,6 +8,7 @@ use Tsum\CashFlow\Api\Data\CfItemSearchResultsInterface;
 use Tsum\CashFlow\Model\ResourceModel\CfItem\CollectionFactory;
 use Tsum\CashFlow\Model\ResourceModel\CfItem\Collection;
 use Tsum\CashFlow\Model\CfItemFactory;
+use Tsum\CashFlow\Helper\Config;
 use Tsum\CashFlow\Model\ResourceModel\CfItem as ResourceCfItem;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
@@ -49,12 +50,20 @@ class CfItemRepository implements CfItemRepositoryInterface
     public function getById(int|string $cfItemId): CfItemInterface
     {
         $cfItem = $this->cfItemFactory->create();
-        $cfItem->load($cfItemId);
+        $this->resource->load($cfItem, $cfItemId);
         if (!$cfItem->getId()) {
             throw new NoSuchEntityException(__('The CashFlow cfItem with the "%1" ID doesn\'t exist.', $cfItemId));
         }
 
         return $cfItem;
+    }
+
+    public function getIdByOnesId(int $onesId): ?int
+    {
+        $cfItem = $this->cfItemFactory->create();
+        $this->resource->load($cfItem, $onesId, Config::ONES_CODE_FIELD);
+
+        return $cfItem->getId();
     }
 
     /**

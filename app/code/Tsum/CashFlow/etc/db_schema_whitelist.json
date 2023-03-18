@@ -12,7 +12,8 @@
     "tsum_cf_project": {
         "column": {
             "project_id": true,
-            "title": true
+            "title": true,
+            "ones_id": true
         },
         "constraint": {
             "TSUM_CF_PROJECT_TITLE": true,
@@ -27,7 +28,8 @@
             "is_regular": true,
             "creation_time": true,
             "update_time": true,
-            "is_active": true
+            "is_active": true,
+            "ones_id": true
         },
         "constraint": {
             "TSUM_CF_ITEM_TITLE_TYPE_ID": true,
@@ -99,7 +101,8 @@
             "type_id": true,
             "creation_time": true,
             "update_time": true,
-            "is_active": true
+            "is_active": true,
+            "ones_id": true
         },
         "constraint": {
             "PRIMARY": true

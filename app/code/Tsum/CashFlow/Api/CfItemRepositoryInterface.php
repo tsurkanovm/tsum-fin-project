@@ -21,6 +21,8 @@ interface CfItemRepositoryInterface
      */
     public function getById(int|string $cfItemId): CfItemInterface;
 
+    public function getIdByOnesId(int $onesId): ?int;
+
     public function getList(SearchCriteriaInterface $searchCriteria): CfItemSearchResultsInterface;
 
     /**
