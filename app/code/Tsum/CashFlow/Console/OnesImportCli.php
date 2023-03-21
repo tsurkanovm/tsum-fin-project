@@ -4,7 +4,7 @@ namespace Tsum\CashFlow\Console;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\App\State;
-use Magento\MagentoCloud\Cli;
+use Magento\Framework\Console\Cli;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ class OnesImportCli extends Command
 
     // @todo add progress bar
     public function __construct(
-        private readonly Ones $impoter,
+        private readonly Ones $importer,
         private readonly State $state
     ) {
         parent::__construct();
@@ -46,20 +46,20 @@ class OnesImportCli extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $type = $input->getArgument(self::MODE_ARGUMENT) ? 'transfers' : 'incomes';
+        $type = $input->getArgument(self::TYPE_ARGUMENT) ? 'transfers' : 'incomes';
         $output->writeln("<info>Import of 1C {$type} is started</info>");
         try {
             $this->state->emulateAreaCode(Area::AREA_CRONTAB, function () use ($input) {
-                $this->importer->importByType($input->getArgument(self::MODE_ARGUMENT));
+                $this->importer->importByType($input->getArgument(self::TYPE_ARGUMENT));
             });
 
             $output->writeln('<info>Import of 1C {$type} was finished</info>');
         } catch (\Exception $e) {
             $output->writeln($e->getMessage());
 
-            return Cli::FAILURE;
+            return Cli::RETURN_FAILURE;
         }
 
-        return Cli::SUCCESS;
+        return Cli::RETURN_SUCCESS;
     }
 }

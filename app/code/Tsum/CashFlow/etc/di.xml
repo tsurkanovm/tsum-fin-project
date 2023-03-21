@@ -54,4 +54,13 @@
         </arguments>
     </type>
     <!--  Data provider settings  END -->
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="import_data_from_ones" xsi:type="object">
+                    Tsum\CashFlow\Console\OnesImportCli
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>
