@@ -2,19 +2,19 @@
 
 namespace Tsum\CashFlow\Model;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-use Tsum\CashFlow\Api\Data\StorageInterface;
-use Tsum\CashFlow\Api\Data\StorageSearchResultsInterface;
-use Tsum\CashFlow\Helper\Config;
-use Tsum\CashFlow\Model\ResourceModel\Storage\CollectionFactory;
-use Tsum\CashFlow\Model\ResourceModel\Storage\Collection;
-use Tsum\CashFlow\Model\StorageFactory;
-use Tsum\CashFlow\Model\ResourceModel\Storage as ResourceStorage;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Tsum\CashFlow\Api\Data\StorageInterface;
+use Tsum\CashFlow\Api\Data\StorageSearchResultsInterface;
+use Tsum\CashFlow\Api\Data\StorageSearchResultsInterfaceFactory;
 use Tsum\CashFlow\Api\StorageRepositoryInterface;
+use Tsum\CashFlow\Model\ResourceModel\Storage as ResourceStorage;
+use Tsum\CashFlow\Model\ResourceModel\Storage\Collection;
+use Tsum\CashFlow\Model\ResourceModel\Storage\CollectionFactory;
+use Tsum\CashFlow\Model\StorageFactory;
 
 class StorageRepository implements StorageRepositoryInterface
 {

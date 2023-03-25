@@ -11,7 +11,8 @@ class Currency implements OptionSourceInterface
      */
     public function getOptionArray(): array
     {
-        return ['UAH' => __('UAH'),
+        return [
+            'UAH' => __('UAH'),
             'USD' => __('USD'),
             'EUR' => __('EUR')
         ];

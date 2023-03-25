@@ -2,19 +2,19 @@
 
 namespace Tsum\CashFlow\Model;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-use Tsum\CashFlow\Api\Data\CfItemInterface;
-use Tsum\CashFlow\Api\Data\CfItemSearchResultsInterface;
-use Tsum\CashFlow\Model\ResourceModel\CfItem\CollectionFactory;
-use Tsum\CashFlow\Model\ResourceModel\CfItem\Collection;
-use Tsum\CashFlow\Model\CfItemFactory;
-use Tsum\CashFlow\Helper\Config;
-use Tsum\CashFlow\Model\ResourceModel\CfItem as ResourceCfItem;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Tsum\CashFlow\Api\CfItemRepositoryInterface;
+use Tsum\CashFlow\Api\Data\CfItemInterface;
+use Tsum\CashFlow\Api\Data\CfItemSearchResultsInterface;
+use Tsum\CashFlow\Api\Data\CfItemSearchResultsInterfaceFactory;
+use Tsum\CashFlow\Model\CfItemFactory;
+use Tsum\CashFlow\Model\ResourceModel\CfItem as ResourceCfItem;
+use Tsum\CashFlow\Model\ResourceModel\CfItem\Collection;
+use Tsum\CashFlow\Model\ResourceModel\CfItem\CollectionFactory;
 
 class CfItemRepository implements CfItemRepositoryInterface
 {

@@ -2,19 +2,19 @@
 
 namespace Tsum\CashFlow\Model;
 
-use Magento\Framework\Api\SearchCriteriaInterface;
-use Tsum\CashFlow\Api\Data\IncomesInterface;
-use Tsum\CashFlow\Api\Data\IncomesSearchResultsInterface;
-use Tsum\CashFlow\Helper\Config;
-use Tsum\CashFlow\Model\ResourceModel\Incomes\CollectionFactory;
-use Tsum\CashFlow\Model\ResourceModel\Incomes\Collection;
-use Tsum\CashFlow\Model\IncomesFactory;
-use Tsum\CashFlow\Model\ResourceModel\Incomes as ResourceIncomes;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
+use Tsum\CashFlow\Api\Data\IncomesInterface;
+use Tsum\CashFlow\Api\Data\IncomesSearchResultsInterface;
+use Tsum\CashFlow\Api\Data\IncomesSearchResultsInterfaceFactory;
 use Tsum\CashFlow\Api\IncomesRepositoryInterface;
+use Tsum\CashFlow\Model\IncomesFactory;
+use Tsum\CashFlow\Model\ResourceModel\Incomes as ResourceIncomes;
+use Tsum\CashFlow\Model\ResourceModel\Incomes\Collection;
+use Tsum\CashFlow\Model\ResourceModel\Incomes\CollectionFactory;
 
 class IncomesRepository implements IncomesRepositoryInterface
 {
