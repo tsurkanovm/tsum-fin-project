@@ -12,8 +12,11 @@ use Tsum\CashFlow\Api\Data\IncomesInterface;
 use Tsum\CashFlow\Api\Data\IncomesInterfaceFactory;
 use Tsum\CashFlow\Api\Data\StorageInterface;
 use Tsum\CashFlow\Api\Data\StorageInterfaceFactory;
+use Tsum\CashFlow\Api\Data\TransferInterface;
+use Tsum\CashFlow\Api\Data\TransferInterfaceFactory;
 use Tsum\CashFlow\Api\IncomesRepositoryInterface;
 use Tsum\CashFlow\Api\StorageRepositoryInterface;
+use Tsum\CashFlow\Api\TransferRepositoryInterface;
 use Tsum\CashFlow\Model\Config;
 
 class Ones
@@ -34,9 +37,11 @@ class Ones
         private readonly StorageRepositoryInterface $storageRepo,
         private readonly CfItemRepositoryInterface $itemRepo,
         private readonly IncomesRepositoryInterface $incomesRepo,
+        private readonly TransferRepositoryInterface $transferRepository,
         private readonly StorageInterfaceFactory $storageFactory,
         private readonly CfItemInterfaceFactory $itemFactory,
-        private readonly IncomesInterfaceFactory $incomesFactory
+        private readonly IncomesInterfaceFactory $incomesFactory,
+        private readonly TransferInterfaceFactory $transferFactory
     )
     {
     }
@@ -44,7 +49,7 @@ class Ones
     public function importByType(?int $type): void
     {
         $this->csvReader->setDelimiter(';');
-        $filePath = $this->getOnesFilesPath() . self::INCOME_FILE_NAME;
+        $filePath = $this->getOnesFilesPath() . ($type ? self::TRANSFER_FILE_NAME : self::INCOME_FILE_NAME);
         $dataFromFile = $this->csvReader->getData($filePath);
         unset($dataFromFile[0]);
         foreach ($dataFromFile as $num => $rowData) {
@@ -82,9 +87,32 @@ class Ones
         $this->incomesRepo->save($income);
     }
 
-    public function importTransfers()
+    public function importTransfers(array $rowData): void
     {
+        try {
+            $currencyCode = self::CURRENCY_MAP[trim($rowData[TransferFormat::CURRENCY_ROW])];
+            $inCurrencyCode = self::CURRENCY_MAP[trim($rowData[TransferFormat::IN_CURRENCY_ROW])];
+        } catch (\Exception $e) {
+            // 31.12.2015 needs to add 51 hrn income-out from 4 (cash) - cause i removed rub
+            return;
+        }
 
+        $storageId = $this->getStorageId($rowData, 1);
+        $inStorageId = $this->getStorageId($rowData, 2);
+
+        $registrationDate = (string)$rowData[TransferFormat::REGISTRATION_ROW];
+
+        // create transfer
+        /** @var TransferInterface $transfer */
+        $transfer = $this->transferFactory->create();
+        $transfer->setIsActive(1);
+        $transfer->setRegistrationTime($registrationDate);
+        $transfer->setCurrency($currencyCode);
+        $transfer->setCurrencyIn($inCurrencyCode);
+        $transfer->setStorage($storageId);
+        $transfer->setStorageIn($inStorageId);
+
+        $this->transferRepository->save($transfer);
     }
 
     private function getOnesFilesPath() : string
@@ -93,12 +121,24 @@ class Ones
             self::SOURCE_FOLDER . DIRECTORY_SEPARATOR;
     }
 
-    private function getStorageId(array $rowData): int
+    private function getStorageId(array $rowData, int $type = 0): int
     {
-        $onesId = (int)$rowData[IncomeFormat::STORAGE_ID_ROW];
+        switch ($type) {
+            case 0:
+                $onesId = (int)$rowData[IncomeFormat::STORAGE_ID_ROW];
+                $regDate = strtotime($rowData[IncomeFormat::REGISTRATION_ROW]);
+                break;
+            case 1:
+                $onesId = (int)$rowData[TransferFormat::STORAGE_ID_ROW];
+                $regDate = strtotime($rowData[TransferFormat::REGISTRATION_ROW]);
+                break;
+            case 2:
+                $onesId = (int)$rowData[TransferFormat::IN_STORAGE_ID_ROW];
+                $regDate = strtotime($rowData[TransferFormat::REGISTRATION_ROW]);
+                break;
+        }
+
         if ($onesId === 2) { // Vika privat, needs to convert (since 2019) to Raff storage (15)
-            $regDate = strtotime($rowData[IncomeFormat::REGISTRATION_ROW]);
-            //$regDate = new \DateTime($regDateString);
             $raffDate = strtotime('2019-01-01');
             if ($regDate < $raffDate) {
                 $onesId = 15;
