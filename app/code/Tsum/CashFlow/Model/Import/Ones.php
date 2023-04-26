@@ -22,13 +22,14 @@ use Tsum\CashFlow\Model\Config;
 class Ones
 {
     public const SOURCE_FOLDER = 'ones';
-    public const INCOME_FILE_NAME = 'incomes.csv';
-    public const TRANSFER_FILE_NAME = 'transfers.csv';
+    public const INCOME_FILE_NAME = 'incomes3.csv';
+    public const TRANSFER_FILE_NAME = 'transfer_m.csv';
 
     public const CURRENCY_MAP = [
         980 => 'UAH',
         840 => 'USD',
         978 => 'EUR',
+        643 => 'RUB'
     ];
 
     public function __construct(
@@ -101,6 +102,8 @@ class Ones
         $inStorageId = $this->getStorageId($rowData, 2);
 
         $registrationDate = (string)$rowData[TransferFormat::REGISTRATION_ROW];
+        $totalOut = $this->prepareTotalValue($rowData[TransferFormat::TOTAL_ROW]);
+        $totalIn = $this->prepareTotalValue($rowData[TransferFormat::IN_TOTAL_ROW]);
 
         // create transfer
         /** @var TransferInterface $transfer */
@@ -111,6 +114,8 @@ class Ones
         $transfer->setCurrencyIn($inCurrencyCode);
         $transfer->setStorage($storageId);
         $transfer->setStorageIn($inStorageId);
+        $transfer->setTotal($totalOut);
+        $transfer->setTotalIn($totalIn);
 
         $this->transferRepository->save($transfer);
     }
@@ -196,6 +201,6 @@ class Ones
 
     private function prepareTotalValue(string $rawTotal): float
     {
-        return (float)preg_replace('/[^0-9,\-]/', '', $rawTotal);
+        return (float)preg_replace('/[^0-9.\-]/', '', str_replace(',', '.', $rawTotal));
     }
 }
