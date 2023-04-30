@@ -23,7 +23,7 @@ interface StorageRepositoryInterface
 
     public function getIdByOnesId(int $onesId): ?int;
 
-    public function getList(SearchCriteriaInterface $searchCriteria): StorageSearchResultsInterface;
+    public function getList(SearchCriteriaInterface $searchCriteria);
 
     /**
      * @throws CouldNotDeleteException

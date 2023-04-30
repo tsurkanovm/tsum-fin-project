@@ -70,7 +70,7 @@ class StorageRepository implements StorageRepositoryInterface
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    public function getList(SearchCriteriaInterface $searchCriteria): StorageSearchResultsInterface
+    public function getList(SearchCriteriaInterface $searchCriteria)
     {
         /** @var Collection $collection */
         $collection = $this->storageCollectionFactory->create();

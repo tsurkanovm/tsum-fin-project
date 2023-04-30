@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tsum\CashFlow\Model\Import;
+namespace Tsum\CashFlow\Model\Import\Ones;
 
 class TransferFormat
 {
