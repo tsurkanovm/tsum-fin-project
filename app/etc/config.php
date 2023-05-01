@@ -327,6 +327,7 @@ return [
         'Magento_Wishlist' => 1,
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 0,
+        'DEG_CustomReports' => 1,
         'MageSpices_Core' => 0,
         'MageSpices_Mage2Dark' => 0,
         'PayPal_Braintree' => 1,
