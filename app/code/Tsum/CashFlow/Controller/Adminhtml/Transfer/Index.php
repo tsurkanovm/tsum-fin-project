@@ -31,6 +31,11 @@ class Index extends Action
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $page = $this->resultPageFactory->create();
+
+        $page->setActiveMenu('Tsum_CashFlow::transfer');
+        $page->getConfig()->getTitle()->prepend(__('Transfers'));
+
+        return $page;
     }
 }

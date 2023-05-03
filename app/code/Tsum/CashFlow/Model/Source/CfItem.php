@@ -61,6 +61,7 @@ class CfItem implements OptionSourceInterface
     {
         /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
+        $collection->addFilter('is_active', 1);
         switch ($this->cfType) {
             case self::IN_TYPE:
                 $collection->addFilter('type_id', 0);
