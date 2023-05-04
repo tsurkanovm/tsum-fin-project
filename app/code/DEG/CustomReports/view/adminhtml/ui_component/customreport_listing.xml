@@ -61,13 +61,22 @@
                 </item>
             </argument>
         </column>
-        <actionsColumn name="actions" class="DEG\CustomReports\Ui\Component\Listing\Column\CustomReport\PageActions">
+        <actionsColumn name="edit" class="DEG\CustomReports\Ui\Component\Listing\Column\CustomReport\PageEditAction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="resizeEnabled" xsi:type="boolean">false</item>
-                    <item name="resizeDefaultWidth" xsi:type="string">107</item>
+                    <item name="label" xsi:type="string">Edit</item>
                     <item name="indexField" xsi:type="string">customreport_id</item>
                     <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+            </argument>
+        </actionsColumn>
+        <actionsColumn name="run" class="DEG\CustomReports\Ui\Component\Listing\Column\CustomReport\PageRunAction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Report</item>
+                    <item name="indexField" xsi:type="string">customreport_id</item>
+                    <item name="sortOrder" xsi:type="number">210</item>
                 </item>
             </argument>
         </actionsColumn>
