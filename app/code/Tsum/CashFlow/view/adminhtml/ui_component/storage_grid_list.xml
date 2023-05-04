@@ -3,8 +3,8 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">storage_record_grid_list.grid_storage_list_data_source</item>
-            <item name="deps" xsi:type="string">storage_record_grid_list.grid_storage_list_data_source</item>
+            <item name="provider" xsi:type="string">storage_grid_list.storage_list_data_source</item>
+            <item name="deps" xsi:type="string">storage_grid_list.storage_list_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">storage_columns</item>
         <item name="buttons" xsi:type="array">
@@ -16,23 +16,20 @@
             </item>
         </item>
     </argument>
-    <dataSource name="grid_storage_list_data_source">
-        <argument name="dataProvider" xsi:type="configurableObject">
-            <argument name="class" xsi:type="string">Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider</argument>
-            <argument name="name" xsi:type="string">grid_storage_list_data_source</argument>
-            <argument name="primaryFieldName" xsi:type="string">storage_id</argument>
-            <argument name="requestFieldName" xsi:type="string">title</argument>
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="update_url" xsi:type="url" path="mui/index/render"/>
-                </item>
-            </argument>
-        </argument>
-        <argument name="data" xsi:type="array">
-            <item name="js_config" xsi:type="array">
-                <item name="component" xsi:type="string">Magento_Ui/js/grid/provider</item>
-            </item>
-        </argument>
+    <dataSource name="storage_list_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">storage_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Tsum_CashFlow::cfitem</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="storage_list_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>storage_id</primaryFieldName>
+            </settings>
+        </dataProvider>
     </dataSource>
     <container name="listing_top">
         <argument name="data" xsi:type="array">
@@ -46,9 +43,9 @@
         <filters name="listing_filters">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="columnsProvider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.storage_columns</item>
+                    <item name="columnsProvider" xsi:type="string">storage_grid_list.storage_grid_list.storage_columns</item>
                     <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.listing_top.bookmarks</item>
+                        <item name="provider" xsi:type="string">storage_grid_list.storage_grid_list.listing_top.bookmarks</item>
                         <item name="namespace" xsi:type="string">current.filters</item>
                     </item>
                     <item name="templates" xsi:type="array">
@@ -60,9 +57,9 @@
                         </item>
                     </item>
                     <item name="childDefaults" xsi:type="array">
-                        <item name="provider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.listing_top.listing_filters</item>
+                        <item name="provider" xsi:type="string">storage_grid_list.storage_grid_list.listing_top.listing_filters</item>
                         <item name="imports" xsi:type="array">
-                            <item name="visible" xsi:type="string">storage_record_grid_list.storage_record_grid_list.storage_columns.${ $.index }:visible</item>
+                            <item name="visible" xsi:type="string">storage_grid_list.storage_grid_list.storage_columns.${ $.index }:visible</item>
                         </item>
                     </item>
                 </item>
@@ -74,7 +71,7 @@
         <massaction name="listing_massaction">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
-                    <item name="selectProvider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.storage_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">storage_grid_list.storage_grid_list.storage_columns.ids</item>
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
                     <item name="indexField" xsi:type="string">storage_id</item>
                 </item>
@@ -97,7 +94,7 @@
                 <settings>
                     <callback>
                         <target>editSelected</target>
-                        <provider>storage_record_grid_list.storage_record_grid_list.storage_columns_editor</provider>
+                        <provider>storage_grid_list.storage_grid_list.storage_columns_editor</provider>
                     </callback>
                     <type>edit</type>
                     <label translate="true">Edit</label>
@@ -108,10 +105,10 @@
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="storageConfig" xsi:type="array">
-                        <item name="provider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.listing_top.bookmarks</item>
+                        <item name="provider" xsi:type="string">storage_grid_list.storage_grid_list.listing_top.bookmarks</item>
                         <item name="namespace" xsi:type="string">current.paging</item>
                     </item>
-                    <item name="selectProvider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.storage_columns.ids</item>
+                    <item name="selectProvider" xsi:type="string">storage_grid_list.storage_grid_list.storage_columns.ids</item>
                 </item>
             </argument>
         </paging>
@@ -125,11 +122,11 @@
                 </param>
                 <param name="indexField" xsi:type="string">storage_id</param>
                 <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.storage_columns.ids</param>
+                <param name="selectProvider" xsi:type="string">storage_grid_list.storage_grid_list.storage_columns.ids</param>
             </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
-                    <item name="provider" xsi:type="string">storage_record_grid_list.storage_record_grid_list.storage_columns_editor</item>
+                    <item name="provider" xsi:type="string">storage_grid_list.storage_grid_list.storage_columns_editor</item>
                     <item name="target" xsi:type="string">startEdit</item>
                     <item name="params" xsi:type="array">
                         <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>

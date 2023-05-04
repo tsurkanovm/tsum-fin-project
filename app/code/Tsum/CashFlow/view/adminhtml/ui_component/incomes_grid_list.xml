@@ -3,8 +3,8 @@
 <listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Ui/etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">incomes_grid_list.incomes_data_source</item>
-            <item name="deps" xsi:type="string">incomes_grid_list.incomes_data_source</item>
+            <item name="provider" xsi:type="string">incomes_grid_list.incomes_list_data_source</item>
+            <item name="deps" xsi:type="string">incomes_grid_list.incomes_list_data_source</item>
         </item>
         <item name="spinner" xsi:type="string">incomes_columns</item>
         <item name="buttons" xsi:type="array">
@@ -23,15 +23,15 @@
         </item>
     </argument>
 
-    <dataSource name="incomes_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="incomes_list_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">cf_incomes_id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Magento_Cms::page</aclResource>
-        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="incomes_data_source">
+        <aclResource>Tsum_CashFlow::incomes</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider" name="incomes_list_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>cf_incomes_id</primaryFieldName>

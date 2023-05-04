@@ -19,28 +19,28 @@
     <preference for="Tsum\CashFlow\Api\TransferRepositoryInterface" type="Tsum\CashFlow\Model\TransferRepository" />
 
     <!--  Data provider settings  START -->
-    <virtualType name="Tsum\CashFlow\CfItem\DataProvider\SearchResult"
+    <virtualType name="Tsum\CashFlow\CfItem\Model\ResourceModel\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tsum_cf_item</argument>
             <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\CfItem</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Tsum\CashFlow\Storage\DataProvider\SearchResult"
+    <virtualType name="Tsum\CashFlow\Storage\Model\ResourceModel\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tsum_cf_storage</argument>
             <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Storage</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Tsum\CashFlow\Incomes\DataProvider\SearchResult"
+    <virtualType name="Tsum\CashFlow\Incomes\Model\ResourceModel\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tsum_cf_incomes</argument>
             <argument name="resourceModel" xsi:type="string">Tsum\CashFlow\Model\ResourceModel\Incomes</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Tsum\CashFlow\Transfer\DataProvider\SearchResult"
+    <virtualType name="Tsum\CashFlow\Transfer\Model\ResourceModel\Grid\Collection"
                  type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">tsum_cf_transfer</argument>
@@ -50,10 +50,10 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="grid_storage_list_data_source" xsi:type="string">Tsum\CashFlow\Storage\DataProvider\SearchResult</item>
-                <item name="grid_cfitem_list_data_source" xsi:type="string">Tsum\CashFlow\CfItem\DataProvider\SearchResult</item>
-                <item name="incomes_data_source" xsi:type="string">Tsum\CashFlow\Incomes\DataProvider\SearchResult</item>
-                <item name="transfer_data_source" xsi:type="string">Tsum\CashFlow\Transfer\DataProvider\SearchResult</item>
+                <item name="storage_list_data_source" xsi:type="string">Tsum\CashFlow\Storage\Model\ResourceModel\Grid\Collection</item>
+                <item name="cfitem_list_data_source" xsi:type="string">Tsum\CashFlow\CfItem\Model\ResourceModel\Grid\Collection</item>
+                <item name="incomes_list_data_source" xsi:type="string">Tsum\CashFlow\Incomes\Model\ResourceModel\Grid\Collection</item>
+                <item name="transfer_list_data_source" xsi:type="string">Tsum\CashFlow\Transfer\Model\ResourceModel\Grid\Collection</item>
             </argument>
         </arguments>
     </type>
