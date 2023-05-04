@@ -68,7 +68,7 @@
         <column xsi:type="smallint" name="storage_id" padding="6" unsigned="false" nullable="false" comment="Storage ID"/>
         <column xsi:type="smallint" name="cf_item_id" padding="6" unsigned="false" nullable="false" comment="CF Item ID"/>
         <column xsi:type="tinyint" name="type_id" padding="2" unsigned="true" nullable="false" default="1"/>
-        <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" comment="Project ID"/>
+        <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" default="null" comment="Project ID"/>
         <column xsi:type="varchar" name="commentary" nullable="true" length="255" default="" comment="Income commentary"/>
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
         <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Income currency"/>

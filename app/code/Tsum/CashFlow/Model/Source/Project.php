@@ -30,6 +30,7 @@ class Project implements OptionSourceInterface
     private function getOptions() : array
     {
         $res = [];
+        $res[] = ['value' => null, 'label' => __('Select project')];
         foreach ($this->getProjects() as $item) {
             $res[] = ['value' => $item['project_id'], 'label' => $item['title']];
         }
