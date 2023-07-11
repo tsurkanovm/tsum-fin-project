@@ -32,9 +32,9 @@ class Incomes extends AbstractModel implements IncomesInterface
         return $this->getData(self::PROJECT_ID);
     }
 
-    public function getTypeId(): ?int
+    public function getTypeId(): int
     {
-        return $this->getData(self::TYPE_ID);
+        return (int)$this->getData(self::TYPE_ID);
     }
 
     public function isActive(): ?bool

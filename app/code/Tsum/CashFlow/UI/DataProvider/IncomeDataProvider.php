@@ -47,9 +47,9 @@ class IncomeDataProvider extends AbstractDataProvider
 
         $data = $this->dataPersistor->get('tsum_incomes');
         if (!empty($data)) {
-            $storage = $this->collection->getNewEmptyItem();
-            $storage->setData($data);
-            $this->loadedData[$storage->getId()] = $storage->getData();
+            $income = $this->collection->getNewEmptyItem();
+            $income->setData($data);
+            $this->loadedData[$income->getId()] = $income->getData();
             $this->dataPersistor->clear('tsum_incomes');
         }
 

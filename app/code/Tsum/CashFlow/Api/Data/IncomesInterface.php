@@ -28,7 +28,7 @@ interface IncomesInterface
 
     public function getProjectId(): ?int;
 
-    public function getTypeId(): ?int;
+    public function getTypeId(): int;
 
     public function isActive(): ?bool;
 

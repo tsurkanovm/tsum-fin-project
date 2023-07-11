@@ -2,10 +2,14 @@
 namespace Tsum\CashFlow\Controller\Adminhtml\Incomes;
 
 use Magento\Backend\Model\View\Result\Redirect;
+use Magento\Cms\Model\Block;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Request\DataPersistorInterface;
+use Magento\Framework\Exception\AlreadyExistsException;
 use Magento\Framework\Exception\LocalizedException;
+use Tsum\CashFlow\Api\Data\CfItemInterface;
+use Tsum\CashFlow\Api\Data\IncomesInterface;
 use Tsum\CashFlow\Model\ResourceModel\Incomes;
 use Tsum\CashFlow\Model\Incomes as IncomesModel;
 use Tsum\CashFlow\Model\IncomesFactory;
@@ -57,17 +61,19 @@ class Save extends Action implements HttpPostActionInterface
         /** @var Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
-            if (empty($data[IncomesModel::ENTITY_ID])) {
-                $data[IncomesModel::ENTITY_ID] = null;
+            if (empty($data[IncomesInterface::ENTITY_ID])) {
+                $data[IncomesInterface::ENTITY_ID] = null;
             }
-
+            if (isset($data[IncomesInterface::IS_ACTIVE]) && $data[IncomesInterface::IS_ACTIVE] === 'true') {
+                $data[IncomesInterface::IS_ACTIVE] = 1;
+            }
             /** @var IncomesModel $model */
             $model = $this->incomesFactory->create();
-            $id = $this->getRequest()->getParam(IncomesModel::ENTITY_ID);
+            $id = $this->getRequest()->getParam(IncomesInterface::ENTITY_ID);
             if ($id) {
                 try {
                     $this->incomesResource->load($model, $id);
-                } catch (\Exception $e) {
+                } catch (\Exception) {
                     $this->messageManager->addErrorMessage(__('This income no longer exists.'));
                     return $resultRedirect->setPath('*/*/');
                 }
@@ -78,8 +84,9 @@ class Save extends Action implements HttpPostActionInterface
             try {
                 $this->incomesResource->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the Income.'));
+                $this->dataPersistor->clear('tsum_incomes');
 
-                return $this->processResultRedirect($model, $resultRedirect);
+                return $this->processResultRedirect($model, $resultRedirect, $data);
             } catch (LocalizedException $e) {
                 $this->messageManager->addExceptionMessage($e->getPrevious() ?: $e);
             } catch (\Exception $e) {
@@ -90,7 +97,7 @@ class Save extends Action implements HttpPostActionInterface
 
             return $resultRedirect->setPath(
                 '*/*/edit',
-                [IncomesModel::ENTITY_ID => $this->getRequest()->getParam(IncomesModel::ENTITY_ID)]
+                [IncomesInterface::ENTITY_ID => $this->getRequest()->getParam(IncomesInterface::ENTITY_ID)]
             );
         }
 
@@ -104,17 +111,20 @@ class Save extends Action implements HttpPostActionInterface
      * @param Redirect $resultRedirect
      *
      * @return Redirect
+     * @throws AlreadyExistsException
      */
-    private function processResultRedirect(IncomesModel $model, Redirect $resultRedirect)
+    private function processResultRedirect(IncomesModel $model, Redirect $resultRedirect, array $data): Redirect
     {
-        $this->dataPersistor->clear('tsum_incomes');
-        if ($this->getRequest()->getParam('back')) {
-            return $resultRedirect->setPath(
-                '*/*/edit',
-                [IncomesModel::ENTITY_ID => $model->getId(), '_current' => true]
-            );
+        $redirect = $data['back'] ?? 'close';
+        $editPath = '*/*/edit' . ($this->dataPersistor->get('tsum_incomes_in') == 1 ? 'in' : '');
+        if ($redirect === 'close') {
+            $resultRedirect->setPath('*/*/');
+        } elseif ($redirect === 'duplicate') {
+            $this->messageManager->addSuccessMessage(__('You duplicated the income.'));
+            $this->dataPersistor->set('tsum_incomes', $data);
+            $resultRedirect->setPath($editPath);
         }
 
-        return $resultRedirect->setPath('*/*/');
+        return $resultRedirect;
     }
 }

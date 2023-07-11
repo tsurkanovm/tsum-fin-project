@@ -7,13 +7,11 @@ use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\View\Result\PageFactory;
+use Tsum\CashFlow\Api\Data\IncomesInterface;
 use Tsum\CashFlow\Model\ResourceModel\Incomes as IncomesResource;
-use Tsum\CashFlow\Model\Incomes;
 use Tsum\CashFlow\Model\IncomesFactory;
 
-/**
- * Edit CMS page action.
- */
+
 class EditIn extends Action implements HttpGetActionInterface
 {
     /**
@@ -55,13 +53,8 @@ class EditIn extends Action implements HttpGetActionInterface
         parent::__construct($context);
     }
 
-    /**
-     *
-     * @return Page
-     */
-    protected function _initAction()
+    protected function _initAction(): Page
     {
-        // load layout, set active menu and breadcrumbs
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Tsum_CashFlow::incomes')
@@ -77,7 +70,7 @@ class EditIn extends Action implements HttpGetActionInterface
     public function execute()
     {
         $this->dataPersistor->set('tsum_incomes_in', 1);
-        $id = $this->getRequest()->getParam(Incomes::ENTITY_ID);
+        $id = $this->getRequest()->getParam(IncomesInterface::ENTITY_ID);
         $model = $this->incomesFactory->create();
 
         if ($id) {
