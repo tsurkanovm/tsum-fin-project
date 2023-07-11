@@ -20,37 +20,18 @@ class Edit extends Action implements HttpGetActionInterface
      */
     const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
 
-    /**
-     * @var PageFactory
-     */
-    private $resultPageFactory;
+    const MOVE_KEY = 'tsum_incomes_in';
+    const MOVE_VALUE = 0;
+    const TYPE_OF_MOVE = 'Out';
 
-    /**
-     * @var IncomesResource
-     */
-    private $incomesResource;
-
-    /**
-     * @var IncomesFactory
-     */
-    private $incomesFactory;
-
-    /**
-     * @var DataPersistorInterface
-     */
-    private $dataPersistor;
 
     public function __construct(
         Action\Context $context,
-        PageFactory $resultPageFactory,
-        IncomesResource $incomesResource,
-        IncomesFactory $incomesFactory,
-        DataPersistorInterface $dataPersistor
+        private readonly PageFactory $resultPageFactory,
+        private readonly IncomesResource $incomesResource,
+        private readonly IncomesFactory $incomesFactory,
+        private readonly DataPersistorInterface $dataPersistor
     ) {
-        $this->resultPageFactory = $resultPageFactory;
-        $this->incomesResource = $incomesResource;
-        $this->incomesFactory = $incomesFactory;
-        $this->dataPersistor = $dataPersistor;
         parent::__construct($context);
     }
 
@@ -60,7 +41,7 @@ class Edit extends Action implements HttpGetActionInterface
         /** @var Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Tsum_CashFlow::incomes')
-            ->addBreadcrumb(__('Out'), __('Out'))
+            ->addBreadcrumb(__(static::TYPE_OF_MOVE), __(static::TYPE_OF_MOVE))
             ->addBreadcrumb(__('Manage Incomes'), __('Manage Incomes'));
         return $resultPage;
     }
@@ -71,27 +52,28 @@ class Edit extends Action implements HttpGetActionInterface
      */
     public function execute()
     {
-        $this->dataPersistor->set('tsum_incomes_in', 0);
+        $this->dataPersistor->set(self::MOVE_KEY, static::MOVE_VALUE);
         $model = $this->incomesFactory->create();
 
         if ($id = $this->getRequest()->getParam(IncomesInterface::ENTITY_ID)) {
             $this->incomesResource->load($model, $id);
             if (!$model->getId()) {
-                $this->messageManager->addErrorMessage(__('This income no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This ' . static::TYPE_OF_MOVE . ' income no longer exists.'));
                 /** @var Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
         }
 
+        $type = static::TYPE_OF_MOVE;
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(
-            $id ? __('Edit Income (Out)') : __('New Out'),
-            $id ? __('Edit Income (Out)') : __('New Out')
+            $id ? __("Edit Income ({$type})") : __("New {$type}"),
+            $id ? __("Edit Income ({$type})") : __("New {$type}")
         );
-        $resultPage->getConfig()->getTitle()->prepend(__('Out'));
+        $resultPage->getConfig()->getTitle()->prepend(__($type));
         $resultPage->getConfig()->getTitle()
-            ->prepend($model->getId() ? $model->getTitle() : __('New Out'));
+            ->prepend($model->getId() ? $model->getTitle() : __("New {$type}"));
 
         return $resultPage;
     }

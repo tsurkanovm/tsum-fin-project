@@ -345,7 +345,7 @@ return [
                 'name' => 'Admin',
                 'sort_order' => '0',
                 'default_group_id' => '0',
-                'is_default' => '0',
+                'is_default' => '0'
             ],
             'base' => [
                 'website_id' => '1',
@@ -353,26 +353,26 @@ return [
                 'name' => 'Main Website',
                 'sort_order' => '0',
                 'default_group_id' => '1',
-                'is_default' => '1',
-            ],
+                'is_default' => '1'
+            ]
         ],
         'groups' => [
-            0 => [
+            [
                 'group_id' => '0',
                 'website_id' => '0',
                 'name' => 'Default',
                 'root_category_id' => '0',
                 'default_store_id' => '0',
-                'code' => 'default',
+                'code' => 'default'
             ],
-            1 => [
+            [
                 'group_id' => '1',
                 'website_id' => '1',
                 'name' => 'Main Website Store',
                 'root_category_id' => '2',
                 'default_store_id' => '1',
-                'code' => 'main_website_store',
-            ],
+                'code' => 'main_website_store'
+            ]
         ],
         'stores' => [
             'admin' => [
@@ -382,7 +382,7 @@ return [
                 'group_id' => '0',
                 'name' => 'Admin',
                 'sort_order' => '0',
-                'is_active' => '1',
+                'is_active' => '1'
             ],
             'default' => [
                 'store_id' => '1',
@@ -391,9 +391,9 @@ return [
                 'group_id' => '1',
                 'name' => 'Default Store View',
                 'sort_order' => '0',
-                'is_active' => '1',
-            ],
-        ],
+                'is_active' => '1'
+            ]
+        ]
     ],
     'system' => [
 

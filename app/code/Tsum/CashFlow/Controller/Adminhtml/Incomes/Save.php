@@ -2,13 +2,11 @@
 namespace Tsum\CashFlow\Controller\Adminhtml\Incomes;
 
 use Magento\Backend\Model\View\Result\Redirect;
-use Magento\Cms\Model\Block;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Request\DataPersistorInterface;
-use Magento\Framework\Exception\AlreadyExistsException;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Tsum\CashFlow\Api\Data\CfItemInterface;
 use Tsum\CashFlow\Api\Data\IncomesInterface;
 use Tsum\CashFlow\Model\ResourceModel\Incomes;
 use Tsum\CashFlow\Model\Incomes as IncomesModel;
@@ -23,39 +21,19 @@ class Save extends Action implements HttpPostActionInterface
      */
     const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
 
-    /**
-     * @var DataPersistorInterface
-     */
-    protected $dataPersistor;
-
-    /**
-     * @var Incomes
-     */
-    protected $incomesResource;
-
-    /**
-     * @var IncomesFactory
-     */
-    protected $incomesFactory;
-
     public function __construct(
         Action\Context $context,
-        DataPersistorInterface $dataPersistor,
-        Incomes $incomesResource,
-        IncomesFactory $incomesFactory
+        private readonly DataPersistorInterface $dataPersistor,
+        private readonly Incomes $incomesResource,
+        private readonly IncomesFactory $incomesFactory
     ) {
-        $this->dataPersistor = $dataPersistor;
-        $this->incomesFactory = $incomesFactory;
-        $this->incomesResource = $incomesResource;
-
         parent::__construct($context);
     }
 
     /**
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
-     * @return \Magento\Framework\Controller\ResultInterface
      */
-    public function execute()
+    public function execute(): Redirect|ResultInterface
     {
         $data = $this->getRequest()->getPostValue();
         /** @var Redirect $resultRedirect */
@@ -104,19 +82,10 @@ class Save extends Action implements HttpPostActionInterface
         return $resultRedirect->setPath('*/*/');
     }
 
-    /**
-     * Process result redirect
-     *
-     * @param IncomesModel $model
-     * @param Redirect $resultRedirect
-     *
-     * @return Redirect
-     * @throws AlreadyExistsException
-     */
     private function processResultRedirect(IncomesModel $model, Redirect $resultRedirect, array $data): Redirect
     {
         $redirect = $data['back'] ?? 'close';
-        $editPath = '*/*/edit' . ($this->dataPersistor->get('tsum_incomes_in') == 1 ? 'in' : '');
+        $editPath = $this->getEditControllerPath();
         if ($redirect === 'close') {
             $resultRedirect->setPath('*/*/');
         } elseif ($redirect === 'duplicate') {
@@ -126,5 +95,10 @@ class Save extends Action implements HttpPostActionInterface
         }
 
         return $resultRedirect;
+    }
+
+    private function getEditControllerPath(): string
+    {
+        return '*/*/edit' . ($this->dataPersistor->get(Edit::MOVE_KEY) === EditIn::MOVE_VALUE ? 'in' : '');
     }
 }
