@@ -38,7 +38,6 @@
     </dataSource>
     <fieldset name="from" sortOrder="10">
         <settings>
-            <collapsible>true</collapsible>
             <label translate="true">From</label>
         </settings>
         <field name="storage_id_out" formElement="select">
@@ -96,7 +95,6 @@
     </fieldset>
     <fieldset name="to" sortOrder="20">
         <settings>
-            <collapsible>true</collapsible>
             <label translate="true">To</label>
         </settings>
         <field name="storage_id_in" formElement="select">
