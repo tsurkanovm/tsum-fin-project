@@ -1,0 +1,48 @@
+grumphp:
+  tasks:
+    phpcs:
+      triggered_by: [ php ]
+      severity: 6
+      standard: Magento2
+      tab_width: 4
+      ignore_patterns:
+        - vendor/
+        - magento-vars.php
+    eslint:
+      triggered_by: [ js ]
+    stylelint:
+      triggered_by: [ less ]
+    phpstan:
+      triggered_by: [ 'php' ]
+      configuration: phpstan.neon
+    git_commit_message:
+      allow_empty_message: false
+      enforce_capitalized_subject: false
+      max_body_width: 0
+      max_subject_width: 0
+    git_blacklist:
+      regexp_type: E
+      keywords:
+        - "\\.dev"
+        - "\\.local"
+        - "\\.test"
+        - "<<<<<<<"
+        - "======="
+        - "DebuggerUtility"
+        - "ObjectManager::getInstance"
+        - "_GET\\["
+        - "_POST\\["
+        - "_REQUEST\\["
+        - "console.log\\("
+        - "die\\("
+        - "die;"
+        - "exit\\("
+        - "exit;"
+        - "fileadmin"
+        - "localhost"
+        - "phpinfo"
+        - "phpinfo\\("
+        - "print_r\\("
+        - "var_dump\\("
+        - "_objectManager"
+      triggered_by: [ 'php', 'phtml' ]

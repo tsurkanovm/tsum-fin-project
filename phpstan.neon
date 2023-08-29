@@ -1,0 +1,40 @@
+parameters:
+    level: 8
+    checkExplicitMixedMissingReturn: true
+    checkPhpDocMissingReturn: true
+    reportUnmatchedIgnoredErrors: false
+    excludePaths:
+    		- app/code/DEG/*
+    ignoreErrors:
+        - '#Factory#i'
+        - '#(class|type) Magento\\TestFramework#i'
+        - '#(class|type) Magento\\\S*Factory#i'
+        - '#(method) Magento\\Framework\\Api\\ExtensionAttributesInterface#i'
+        # Ignore the issue that occurs by using a resource model load method (e.g. in repositories getById methods)
+        - '#Magento\\Framework\\Model\\ResourceModel\\Db\\AbstractDb::load\(\) expects Magento\\Framework\\Model\\AbstractModel, [a-zA-Z0-9\\_]+\\Api\\Data\\[a-zA-Z0-9\\_]+Interface given#i'
+        # Ignore the issue that occurs by using a resource model delete method (e.g. in repositories deleteById methods)
+        - '#Magento\\Framework\\Model\\ResourceModel\\Db\\AbstractDb::delete\(\) expects Magento\\Framework\\Model\\AbstractModel, [a-zA-Z0-9\\_]+\\Api\\Data\\[a-zA-Z0-9\\_]+Interface given#i'
+        # Ignore the issue that occurs by using a resource model save method (e.g. in repositories save methods)
+        - '#Magento\\Framework\\Model\\ResourceModel\\Db\\AbstractDb::save\(\) expects Magento\\Framework\\Model\\AbstractModel, [a-zA-Z0-9\\_]+\\Api\\Data\\[a-zA-Z0-9\\_]+Interface given#i'
+        # Ignore PHPStan\Rules\Classes\UnusedConstructorParametersRule
+        - '#Constructor of class [a-zA-Z0-9\\_]+ has an unused parameter#'
+        # Ignore setCustomErrorHandler function not found in bootstrap files
+        - '#Function setCustomErrorHandler not found#'
+        # Ignore 'return statement is missing' error when 'void' is present in return type list
+        - '#Method (?:.*?) should return (?:.*?)void(?:.*?) but return statement is missing.#'
+        # Ignore 'return type has no value type specified in iterable type
+        - '#Method (?:.*?) return type has no value type specified in iterable type (?:.*?).#'
+        # Ignore 'Call to an undefined method
+        - '#Call to an undefined method (?:.*?)#'
+        # Ignore constants, defined dynamically.
+        - '#Constant TESTS_WEB_API_ADAPTER not found.#'
+        - '#Constant TESTS_BASE_URL not found.#'
+        - '#Constant TESTS_XDEBUG_ENABLED not found.#'
+        - '#Constant TESTS_XDEBUG_SESSION not found.#'
+        - '#Constant INTEGRATION_TESTS_DIR not found.#'
+        - '#Constant MAGENTO_MODULES_PATH not found.#'
+        - '#Constant TESTS_MODULES_PATH not found.#'
+        - '#Constant TESTS_INSTALLATION_DB_CONFIG_FILE not found.#'
+        - '#Constant T_[A-Z_]+ not found.#'
+
+
