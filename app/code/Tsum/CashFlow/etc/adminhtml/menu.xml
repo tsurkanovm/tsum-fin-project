@@ -8,5 +8,6 @@
         <add id="Tsum_CashFlow::incomes" title="Incomes" module="Tsum_CashFlow" sortOrder="50" parent="Tsum_CashFlow::manager" action="cashflow/incomes" resource="Tsum_CashFlow::incomes"/>
         <add id="Tsum_CashFlow::transfer" title="Transfers" module="Tsum_CashFlow" sortOrder="60" parent="Tsum_CashFlow::manager" action="cashflow/transfer" resource="Tsum_CashFlow::incomes"/>
         <add id="Tsum_CashFlow::reports" title="Reports" module="DEG_CustomReports" sortOrder="70" parent="Tsum_CashFlow::manager" action="deg_customreports/customreport/listing" resource="Tsum_CashFlow::incomes"/>
+        <add id="Tsum_CashFlow::import" title="Import" module="Tsum_CashFlow" sortOrder="80" parent="Tsum_CashFlow::manager" action="cashflow/import/fromfile" resource="Tsum_CashFlow::incomes"/>
     </menu>
 </config>
