@@ -239,7 +239,7 @@ return [
         'Magento_Persistent' => 1,
         'Magento_ProductAlert' => 1,
         'Magento_ProductVideo' => 1,
-        'Magento_CheckoutAgreements' => 0,
+        'Magento_CheckoutAgreements' => 1,
         'Magento_QuoteAnalytics' => 1,
         'Magento_QuoteBundleOptions' => 1,
         'Magento_QuoteConfigurableOptions' => 1,
