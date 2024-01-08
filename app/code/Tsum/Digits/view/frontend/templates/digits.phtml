@@ -1,13 +1,23 @@
-<div id="digits-render-block" data-bind="scope: 'digitsComponent'">
+<div id="digits-render-block" data-bind="scope: 'digitsMainModel'">
     <!-- ko template: getTemplate() --><!--/ko-->
 </div>
+<div id="digits-timer-render-block" data-bind="scope: 'digitsTimer'">
+    <!-- ko template: getTemplate() --><!--/ko-->
+</div>
+
 <script type="text/x-magento-init">
     {
         "*": {
             "Magento_Ui/js/core/app": {
                 "components": {
-                    "digitsComponent": {
-                        "component": "Tsum_Digits/js/digits"
+                    "digitsMainModel": {
+                        "component": "Tsum_Digits/js/digits",
+                        "deps": [
+                            "digitsTimer"
+                        ]
+                    },
+                    "digitsTimer": {
+                        "component": "Tsum_Digits/js/timer"
                     }
                 }
             }

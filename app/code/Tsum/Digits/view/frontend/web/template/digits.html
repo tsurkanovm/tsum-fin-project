@@ -18,12 +18,12 @@
             <span data-bind="text: score"> </span>
         </li>
     </ul>
-    <p data-bind="css: { error: strokeValue.hasError }">
+    <p data-bind="css: { error: hasError }">
         <input type="text" name="stroke" required minlength="4" size="6"
                data-bind="visible: isStrokeInputVisible, textInput: strokeValue,
-           attr: {maxlength: size(), placeholder: getStrokePlaceholder() }">
+           attr: {maxlength: size, placeholder: getStrokePlaceholder() }">
         <button data-bind="visible: isStrokeBtnVisible, click: addStroke">Shoot!</button>
-        <span data-bind='visible: strokeValue.hasError, text: strokeValue.validationMessage'> </span>
+        <span data-bind='visible: hasError, text: validationMessage'> </span>
         <span data-bind='visible: gameOver, text: gameOverMessage()'> </span>
     </p>
 </div>

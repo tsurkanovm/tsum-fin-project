@@ -1,36 +1,46 @@
 define([
-    'uiComponent',
+    'uiElement',
     'ko',
-    'Tsum_Digits/js/timer',
     'mage/storage',
     'mage/translate'
-], function (Component, ko, timer, storage, $t) {
+], function (Component, ko, storage, $t) {
     'use strict';
     return Component.extend({
         defaults: {
-            template: 'Tsum_Digits/digits'
-        },
-        strokeHistory: ko.observableArray([]),
-        isStrokeInputVisible: ko.observable(true),
-        isStrokeBtnVisible: ko.observable(false),
-        strokeValue: ko.observable(''),
-        size: ko.observable('4'),
-        gameOver: ko.observable(false),
-        noMoves: ko.observable(true),
+            template: 'Tsum_Digits/digits',
+            links: {
+                status: '${ $.provider }:status'
+            },
 
-        /* @todo
-        4. ajax for result
-         */
-        initialize: function () {
-            let self = this;
-            this._super();
-            this.strokeValue.hasError = ko.observable(false);
-            this.strokeValue.validationMessage = ko.observable('');
-            this.strokeValue.extend({rateLimit: 50});
-            this.strokeValue.subscribe(function (newValue) {
-                self.strokeValueHandler(newValue);
-            });
-            return this;
+            imports: {
+                time: '${ $.provider }:time'
+            },
+
+            strokeHistory: [],
+            hasError: false,
+            validationMessage: '',
+            isStrokeInputVisible: true,
+            isStrokeBtnVisible: false,
+            size: 4,
+            gameOver: false,
+            noMoves: true,
+
+            tracks: {
+                strokeHistory: true,
+                isStrokeInputVisible: true,
+                isStrokeBtnVisible: true,
+                strokeValue: true,
+                size: true,
+                gameOver: true,
+                noMoves: true,
+                status: true,
+                hasError: true,
+                validationMessage: true
+            },
+
+            listens: {
+                strokeValue: 'strokeValueHandler'
+            }
         },
 
         initiateGoal: function () {
@@ -50,26 +60,29 @@ define([
             let buffer = Array.from({length: 10}, function (value, key) {
                 return key;
             });
-            this.goal = shuffle(buffer).slice(0, this.size());
+
+            this.goal = shuffle(buffer).slice(0, this.size);
         },
 
         addStroke: function () {
-            let self = this;
-            if (self.noMoves()) {
-                self.initiateGoal();
-                console.log(self.goal);
-                timer.start();
-                self.noMoves(false);
+            if (this.noMoves) {
+                this.initiateGoal();
+                console.log(this.goal);
+                this.status = 1; // start
+                this.noMoves = false;
             }
-            self.strokeHistory.push({stroke: self.strokeValue(), score: self.getCurrentScore(), time: timer.time});
-            self.strokeValue('');
+            this.strokeHistory.push({stroke: this.strokeValue, score: this.getCurrentScore(), time: this.time});
+            this.strokeValue = '';
+
+            if (this.gameOver) {
+                this.sendResultToSever();
+            }
         },
 
         getCurrentScore: function () {
-            let self = this;
-            let strokeArr = Array.from(this.strokeValue()), score = { hits : 0, precise : 0 };
-            strokeArr.forEach(function (value, index) {
-                let goalIndex = self.goal.indexOf(parseInt(value));
+            let strokeArr = Array.from(this.strokeValue), score = { hits : 0, precise : 0 };
+            strokeArr.forEach((value, index) => {
+                let goalIndex = this.goal.indexOf(parseInt(value));
                 if (goalIndex !==-1) {
                     score.hits +=1;
                     if (goalIndex === index) {
@@ -78,7 +91,7 @@ define([
                 }
             });
 
-            if (score.precise == this.size()) {
+            if (score.precise == this.size) {
                 this.gameOverHandler();
             }
 
@@ -86,33 +99,36 @@ define([
         },
 
         gameOverHandler: function () {
-            this.gameOver(true);
-            this.isStrokeBtnVisible(false);
-            this.isStrokeInputVisible(false);
-            this.sendResultToSever();
+            this.gameOver = true;
+            this.isStrokeBtnVisible = false;
+            this.isStrokeInputVisible = false;
         },
 
         sendResultToSever: function () {
             let payload = {
-                hits:this.strokeHistory().length,
-                creation_time: timer.stop(),
+                hits: this.strokeHistory.length,
+                creation_time: this.time,
                 customer_id: 1,
                 size: this.size
             };
+
+            this.status = 0; // stop
             let serviceUrl        = 'rest/V1/digits/save';
 
-            storage.post(
-                serviceUrl,
-                JSON.stringify(payload)
-            ).done(function (response) {
-                alert({
-                    content: $t('Action Successfully completed.')
-                });
-            }).fail(function (response) {
-                alert({
-                    content: $t('There was error during saving data')
-                });
-            });
+            console.log('Final result is - ', payload);
+
+            // storage.post(
+            //     serviceUrl,
+            //     JSON.stringify(payload)
+            // ).done(function (response) {
+            //     alert({
+            //         content: $t('Action Successfully completed.')
+            //     });
+            // }).fail(function (response) {
+            //     alert({
+            //         content: $t('There was error during saving data')
+            //     });
+            // });
 
         },
 
@@ -122,27 +138,28 @@ define([
         },
 
         strokeValueHandler: function (stroke) {
-            let self = this;
-            if (stroke.length == this.size()) {
+            if (stroke.length == this.size) {
+                console.log(stroke);
                 if (!checkOnUniqueDigits()) {
                     showError($t('Digits must be unique'));
                     return;
                 }
-                if (!this.strokeHistory.every(function (historyEl) {
+                if (!this.strokeHistory.every((historyEl) => {
                     return historyEl.stroke !== stroke;
                 })) {
                     showError($t('Strokes must be unique'));
                     return;
                 }
-                this.isStrokeBtnVisible(true);
-                this.strokeValue.validationMessage('');
+
+                this.isStrokeBtnVisible = true;
+                this.validationMessage = '';
             }
 
             function showError(msg)
             {
-                self.isStrokeBtnVisible(false);
-                self.strokeValue.hasError(true);
-                self.strokeValue.validationMessage(msg);
+                this.isStrokeBtnVisible = false;
+                this.hasError = true;
+                this.validationMessage = msg;
             }
 
             function checkOnUniqueDigits()
@@ -158,7 +175,7 @@ define([
 
         handleKeyup: function (data, event) {
             if (event.keyCode === 13) {
-                if (this.isStrokeBtnVisible()) {
+                if (this.isStrokeBtnVisible) {
                     event.preventDefault();
                     event.stopPropagation();
                     this.addStroke();
@@ -167,8 +184,7 @@ define([
         },
 
         gameOverMessage: function () {
-            return `You win! Your result is ${this.strokeHistory().length} hits`
+            return `You win! Your result is ${this.strokeHistory.length} hits`
         }
-
     });
 });
