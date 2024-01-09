@@ -1,19 +1,20 @@
 define([
     'uiElement',
-    'ko',
-    'mage/storage',
+    'uiEvents',
+    'Tsum_Digits/js/action/storeResult',
     'mage/translate'
-], function (Component, ko, storage, $t) {
+], function (Component, events, storeResult, $t) {
     'use strict';
     return Component.extend({
         defaults: {
             template: 'Tsum_Digits/digits',
-            links: {
-                status: '${ $.provider }:status'
-            },
+            // links: {
+            //     status: '${ $.provider }:status'
+            // },
 
             imports: {
-                time: '${ $.provider }:time'
+                time: '${ $.provider }:time',
+                status: '${ $.provider }:status'
             },
 
             strokeHistory: [],
@@ -24,6 +25,9 @@ define([
             size: 4,
             gameOver: false,
             noMoves: true,
+            pauseBtnText: 'Pause',
+            isPaused: false,
+            finishTime: 0,
 
             tracks: {
                 strokeHistory: true,
@@ -33,7 +37,8 @@ define([
                 size: true,
                 gameOver: true,
                 noMoves: true,
-                status: true,
+                isPaused: true,
+                pauseBtnText: true,
                 hasError: true,
                 validationMessage: true
             },
@@ -68,7 +73,7 @@ define([
             if (this.noMoves) {
                 this.initiateGoal();
                 console.log(this.goal);
-                this.status = 1; // start
+                events.trigger('tsum_digits:start'); // start
                 this.noMoves = false;
             }
             this.strokeHistory.push({stroke: this.strokeValue, score: this.getCurrentScore(), time: this.time});
@@ -102,34 +107,19 @@ define([
             this.gameOver = true;
             this.isStrokeBtnVisible = false;
             this.isStrokeInputVisible = false;
+            this.finishTime = this.time;
         },
 
         sendResultToSever: function () {
             let payload = {
                 hits: this.strokeHistory.length,
-                creation_time: this.time,
+                time: this.time,
                 customer_id: 1,
                 size: this.size
             };
 
-            this.status = 0; // stop
-            let serviceUrl        = 'rest/V1/digits/save';
-
-            console.log('Final result is - ', payload);
-
-            // storage.post(
-            //     serviceUrl,
-            //     JSON.stringify(payload)
-            // ).done(function (response) {
-            //     alert({
-            //         content: $t('Action Successfully completed.')
-            //     });
-            // }).fail(function (response) {
-            //     alert({
-            //         content: $t('There was error during saving data')
-            //     });
-            // });
-
+            storeResult(payload);
+            events.trigger('tsum_digits:stop'); // stop timer
         },
 
         getStrokePlaceholder: function () {
@@ -141,13 +131,13 @@ define([
             if (stroke.length == this.size) {
                 console.log(stroke);
                 if (!checkOnUniqueDigits()) {
-                    showError($t('Digits must be unique'));
+                    showError.apply(this, [$t('Digits must be unique')]);
                     return;
                 }
                 if (!this.strokeHistory.every((historyEl) => {
                     return historyEl.stroke !== stroke;
                 })) {
-                    showError($t('Strokes must be unique'));
+                    showError.apply(this, [$t('Strokes must be unique')]);
                     return;
                 }
 
@@ -183,8 +173,20 @@ define([
             }
         },
 
+        pause: function () {
+            if (this.status === 1) {
+                events.trigger('tsum_digits:pause'); // pause timer
+                this.isPaused = true;
+                this.pauseBtnText = 'Unpause';
+            } else if (this.isPaused) {
+                events.trigger('tsum_digits:unpause'); // unpause timer
+                this.isPaused = false;
+                this.pauseBtnText = 'Pause';
+            }
+        },
+
         gameOverMessage: function () {
-            return `You win! Your result is ${this.strokeHistory.length} hits`
+            return `You win! Your result is ${this.strokeHistory.length} hits with the time ${this.finishTime} sec.`
         }
     });
 });
