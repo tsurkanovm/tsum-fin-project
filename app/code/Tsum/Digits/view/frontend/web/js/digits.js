@@ -1,9 +1,9 @@
 define([
     'uiElement',
     'uiEvents',
-    'mage/storage',
+    'Tsum_Digits/js/action/storeResult',
     'mage/translate'
-], function (Component, events, storage, $t) {
+], function (Component, events, storeResult, $t) {
     'use strict';
     return Component.extend({
         defaults: {
@@ -113,29 +113,12 @@ define([
         sendResultToSever: function () {
             let payload = {
                 hits: this.strokeHistory.length,
-                creation_time: this.time,
+                time: this.time,
                 customer_id: 1,
                 size: this.size
             };
 
-
-            let serviceUrl        = 'rest/V1/digits/save';
-
-            console.log('Final result is - ', payload);
-
-            // storage.post(
-            //     serviceUrl,
-            //     JSON.stringify(payload)
-            // ).done(function (response) {
-            //     alert({
-            //         content: $t('Action Successfully completed.')
-            //     });
-            // }).fail(function (response) {
-            //     alert({
-            //         content: $t('There was error during saving data')
-            //     });
-            // });
-
+            storeResult(payload);
             events.trigger('tsum_digits:stop'); // stop timer
         },
 
@@ -148,13 +131,13 @@ define([
             if (stroke.length == this.size) {
                 console.log(stroke);
                 if (!checkOnUniqueDigits()) {
-                    showError($t('Digits must be unique'));
+                    showError.apply(this, [$t('Digits must be unique')]);
                     return;
                 }
                 if (!this.strokeHistory.every((historyEl) => {
                     return historyEl.stroke !== stroke;
                 })) {
-                    showError($t('Strokes must be unique'));
+                    showError.apply(this, [$t('Strokes must be unique')]);
                     return;
                 }
 
