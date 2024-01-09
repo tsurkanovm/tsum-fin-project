@@ -1,6 +1,7 @@
 define([
-    'uiElement'
-], function (Component) {
+    'uiElement',
+    'uiEvents'
+], function (Component, events) {
     'use strict';
 
     return Component.extend({
@@ -12,46 +13,55 @@ define([
             tracks: {
                 time: true,
                 status: true
-            },
-            listens: {
-                status: 'onStatusChange' //@todo rewrite to use uiEvents
             }
         },
 
+        initialize: function () {
+            this._super();
+            events.on('tsum_digits:start',this.start.bind(this));
+            events.on('tsum_digits:stop',this.stop.bind(this));
+            events.on('tsum_digits:pause',this.pause.bind(this));
+            events.on('tsum_digits:unpause',this.unPause.bind(this));
+
+            return this;
+        },
         // require('uiRegistry').get(component => {if (component.name == 'digitsTimer') {console.log(component)}})
 
-        onStatusChange: function (newStatus) {
-            switch (newStatus) {
-                        case 0:
-                            this.stop();
-                            break;
-                        case 1:
-                            this.start();
-                            break;
-                            //@todo pause - unpause
-                    }
-        },
-
         start: function () {
-            function coreTimer()
-            {
+            if (this.startId) {
+                clearInterval(this.startId); // Clear existing interval if any
+            }
+
+            function coreTimer() {
                 this.time = this.time + 1;
             }
 
             this.startId = setInterval(coreTimer.bind(this), 1000);
+            this.status = 1;
         },
 
         pause: function () {
-
+            if (this.startId) {
+                clearInterval(this.startId);
+                this.startId = null; // Clear the interval ID
+            }
+            this.status = 2;
         },
 
         unPause: function () {
-
+            if (!this.startId) { // Only start if the timer is not already running
+                this.start();
+                this.status = 1;
+            }
         },
 
         stop: function () {
-            clearInterval(this.startId);
+            if (this.startId) {
+                clearInterval(this.startId);
+                this.startId = null;
+            }
             this.time = 0;
+            this.status = 0;
         },
 
         getTime: function () {
