@@ -3,7 +3,6 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="header-wrapper">
-            <referenceBlock name="minicart" remove="true"/>
 <!--            temporary cause it is not work as suppose to -->
 <!--            <block name="add_knowledge" after="top.search"-->
 <!--                   template="Tsum_Knowledge::add-knowledge.phtml">-->
