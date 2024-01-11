@@ -22,5 +22,14 @@
                 </block>
             </container>
         </referenceContainer>
+
+        <referenceBlock name="minicart" remove="true"/>
+        <referenceBlock name="form.subscribe" remove="true"/>
+        <referenceBlock name="copyright" remove="true"/>
+        <referenceBlock name="report.bugs" remove="true"/>
+        <referenceContainer name="footer_links" remove="true"/>
+        <referenceContainer name="contact-us-link" remove="true"/>
+        <referenceContainer name="catalog-search-advanced-link" remove="true"/>
+        <referenceContainer name="cms_footer_links_container" remove="true"/>
     </body>
 </page>

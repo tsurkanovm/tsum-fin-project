@@ -3,6 +3,7 @@
 namespace Tsum\Digits\Api;
 
 use Magento\Framework\Api\Search\SearchResultFactory;
+use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Tsum\Digits\Api\Data\ResultInterface;
@@ -17,19 +18,18 @@ interface ResultRepositoryInterface
      * Save result.
      *
      * @param ResultInterface $result
-     * @return ResultInterface
      * @throws LocalizedException
      */
-    public function save($result);
+    public function save(ResultInterface $result): void;
 
     /**
      * Retrieve results matching the specified criteria.
      *
      * @param SearchCriteriaInterface $searchCriteria
-     * @return SearchResult
+     * @return SearchResultInterface
      * @throws LocalizedException
      */
-    public function getList(SearchCriteriaInterface $searchCriteria);
+    public function getList(SearchCriteriaInterface $searchCriteria): SearchResultInterface;
 
     /**
      * Retrieve three the best results.
@@ -37,14 +37,14 @@ interface ResultRepositoryInterface
      * @return ResultInterface[]
      * @throws LocalizedException
      */
-    public function getThreeVeryBest();
+    public function getThreeVeryBest(): array;
 
     /**
      * Retrieve the last results for user.
      *
-     * @param string|null customerId
-     * @return ResultInterface
+     * @param string $customerId
+     * @return mixed[]
      * @throws LocalizedException
      */
-    public function getLastUserResult(string $customerId);
+    public function getLastUserResult(string $customerId): array;
 }
