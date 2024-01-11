@@ -8,10 +8,6 @@ define([
     return Component.extend({
         defaults: {
             template: 'Tsum_Digits/digits',
-            // links: {
-            //     status: '${ $.provider }:status'
-            // },
-
             imports: {
                 time: '${ $.provider }:time',
                 status: '${ $.provider }:status'
@@ -22,7 +18,7 @@ define([
             validationMessage: '',
             isStrokeInputVisible: true,
             isStrokeBtnVisible: false,
-            size: 4,
+            size: '4',
             gameOver: false,
             noMoves: true,
             pauseBtnText: 'Pause',
@@ -110,6 +106,15 @@ define([
             this.finishTime = this.time;
         },
 
+        runNewGame: function () {
+            this.gameOver = false;
+            this.isStrokeBtnVisible = true;
+            this.isStrokeInputVisible = true;
+            this.noMoves = true;
+            this.finishTime = 0;
+            this.strokeHistory = [];
+        },
+
         sendResultToSever: function () {
             let payload = {
                 hits: this.strokeHistory.length,
@@ -129,7 +134,6 @@ define([
 
         strokeValueHandler: function (stroke) {
             if (stroke.length == this.size) {
-                console.log(stroke);
                 if (!checkOnUniqueDigits()) {
                     showError.apply(this, [$t('Digits must be unique')]);
                     return;
