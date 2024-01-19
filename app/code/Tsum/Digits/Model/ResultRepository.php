@@ -31,10 +31,12 @@ class ResultRepository implements ResultRepositoryInterface
     ) {
     }
 
-    public function save(ResultInterface $result): void
+    public function save(ResultInterface $result): ResultInterface
     {
         try {
             $this->resource->save($result);
+
+            return $result;
         } catch (\Exception $exception) {
             throw new CouldNotSaveException(
                 __('Could not save the result: %1', $exception->getMessage()),

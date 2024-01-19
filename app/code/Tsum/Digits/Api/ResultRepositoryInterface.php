@@ -18,9 +18,10 @@ interface ResultRepositoryInterface
      * Save result.
      *
      * @param ResultInterface $result
+     * @return ResultInterface
      * @throws LocalizedException
      */
-    public function save(ResultInterface $result): void;
+    public function save(ResultInterface $result): ResultInterface;
 
     /**
      * Retrieve results matching the specified criteria.

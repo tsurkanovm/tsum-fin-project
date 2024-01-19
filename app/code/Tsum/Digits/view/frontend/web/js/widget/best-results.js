@@ -28,7 +28,7 @@ define(
                 });
             },
 
-            _handleSuccessResults: function(response)  {
+            _handleSuccessResults(response)  {
                 this.options.results = response;
                 this.renderResults();
             },
@@ -39,7 +39,8 @@ define(
 
             renderResults() {
                 this.options.results.forEach((result) => {
-                    let resultText = `${result.customer} - ${result.hits} hits, with time ${result.time} sec.`;
+                    const {customer, hits, time} = result;
+                    let resultText = `${customer} - ${hits} hits, with time ${time} sec.`;
                     $('<div>').text(resultText).appendTo(this.element);
                 }, this);
             }

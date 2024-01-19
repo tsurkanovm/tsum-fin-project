@@ -133,15 +133,26 @@ define([
         },
 
         strokeValueHandler: function (stroke) {
+            // arrow function, get 'this' context from outside
+            const showError = (msg) =>
+            {
+                this.isStrokeBtnVisible = false;
+                this.hasError = true;
+                this.validationMessage = msg;
+            }
+
             if (stroke.length == this.size) {
                 if (!checkOnUniqueDigits()) {
-                    showError.apply(this, [$t('Digits must be unique')]);
+                    //showError.apply(this, [$t('Digits must be unique')]);
+                    showError($t('Digits must be unique'));
                     return;
                 }
                 if (!this.strokeHistory.every((historyEl) => {
                     return historyEl.stroke !== stroke;
                 })) {
-                    showError.apply(this, [$t('Strokes must be unique')]);
+                    // call here better, skipping the array of params, we have only one
+                    //showError.call(this, $t('Strokes must be unique'));
+                    showError($t('Strokes must be unique'));
                     return;
                 }
 
@@ -149,12 +160,13 @@ define([
                 this.validationMessage = '';
             }
 
-            function showError(msg)
-            {
-                this.isStrokeBtnVisible = false;
-                this.hasError = true;
-                this.validationMessage = msg;
-            }
+            // for this kind of func definition we need to bind context by apply or call
+            // function showError(msg)
+            // {
+            //     this.isStrokeBtnVisible = false;
+            //     this.hasError = true;
+            //     this.validationMessage = msg;
+            // }
 
             function checkOnUniqueDigits()
             {

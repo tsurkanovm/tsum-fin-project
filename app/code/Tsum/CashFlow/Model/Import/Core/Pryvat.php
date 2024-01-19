@@ -5,11 +5,12 @@ namespace Tsum\CashFlow\Model\Import\Core;
 
 use Magento\ImportExport\Model\Import\Entity\AbstractEntity;
 
+// it is not working for now, just draft version, possibly will use in the future
 class Pryvat extends AbstractEntity
 {
-    const ENTITY_CODE = 'pryvat';
-    const TABLE = 'tsum_cf_incomes';
-    const ENTITY_ID_COLUMN = 'cf_incomes_id';
+    public const ENTITY_CODE = 'pryvat';
+    public const TABLE = 'tsum_cf_incomes';
+    public const ENTITY_ID_COLUMN = 'cf_incomes_id';
 
     protected $logInHistory = true;
 
@@ -23,8 +24,9 @@ class Pryvat extends AbstractEntity
 
     /**
      * @inheritDoc
+     * @param mixed[] $rowData
      */
-    public function validateRow(array $rowData, $rowNum)
+    public function validateRow(array $rowData, $rowNum): bool
     {
         if (isset($this->_validatedRows[$rowNum])) {
             return !$this->getErrorAggregator()->isRowInvalid($rowNum);
@@ -38,7 +40,7 @@ class Pryvat extends AbstractEntity
     /**
      * @inheritDoc
      */
-    protected function _importData()
+    protected function _importData(): bool
     {
         $rows = [];
         while ($bunch = $this->_dataSourceModel->getNextBunch()) {
@@ -55,32 +57,36 @@ class Pryvat extends AbstractEntity
                     continue;
                 }
 
-                //$this->countItemsCreated += (int) !isset($row[static::ENTITY_ID_COLUMN]);
+                $this->countItemsCreated += (int) !isset($row[static::ENTITY_ID_COLUMN]);
             }
 
-            //$this->saveEntityFinish($entityList);
+            return $this->saveEntityFinish($entityList);
         }
+
+        return false;
     }
 
-//    private function saveEntityFinish(array $entityData): bool
-//    {
-//        if ($entityData) {
-//            $tableName = $this->connection->getTableName(static::TABLE);
-//            $rows = [];
-//
-//            foreach ($entityData as $entityRows) {
-//                foreach ($entityRows as $row) {
-//                    $rows[] = $row;
-//                }
-//            }
-//
-//            if ($rows) {
-//                $this->connection->insertOnDuplicate($tableName, $rows, $this->getAvailableColumns());
-//
-//                return true;
-//            }
-//
-//            return false;
-//        }
-//    }
+    /**
+     * @param mixed[] $entityData
+     * @return bool
+     */
+    private function saveEntityFinish(array $entityData): bool
+    {
+        $tableName = $this->_connection->getTableName(static::TABLE);
+        $rows = [];
+
+        foreach ($entityData as $entityRows) {
+            foreach ($entityRows as $row) {
+                $rows[] = $row;
+            }
+        }
+
+        if ($rows) {
+            $this->_connection->insertOnDuplicate($tableName, $rows, $this->getAvailableColumns());
+
+            return true;
+        }
+
+        return false;
+    }
 }
