@@ -63,7 +63,8 @@
                 </select>
             </formElements>
         </field>
-        <field name="total_out" sortOrder="30" formElement="input">
+        <field name="total_out" sortOrder="30" formElement="input"
+               component="Tsum_CashFlow/js/transfer/form/total-out-input">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
                     <item name="source" xsi:type="string">transfer</item>
