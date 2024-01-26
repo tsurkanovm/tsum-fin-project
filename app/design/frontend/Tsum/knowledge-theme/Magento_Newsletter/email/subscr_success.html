@@ -1,0 +1,16 @@
+<!--@subject {{trans "Newsletter subscription success!!!"}} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting">{{trans "MY TEST!!!."}}</p>
+<p class="greeting">{{trans "%name," name=$customer.name}}</p>
+<p>{{trans "To begin receiving the newsletter, you must first confirm your subscription by clicking on the following link:"}}</p>
+
+<p>Store code - {{var store.code}}????</p>
+<p>{{trans "My store name - %store_name," store_name=$store.name}}</p>
+<p>My var:{{customVar code=test}}</p>
+
+<img src = "{{view url = 'images/image.jpg'}}" />
+<!--src="{{view url='Magento_Customer/images/icn_checkout.png'}}"-->
+
+{{template config_path="design/email/footer_template"}}
