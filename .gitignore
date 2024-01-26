@@ -13,6 +13,7 @@
 !/app/i18n/**
 !/auth.json
 !/build_options.ini
+!/dev/tools/grunt/configs/local-theme.js
 !/composer.json
 !/composer.lock
 !/magento-vars.php
