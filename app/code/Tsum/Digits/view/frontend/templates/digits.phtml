@@ -2,7 +2,10 @@
     <!-- ko template: getTemplate() --><!--/ko-->
 </div>
 <div id="digits-timer-render-block" data-bind="scope: 'digitsTimer'">
-    <!-- ko template: getTemplate() --><!--/ko-->
+    <div class="timer-container">
+        <span data-bind="visible: status!=0, text: getTime()"></span>
+    </div>
+    <button click="onClick">Greg</button>
 </div>
 
 <script type="text/x-magento-init">
