@@ -2,8 +2,9 @@ define([
     'uiElement',
     'uiEvents',
     'Tsum_Digits/js/action/storeResult',
+    'matchMedia',
     'mage/translate'
-], function (Component, events, storeResult, $t) {
+], function (Component, events, storeResult, mediaCheck, $t) {
     'use strict';
     return Component.extend({
         defaults: {
@@ -44,6 +45,24 @@ define([
             }
         },
 
+        initialize: function () {
+            this._super();
+            mediaCheck(
+                {
+                media: '(max-width: 768px)',
+                entry: this._toggleMobileMode.bind(this),
+                exit: this._toggleDesktopMode.bind(this)
+            }
+            );
+            //getShitDone();
+        },
+
+        _toggleMobileMode: function () {
+            console.log('Mobile');
+        },
+        _toggleDesktopMode: function () {
+            console.log('Desktop');
+        },
         initiateGoal: function () {
             function shuffle(array)
             {
