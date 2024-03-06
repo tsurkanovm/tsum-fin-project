@@ -2,14 +2,14 @@
 
 namespace Tsum\CashFlow\Controller\Adminhtml\Incomes;
 
-use Magento\Framework\App\Action\Context;
+use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Backend\App\Action;
 
 class Index extends Action
 {
-    const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
+    public const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
 
     /**
      * @var PageFactory
@@ -23,7 +23,7 @@ class Index extends Action
     public function __construct(Context $context, PageFactory $resultPageFactory)
     {
         $this->resultPageFactory = $resultPageFactory;
-        return parent::__construct($context);
+        parent::__construct($context);
     }
 
     /**
