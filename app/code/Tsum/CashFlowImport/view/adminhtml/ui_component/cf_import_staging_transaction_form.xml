@@ -42,13 +42,13 @@
         </settings>
         <field name="upload" formElement="fileUploader">
             <settings>
-                <label translate="true">Upload (CSV)</label>
+                <label translate="true">Upload (XLS)</label>
             </settings>
             <formElements>
                 <fileUploader>
                     <settings>
                         <required>true</required>
-                        <allowedExtensions>csv</allowedExtensions>
+                        <allowedExtensions>xls</allowedExtensions>
                         <uploaderConfig>
                             <param xsi:type="url" name="url" path="*/*/upload"/>
                             <param xsi:type="boolean" name="disableImageLoad">true</param>
