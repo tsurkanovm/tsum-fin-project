@@ -2,7 +2,7 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
 
-    <table name="tsum_cf_staging" resource="default" engine="innodb" comment="Cash Flow Staging Table">
+    <table name="tsum_cf_staging" resource="default" engine="innodb" comment="Cash Flow Staging Documents Table">
         <column xsi:type="int" name="cf_staging_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Entity ID"/>
         <column xsi:type="smallint" name="storage_id" padding="6" unsigned="false" nullable="false" comment="Storage ID"/>
@@ -13,7 +13,8 @@
         <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
         <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Cash Flow Staging currency"/>
         <column xsi:type="date" name="registration_time" nullable="false"
-                comment="Incomes Registration Time"/>
+                comment="Staging Registration Time"/>
+        <column xsi:type="boolean" name="is_active"  nullable="false" default="0"/>
         <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_staging"
                     column="storage_id" referenceTable="tsum_cf_storage" referenceColumn="storage_id" onDelete="NO ACTION"/>
         <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_staging"

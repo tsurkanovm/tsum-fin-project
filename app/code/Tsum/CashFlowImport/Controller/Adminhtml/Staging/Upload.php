@@ -46,9 +46,12 @@ class Upload implements HttpPostActionInterface
         $uploader->setAllowRenameFiles(true);
 
         try {
-            $result = $uploader->save(DirectoryList::VAR_DIR . DIRECTORY_SEPARATOR . 'import');
             // @todo create if missed the import folder
-            // @todo run import service
+
+            $result = $uploader->save(DirectoryList::VAR_DIR . DIRECTORY_SEPARATOR . 'import');
+
+            // @todo run import service, if it is done successfully - redirect on staging grid
+            // delete imported file anyway
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         }
