@@ -21,7 +21,8 @@
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
         "magento/product-community-edition": "2.4.6",
-        "magespices/mage2dark": "^1.1"
+        "magespices/mage2dark": "^1.1",
+        "phpoffice/phpspreadsheet": "^2.1"
     },
     "replace": {
         "vertex/module-tax": "*"
