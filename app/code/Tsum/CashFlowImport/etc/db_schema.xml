@@ -10,13 +10,18 @@
         <column xsi:type="tinyint" name="type_id" padding="2" unsigned="true" nullable="false" default="1"/>
         <column xsi:type="smallint" name="project_id" padding="6" unsigned="false" nullable="true" default="null" comment="Project ID"/>
         <column xsi:type="varchar" name="commentary" nullable="true" length="255" default="" comment="Cash Flow Staging commentary"/>
-        <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Income total"/>
+        <column xsi:type="decimal" name="total" scale="4" precision="12" comment="Outcome total"/>
         <column xsi:type="varchar" name="currency" nullable="false" length="3" default="UAH" comment="Cash Flow Staging currency"/>
+        <column xsi:type="smallint" name="storage_id_in" padding="6" unsigned="false" nullable="true" comment="Storage ID In"/>
+        <column xsi:type="decimal" name="total_in" scale="4" precision="12" comment="In total"/>
+        <column xsi:type="varchar" name="currency_in" nullable="true" length="3" default="UAH" comment="Cash Flow Staging currency in"/>
         <column xsi:type="date" name="registration_time" nullable="false"
                 comment="Staging Registration Time"/>
         <column xsi:type="boolean" name="is_active"  nullable="false" default="0"/>
         <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_staging"
                     column="storage_id" referenceTable="tsum_cf_storage" referenceColumn="storage_id" onDelete="NO ACTION"/>
+        <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID_IN" table="tsum_cf_staging"
+                    column="storage_id_in" referenceTable="tsum_cf_storage" referenceColumn="storage_id" onDelete="NO ACTION"/>
         <constraint xsi:type="foreign" referenceId="CF_ITEM_ID" table="tsum_cf_staging"
                     column="cf_item_id" referenceTable="tsum_cf_item" referenceColumn="cf_item_id" onDelete="NO ACTION"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">

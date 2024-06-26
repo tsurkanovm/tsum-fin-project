@@ -26,7 +26,7 @@ class Index extends Action
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
 
-        // @todo checkup staging - if it is not empty - error msg and return
+        // @todo checkup staging - if it is not empty - error msg and redirect to staging grid
 
         $resultPage->getConfig()->getTitle()->prepend(__('CMS'));
         $resultPage->getConfig()->getTitle()->prepend(__('Staging Import Form'));

@@ -8,16 +8,21 @@ use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface;
 use Magento\MediaStorage\Model\File\UploaderFactory;
+use Magento\Framework\Filesystem\Io\File;
 
 class Upload implements HttpPostActionInterface
 {
+    public const PRYVAT_IMPORT_FOLDER_NAME = 'pryvat_import';
 
     public function __construct(
         private readonly JsonFactory $resultJsonFactory,
         private readonly UploaderFactory $fileUploaderFactory,
-        private readonly ManagerInterface $messageManager
+        private readonly ManagerInterface $messageManager,
+        private readonly DirectoryList $directoryList,
+        private readonly File $file,
     ) {
     }
 
@@ -46,15 +51,18 @@ class Upload implements HttpPostActionInterface
         $uploader->setAllowRenameFiles(true);
 
         try {
-            // @todo create if missed the import folder
+            $importFolderPath = $this->directoryList->getPath(DirectoryList::VAR_DIR)
+                . DIRECTORY_SEPARATOR . self::PRYVAT_IMPORT_FOLDER_NAME;
 
-            $result = $uploader->save(DirectoryList::VAR_DIR . DIRECTORY_SEPARATOR . 'import');
+            $this->file->checkAndCreateFolder($importFolderPath);
 
-            // @todo run import service, if it is done successfully - redirect on staging grid
-            // delete imported file anyway
+            $result = $uploader->save(
+                DirectoryList::VAR_DIR . DIRECTORY_SEPARATOR . self::PRYVAT_IMPORT_FOLDER_NAME
+            );
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
         }
+
         return $result;
     }
 }
