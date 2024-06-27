@@ -2,6 +2,7 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Tsum_CashFlowImport::staging_form" title="Staging Form" module="Tsum_CashFlowImport" sortOrder="80" parent="Tsum_CashFlow::manager" action="cf_import/staging" resource="Tsum_CashFlow::incomes"/>
+        <add id="Tsum_CashFlowImport::staging_form" title="Staging Upload Form" module="Tsum_CashFlowImport" sortOrder="80" parent="Tsum_CashFlow::manager" action="cf_import/staging" resource="Tsum_CashFlow::incomes"/>
+        <add id="Tsum_CashFlowImport::staging_grid" title="Staging Grid" module="Tsum_CashFlowImport" sortOrder="90" parent="Tsum_CashFlow::manager" action="cf_import/staging/grid" resource="Tsum_CashFlow::incomes"/>
     </menu>
 </config>

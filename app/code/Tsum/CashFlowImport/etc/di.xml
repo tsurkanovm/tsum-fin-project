@@ -10,23 +10,23 @@
 
 
     <!--  Data provider settings  START -->
-<!--    <virtualType name="Tsum\CashFlowImport\Staging\Model\ResourceModel\Grid\Collection"-->
-<!--                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">-->
-<!--        <arguments>-->
-<!--            <argument name="mainTable" xsi:type="string">tsum_cf_staging</argument>-->
-<!--            <argument name="resourceModel" xsi:type="string">Tsum\CashFlowImport\Model\ResourceModel\Staging</argument>-->
-<!--        </arguments>-->
-<!--    </virtualType>-->
-<!--    -->
-<!--    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">-->
-<!--        <arguments>-->
-<!--            <argument name="collections" xsi:type="array">-->
-<!--              -->
-<!--                <item name="staging_list_data_source" xsi:type="string">-->
-<!--                    Tsum\CashFlowImport\Staging\Model\ResourceModel\Grid\Collection-->
-<!--                </item>-->
-<!--            </argument>-->
-<!--        </arguments>-->
-<!--    </type>-->
+    <virtualType name="Tsum\CashFlowImport\Staging\Model\ResourceModel\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">tsum_cf_staging</argument>
+            <argument name="resourceModel" xsi:type="string">Tsum\CashFlowImport\Model\ResourceModel\Staging</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+
+                <item name="staging_grid_list_data_source" xsi:type="string">
+                    Tsum\CashFlowImport\Staging\Model\ResourceModel\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
     <!--  Data provider settings  END -->
 </config>
