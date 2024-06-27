@@ -10,6 +10,10 @@ use Tsum\CashFlowImport\Model\StagingFactory;
 
 abstract class AbstractDocumentMap
 {
+    // by default for out CF_id - others
+    public const DEFAULT_CF_ID = 9;
+
+    public const DICTIONARY = []; // will be defined in children
     public const DEFAULT_CURRENCY = 'UAH';
     public function __construct(
         private readonly StagingFactory $stagingFactory,
@@ -26,6 +30,7 @@ abstract class AbstractDocumentMap
         $stage->setStorageId($documentData->getStorageId());
         $stage->setCommentary($documentData->getCategory() . ' | ' . $documentData->getCommentary());
         $stage->setCurrency(self::DEFAULT_CURRENCY);
+        $stage->setTotal($documentData->getTotal() > 0 ? $documentData->getTotal() : -$documentData->getTotal());
 
         return $stage;
     }
@@ -38,21 +43,28 @@ abstract class AbstractDocumentMap
         $this->stagingRepository->save($stagingModel);
     }
 
-    /**
-     * Map commentary to its corresponding CF Item ID.
-     *
-     * @param array<int, array<string>> $dictionary
-     * @param string $commentary The commentary to search for.
-     * @return int|false The corresponding ID if found, false otherwise.
-     */
-    public function mapCfItemByCommentary(array $dictionary, string $commentary): int|false
+    public function mapCfItemByCommentary(string $commentary): int|false
     {
-        foreach ($dictionary as $id => $commentaries) {
-            if (in_array($commentary, $commentaries, true)) {
-                return $id;
+        foreach (static::DICTIONARY as $id => $commentaries) {
+            foreach ($commentaries as $dictCommentary) {
+                if ($this->isMatch($dictCommentary, $commentary)) {
+                    return $id;
+                }
             }
         }
 
-        return false;
+        return static::DEFAULT_CF_ID;
+    }
+
+    /**
+     * Check if the dictionary commentary matches the given commentary.
+     *
+     * @param string $dictCommentary The commentary from the dictionary.
+     * @param string $commentary The actual commentary to check.
+     * @return bool True if the commentary matches, false otherwise.
+     */
+    private function isMatch(string $dictCommentary, string $commentary): bool
+    {
+        return str_starts_with($commentary, $dictCommentary);
     }
 }

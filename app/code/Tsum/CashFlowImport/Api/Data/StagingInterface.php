@@ -15,6 +15,8 @@ interface StagingInterface
     public const CURRENCY = 'currency';
     public const REGISTRATION_TIME = 'registration_time';
 
+    public const TRANSFER_TYPE_ID = 2;
+
     /**
      * Get ID
      *

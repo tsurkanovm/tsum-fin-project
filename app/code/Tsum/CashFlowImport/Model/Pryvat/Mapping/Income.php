@@ -7,14 +7,22 @@ use Tsum\CashFlowImport\Model\RowDocument;
 
 class Income extends AbstractDocumentMap
 {
+    public const RENT_IN_ID = 19;
+    public const DEFAULT_CF_ID = 7 ;
+
+    public const DICTIONARY = [
+        self::RENT_IN_ID => [
+            'Від Іваненко Андрій Федорович',
+            'Olena Petrova',
+        ]
+    ];
     public function map(RowDocument $documentData): void
     {
         $stage = $this->createStagingModel($documentData);
         $stage->setTypeId(CfItemInterface::MOVE_IN_ID);
         $stage->setCfItemId(
-            (int)$this->mapCfItemByCommentary(Dictionary::INCOME_COMMENTARY, $documentData->getCommentary())
+            (int)$this->mapCfItemByCommentary($documentData->getCommentary())
         );
-        $stage->setTotal($documentData->getTotal());
 
         $this->saveStagingModel($stage);
     }

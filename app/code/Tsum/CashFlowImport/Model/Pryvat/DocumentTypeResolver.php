@@ -2,9 +2,6 @@
 
 namespace Tsum\CashFlowImport\Model\Pryvat;
 
-use Magento\Framework\DataObject;
-use Tsum\CashFlowImport\Model\Pryvat\Mapping\AbstractDocumentMap;
-use Tsum\CashFlowImport\Model\Pryvat\Mapping\Dictionary;
 use Tsum\CashFlowImport\Model\Pryvat\Mapping\Income;
 use Tsum\CashFlowImport\Model\Pryvat\Mapping\Outcome;
 use Tsum\CashFlowImport\Model\Pryvat\Mapping\Transfer;
@@ -22,16 +19,12 @@ class DocumentTypeResolver
     public function resolve(RowDocument $documentData): void
     {
         if ($documentData->getTotal() > 0
-            && $this->incomeMapper->mapCfItemByCommentary(
-                Dictionary::INCOME_COMMENTARY,
-                $documentData->getCommentary()
-            )
-        ) {
+            && $this->incomeMapper->mapCfItemByCommentary($documentData->getCommentary())) {
             $this->incomeMapper->map($documentData);
             return;
         }
 
-        if ($documentData->getCategory() === Dictionary::TRANSFER_CATEGORY) {
+        if ($documentData->getCategory() === Transfer::TRANSFER_CATEGORY) {
             $this->transferMapper->map($documentData);
             return;
         }
