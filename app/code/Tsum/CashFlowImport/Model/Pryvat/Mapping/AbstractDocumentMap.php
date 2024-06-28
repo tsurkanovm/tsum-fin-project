@@ -21,6 +21,9 @@ abstract class AbstractDocumentMap
     ) {
     }
 
+    /**
+     * @throws CouldNotSaveException
+     */
     abstract public function map(RowDocument $documentData): void;
 
     protected function createStagingModel(RowDocument $documentData): Staging

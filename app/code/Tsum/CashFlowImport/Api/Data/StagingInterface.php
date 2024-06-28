@@ -4,7 +4,7 @@ namespace Tsum\CashFlowImport\Api\Data;
 
 interface StagingInterface
 {
-    public const ENTITY_ID = 'cf_incomes_id';
+    public const ENTITY_ID = 'cf_staging_id';
     public const STORAGE_ID = 'storage_id';
     public const CF_ITEM_ID = 'cf_item_id';
     public const PROJECT_ID = 'project_id';

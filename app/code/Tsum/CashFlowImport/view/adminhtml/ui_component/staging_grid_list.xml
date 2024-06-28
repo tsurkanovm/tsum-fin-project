@@ -77,19 +77,19 @@
                     <item name="indexField" xsi:type="string">cf_staging_id</item>
                 </item>
             </argument>
-<!--            <action name="delete">-->
-<!--                <argument name="data" xsi:type="array">-->
-<!--                    <item name="config" xsi:type="array">-->
-<!--                        <item name="type" xsi:type="string">delete</item>-->
-<!--                        <item name="label" xsi:type="string" translate="true">Delete</item>-->
-<!--                        <item name="url" xsi:type="url" path="cashflow/incomes/massDelete"/>-->
-<!--                        <item name="confirm" xsi:type="array">-->
-<!--                            <item name="title" xsi:type="string" translate="true">Delete</item>-->
-<!--                            <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>-->
-<!--                        </item>-->
-<!--                    </item>-->
-<!--                </argument>-->
-<!--            </action>-->
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="cf_import/staging/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete</item>
+                            <item name="message" xsi:type="string" translate="true">Do you want to delete selected row record?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
             <action name="edit">
                 <settings>
                     <callback>
@@ -114,27 +114,27 @@
         </paging>
     </container>
     <columns name="staging_columns">
-<!--        <settings>-->
-<!--            <editorConfig>-->
-<!--                <param name="clientConfig" xsi:type="array">-->
-<!--                    <item name="saveUrl" xsi:type="url" path="cashflow/incomes/inlineEdit"/>-->
-<!--                    <item name="validateBeforeSave" xsi:type="boolean">false</item>-->
-<!--                </param>-->
-<!--                <param name="indexField" xsi:type="string">cf_incomes_id</param>-->
-<!--                <param name="enabled" xsi:type="boolean">true</param>-->
-<!--                <param name="selectProvider" xsi:type="string">staging_grid_list.staging_grid_list.incomes_columns.ids</param>-->
-<!--            </editorConfig>-->
-<!--            <childDefaults>-->
-<!--                <param name="fieldAction" xsi:type="array">-->
-<!--                    <item name="provider" xsi:type="string">staging_grid_list.staging_grid_list.incomes_columns_editor</item>-->
-<!--                    <item name="target" xsi:type="string">startEdit</item>-->
-<!--                    <item name="params" xsi:type="array">-->
-<!--                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>-->
-<!--                        <item name="1" xsi:type="boolean">true</item>-->
-<!--                    </item>-->
-<!--                </param>-->
-<!--            </childDefaults>-->
-<!--        </settings>-->
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="cf_import/staging/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">cf_staging_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">staging_grid_list.staging_grid_list.staging_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">staging_grid_list.staging_grid_list.staging_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
         <selectionsColumn name="ids">
             <argument name="data" xsi:type="array">
                 <item name="config" xsi:type="array">
@@ -154,6 +154,9 @@
         <column name="type_id" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <options class="Tsum\CashFlowImport\Model\Source\Grid\MoveType"/>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
                 <filter>select</filter>
                 <dataType>select</dataType>
                 <label translate="true">Type</label>
@@ -226,9 +229,6 @@
             <settings>
                 <filter>text</filter>
                 <editor>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">false</rule>
-                    </validation>
                     <editorType>text</editorType>
                 </editor>
                 <label translate="true">Commentary</label>
@@ -249,9 +249,6 @@
             <settings>
                 <filter>text</filter>
                 <editor>
-                    <validation>
-                        <rule name="required-entry" xsi:type="boolean">true</rule>
-                    </validation>
                     <editorType>text</editorType>
                 </editor>
                 <label translate="true">Total IN</label>

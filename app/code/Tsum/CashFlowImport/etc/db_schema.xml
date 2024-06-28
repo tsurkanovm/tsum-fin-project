@@ -17,7 +17,7 @@
         <column xsi:type="varchar" name="currency_in" nullable="true" length="3" default="UAH" comment="Cash Flow Staging currency in"/>
         <column xsi:type="date" name="registration_time" nullable="false"
                 comment="Staging Registration Time"/>
-        <column xsi:type="boolean" name="is_active"  nullable="false" default="0"/>
+        <column xsi:type="boolean" name="is_active"  nullable="false" default="1"/>
         <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID" table="tsum_cf_staging"
                     column="storage_id" referenceTable="tsum_cf_storage" referenceColumn="storage_id" onDelete="NO ACTION"/>
         <constraint xsi:type="foreign" referenceId="CF_STORAGE_ID_IN" table="tsum_cf_staging"

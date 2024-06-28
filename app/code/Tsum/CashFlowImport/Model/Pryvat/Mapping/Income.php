@@ -2,6 +2,7 @@
 
 namespace Tsum\CashFlowImport\Model\Pryvat\Mapping;
 
+use Magento\Framework\Exception\CouldNotSaveException;
 use Tsum\CashFlow\Api\Data\CfItemInterface;
 use Tsum\CashFlowImport\Model\RowDocument;
 
@@ -16,6 +17,7 @@ class Income extends AbstractDocumentMap
             'Olena Petrova',
         ]
     ];
+
     public function map(RowDocument $documentData): void
     {
         $stage = $this->createStagingModel($documentData);

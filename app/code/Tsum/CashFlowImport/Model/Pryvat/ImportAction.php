@@ -3,6 +3,7 @@
 namespace Tsum\CashFlowImport\Model\Pryvat;
 
 use Magento\Framework\App\RequestInterface;
+use Magento\Framework\Exception\CouldNotSaveException;
 use Tsum\CashFlowImport\Model\RowDocument;
 use Tsum\CashFlowImport\Model\RowDocumentFactory;
 
@@ -19,6 +20,9 @@ class ImportAction
     ) {
     }
 
+    /**
+     * @throws CouldNotSaveException
+     */
     public function execute(RequestInterface $request, string $filePath): void
     {
         $fileData = $this->fileReader->read($filePath);

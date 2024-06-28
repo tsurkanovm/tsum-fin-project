@@ -2,6 +2,7 @@
 
 namespace Tsum\CashFlowImport\Model\Pryvat;
 
+use Magento\Framework\Exception\CouldNotSaveException;
 use Tsum\CashFlowImport\Model\Pryvat\Mapping\Income;
 use Tsum\CashFlowImport\Model\Pryvat\Mapping\Outcome;
 use Tsum\CashFlowImport\Model\Pryvat\Mapping\Transfer;
@@ -16,6 +17,9 @@ class DocumentTypeResolver
     ) {
     }
 
+    /**
+     * @throws CouldNotSaveException
+     */
     public function resolve(RowDocument $documentData): void
     {
         if ($documentData->getTotal() > 0
