@@ -12,8 +12,6 @@ use Tsum\CashFlowImport\Model\ResourceModel\Staging\CollectionFactory;
 
 class MassDelete implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
-
     public function __construct(
         private readonly Filter $filter,
         private readonly CollectionFactory $collectionFactory,

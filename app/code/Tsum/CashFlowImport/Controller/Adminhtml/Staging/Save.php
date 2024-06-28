@@ -7,15 +7,11 @@ namespace Tsum\CashFlowImport\Controller\Adminhtml\Staging;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\RequestInterface;
-use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface;
-use Magento\MediaStorage\Model\File\UploaderFactory;
 use Tsum\CashFlowImport\Model\Pryvat\ImportAction;
-use Magento\Framework\Filesystem\Io\File;
 
 class Save implements HttpPostActionInterface
 {

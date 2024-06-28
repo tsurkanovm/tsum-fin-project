@@ -12,8 +12,6 @@ use Tsum\CashFlowImport\Model\StagingFactory;
 
 class InlineEdit implements HttpPostActionInterface
 {
-    public const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
-
     public function __construct(
         private readonly RequestInterface $request,
         private readonly StagingFactory $stagingFactory,
