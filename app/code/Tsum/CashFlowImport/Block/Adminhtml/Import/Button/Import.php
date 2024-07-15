@@ -20,17 +20,10 @@ class Import implements ButtonProviderInterface
             'on_click'   => '',
             'data_attribute' => [
                 'mage-init' => [
-                    'buttonAdapter' => [
-                        'actions' => [
-                            [
-                                'targetName' => 'cf_import_staging_transaction_form.cf_import_staging_transaction_form',
-                                'actionName' => 'save',
-                                'params' => [
-                                    false
-                                ]
-                            ]
-                        ]
-                    ]
+                    'data_attribute' => [
+                        'mage-init' => ['button' => ['event' => 'save']],
+                        'form-role' => 'save',
+                    ],
                 ]
             ],
         ];

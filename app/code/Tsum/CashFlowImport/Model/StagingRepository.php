@@ -2,8 +2,10 @@
 
 namespace Tsum\CashFlowImport\Model;
 
+use Magento\Framework\Api\Search\SearchResult;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -63,20 +65,20 @@ class StagingRepository implements StagingRepositoryInterface
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    public function getList(SearchCriteriaInterface $searchCriteria): StagingSearchResultsInterface
+    public function getList(SearchCriteriaInterface $searchCriteria): SearchResults
     {
         /** @var Collection $collection */
         $collection = $this->stagingCollectionFactory->create();
 
         $this->collectionProcessor->process($searchCriteria, $collection);
 
-        /** @var StagingSearchResultsInterface $searchResults */
         $searchResults = $this->searchResultsFactory->create();
         $searchResults->setSearchCriteria($searchCriteria);
         /** @phpstan-ignore-next-line */
         $searchResults->setItems($collection->getItems());
         $searchResults->setTotalCount($collection->getSize());
 
+        /** @phpstan-ignore-next-line */
         return $searchResults;
     }
 

@@ -2,13 +2,14 @@
 
 namespace Tsum\CashFlowImport\Controller\Adminhtml\Staging;
 
+use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Message\ManagerInterface;
 use Tsum\CashFlowImport\Model\ConvertAction;
 
-class Convert implements HttpPostActionInterface
+class Convert implements HttpGetActionInterface
 {
     public function __construct(
         private readonly RedirectFactory $resultRedirectFactory,
@@ -24,6 +25,6 @@ class Convert implements HttpPostActionInterface
             $this->messageManager->addErrorMessage($exception->getMessage());
         }
 
-        return $this->resultRedirectFactory->create();
+        return $this->resultRedirectFactory->create()->setPath('cf_import/staging/grid');
     }
 }

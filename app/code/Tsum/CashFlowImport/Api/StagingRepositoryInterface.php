@@ -3,6 +3,7 @@
 namespace Tsum\CashFlowImport\Api;
 
 use Magento\Framework\Api\SearchCriteriaInterface;
+use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -21,7 +22,7 @@ interface StagingRepositoryInterface
      */
     public function getById(int|string $stagingId): StagingInterface;
 
-    public function getList(SearchCriteriaInterface $searchCriteria): StagingSearchResultsInterface;
+    public function getList(SearchCriteriaInterface $searchCriteria): SearchResults;
 
     /**
      * @throws CouldNotDeleteException

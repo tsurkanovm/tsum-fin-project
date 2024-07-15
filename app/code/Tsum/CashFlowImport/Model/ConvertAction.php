@@ -56,11 +56,11 @@ class ConvertAction
     public function convert(): void
     {
         $this->validate();
-
+        $filterGroups = [];
         // @todo include project to key
-        $activeFilter = $this->getIsActiveFilter();
         $docTypeFilter = $this->getTypeFilter(StagingInterface::TRANSFER_TYPE_ID, 'neq');
-        $filterGroup = $this->filterGroupBuilder->setFilters([$activeFilter, $docTypeFilter])->create();
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$this->getIsActiveFilter()])->create();
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$docTypeFilter])->create();
 
         $typeSortOrder = $this->sortOrderBuilder
             ->setField(StagingInterface::TYPE_ID)
@@ -80,7 +80,7 @@ class ConvertAction
             ->create();
 
         // @phpstan-ignore-next-line
-        $this->searchCriteriaBuilder->setFilterGroups([$filterGroup])->create();
+        $this->searchCriteriaBuilder->setFilterGroups($filterGroups);
         $this->searchCriteriaBuilder->setSortOrders(
             [$typeSortOrder, $storageSortOrder, $cfItemSortOrder, $currencySortOrder]
         );
@@ -98,7 +98,7 @@ class ConvertAction
             }
 
             if ($key != $currentKey && $total) {
-                //$this->convertToIncomes($currentItem, $total);
+                $this->convertToIncomes($currentItem, $total);
                 $key = $currentKey;
             } else {
                 $total += $item->getTotal();
@@ -115,7 +115,6 @@ class ConvertAction
      */
     private function validate(): void
     {
-        // @todo add checkup on total and total_in > 0
         $requiredIncomesFields = array_merge(self::COMMON_REQUIRED_FIELDS, self::INCOMES_REQUIRED_FIELDS);
         $requiredTransferFields = array_merge(self::COMMON_REQUIRED_FIELDS, self::TRANSFERS_REQUIRED_FIELDS);
 
@@ -123,7 +122,7 @@ class ConvertAction
         $transDocTypeFilter = $this->getTypeFilter(StagingInterface::TRANSFER_TYPE_ID);
 
         $this->validateRequiredFields($requiredIncomesFields, $incomeDocTypeFilter);
-        $this->validateRequiredFields($requiredTransferFields, $transDocTypeFilter);
+       // $this->validateRequiredFields($requiredTransferFields, $transDocTypeFilter);
     }
 
     /**
@@ -133,24 +132,33 @@ class ConvertAction
     private function validateRequiredFields(array $requiredFields, Filter $docTypeFilter): void
     {
         $errors = [];
-        $filterGroups = [];
+        $filterGroups = $emptyFilter = [];
 
-        $commonFilters = [$this->getIsActiveFilter(), $docTypeFilter];
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$this->getIsActiveFilter()])->create();
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$docTypeFilter])->create();
 
         foreach ($requiredFields as $field) {
-            $nullFilter = $this->filterBuilder->setField($field)->setConditionType('null')->create();
-            $nullFilterGroup = $this->filterGroupBuilder->setFilters([...$commonFilters, $nullFilter])->create();
+            $emptyFilter[] = $this->filterBuilder->setField($field)->setConditionType('null')->create();
 
-            $emptyFilter = $this->filterBuilder
-                ->setField($field)
-                ->setValue('')
-                ->setConditionType('eq')
-                ->create();
-            $emptyFilterGroup = $this->filterGroupBuilder->setFilters([...$commonFilters, $emptyFilter])->create();
+            if ($field !== 'type_id') { // type_id can be 0 that convert to ''
+                $emptyFilter[] = $this->filterBuilder
+                    ->setField($field)
+                    ->setValue('')
+                    ->setConditionType('eq')
+                    ->create();
+            }
 
-            $filterGroups[] = $nullFilterGroup;
-            $filterGroups[] = $emptyFilterGroup;
+            if ($field === 'total' || $field === 'total_in') {
+                $emptyFilter[] = $this->filterBuilder
+                    ->setField($field)
+                    ->setValue('0')
+                    ->setConditionType('lt')
+                    ->create();
+            }
         }
+
+        $emptyFilterGroup = $this->filterGroupBuilder->setFilters($emptyFilter)->create();
+        $filterGroups[] = $emptyFilterGroup;
 
         $searchCriteria = $this->searchCriteriaBuilder
             // @phpstan-ignore-next-line
@@ -165,7 +173,7 @@ class ConvertAction
 
         if ($errors) {
             throw new LocalizedException(
-                __('Validation failed. Please check next items - ' . implode($errors))
+                __('Validation failed. Please check next items - ' . implode(', ', $errors))
             );
         }
     }
@@ -194,19 +202,20 @@ class ConvertAction
             $item->getTypeId() . '_' . $item->getStorageId() . '_' . $item->getCfItemId() . '_' . $item->getCurrency();
     }
 
-//    /**
-//     * @throws CouldNotSaveException
-//     */
-//    private function convertToIncomes(?StagingInterface $currentItem, float|int $total): void
-//    {
-//        if (!$currentItem || !$total) {
-//            return;
-//        }
-//
-//        /* @var IncomesInterface $incomes **/
-//        $incomes = $this->incomesFactory->create(['data' => $currentItem->getData()]);
-//        $incomes->setTotal($total);
-//        // @todo possibly we need to catch exception to allow go further and show errors after
-//        $this->incomesRepository->save($incomes);
-//    }
+    /**
+     * @throws CouldNotSaveException
+     */
+    private function convertToIncomes(?StagingInterface $currentItem, float|int $total): void
+    {
+        if (!$currentItem || !$total) {
+            return;
+        }
+
+        /* @var IncomesInterface $incomes **/
+        $incomes = $this->incomesFactory->create(['data' => $currentItem->getData()]);
+        $incomes->setTotal($total);
+
+        // @todo possibly we need to catch exception to allow go further and show errors after
+        $this->incomesRepository->save($incomes);
+    }
 }
