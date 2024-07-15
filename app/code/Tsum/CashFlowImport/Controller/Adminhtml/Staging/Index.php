@@ -4,20 +4,22 @@ declare(strict_types=1);
 
 namespace Tsum\CashFlowImport\Controller\Adminhtml\Staging;
 
-use Magento\Backend\App\Action;
+use Magento\Framework\App\Action\HttpGetActionInterface;
+use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Controller\ResultFactory;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\Page;
-use Magento\Framework\View\Result\PageFactory;
+use Magento\Framework\Message\ManagerInterface;
+use Tsum\CashFlowImport\Api\StagingRepositoryInterface;
 
-class Index extends Action
+class Index implements HttpGetActionInterface
 {
-    /**
-     * Authorization level of a basic admin session
-     *
-     * @see _isAllowed()
-     */
-    public const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes'; //@todo - replace
+    public function __construct(
+        private readonly ResultFactory $resultFactory,
+        private readonly StagingRepositoryInterface $stagingRepository,
+        private readonly ManagerInterface $messageManager,
+        private readonly RedirectFactory $resultRedirectFactory,
+    ) {
+    }
 
     /**
      * @return ResultInterface
@@ -26,10 +28,14 @@ class Index extends Action
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
 
-        // @todo checkup staging - if it is not empty - error msg and redirect to staging grid
-
-        $resultPage->getConfig()->getTitle()->prepend(__('CMS'));
+        $resultPage->getConfig()->getTitle()->prepend(__('Cash Flow'));
         $resultPage->getConfig()->getTitle()->prepend(__('Staging Import Form'));
+
+        if ($this->stagingRepository->isNotEmpty()) {
+            $this->messageManager->addErrorMessage('Staging already has records! Please check.');
+
+            return $this->resultRedirectFactory->create()->setPath('cf_import/staging/grid');
+        }
 
         return $resultPage;
     }

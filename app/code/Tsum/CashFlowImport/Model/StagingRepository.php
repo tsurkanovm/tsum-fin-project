@@ -2,18 +2,16 @@
 
 namespace Tsum\CashFlowImport\Model;
 
-use Magento\Framework\Api\Search\SearchResult;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResults;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Tsum\CashFlowImport\Api\Data\StagingInterface;
-use Tsum\CashFlowImport\Api\Data\StagingSearchResultsInterface;
 use Tsum\CashFlowImport\Api\Data\StagingSearchResultsInterfaceFactory;
 use Tsum\CashFlowImport\Api\StagingRepositoryInterface;
-use Tsum\CashFlowImport\Model\StagingFactory;
 use Tsum\CashFlowImport\Model\ResourceModel\Staging as ResourceIncomes;
 use Tsum\CashFlowImport\Model\ResourceModel\Staging\Collection;
 use Tsum\CashFlowImport\Model\ResourceModel\Staging\CollectionFactory;
@@ -25,7 +23,8 @@ class StagingRepository implements StagingRepositoryInterface
         private readonly StagingFactory $stagingFactory,
         private readonly CollectionFactory $stagingCollectionFactory,
         private readonly StagingSearchResultsInterfaceFactory $searchResultsFactory,
-        private readonly CollectionProcessorInterface $collectionProcessor
+        private readonly CollectionProcessorInterface $collectionProcessor,
+        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
     ) {
     }
 
@@ -109,11 +108,10 @@ class StagingRepository implements StagingRepositoryInterface
         return $this->delete($this->getById($stagingId));
     }
 
-    public function isEmpty(): bool
+    public function isNotEmpty(): bool
     {
-        /** @var Collection $collection */
-        $collection = $this->stagingCollectionFactory->create();
+        $result = $this->getList($this->searchCriteriaBuilder->create());
 
-        return (bool)$collection->getSize();
+        return (bool)$result->getTotalCount();
     }
 }

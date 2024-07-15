@@ -34,5 +34,5 @@ interface StagingRepositoryInterface
      */
     public function deleteById(int|string $stagingId): bool;
 
-    public function isEmpty(): bool;
+    public function isNotEmpty(): bool;
 }
