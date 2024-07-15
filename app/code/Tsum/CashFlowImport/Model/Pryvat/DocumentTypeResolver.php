@@ -22,14 +22,13 @@ class DocumentTypeResolver
      */
     public function resolve(RowDocument $documentData): void
     {
-        if ($documentData->getTotal() > 0
-            && $this->incomeMapper->mapCfItemByCommentary($documentData->getCommentary())) {
-            $this->incomeMapper->map($documentData);
+        if ($documentData->getCategory() === Transfer::TRANSFER_CATEGORY) {
+            $this->transferMapper->map($documentData);
             return;
         }
 
-        if ($documentData->getCategory() === Transfer::TRANSFER_CATEGORY) {
-            $this->transferMapper->map($documentData);
+        if ($documentData->getTotal() > 0) {
+            $this->incomeMapper->map($documentData);
             return;
         }
 

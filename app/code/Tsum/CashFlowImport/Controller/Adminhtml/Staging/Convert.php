@@ -3,7 +3,6 @@
 namespace Tsum\CashFlowImport\Controller\Adminhtml\Staging;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
-use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Controller\Result\RedirectFactory;
 use Magento\Framework\Message\ManagerInterface;
@@ -20,11 +19,13 @@ class Convert implements HttpGetActionInterface
     public function execute(): Redirect
     {
         try {
-            $this->convertAction->convert();
+            if ($convertedDocsAmount = $this->convertAction->convert()) {
+                $this->messageManager->addSuccessMessage("Successfully converted $convertedDocsAmount documents");
+            }
         } catch (\Exception $exception) {
             $this->messageManager->addErrorMessage($exception->getMessage());
         }
-
+        // @todo redirect to income? or add links in message
         return $this->resultRedirectFactory->create()->setPath('cf_import/staging/grid');
     }
 }

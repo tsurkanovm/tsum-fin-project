@@ -53,7 +53,7 @@ class ConvertAction
     /**
      * @throws LocalizedException
      */
-    public function convert(): void
+    public function convert(): int
     {
         $this->validate();
         $filterGroups = [];
@@ -89,7 +89,7 @@ class ConvertAction
 
         $key = '';
         $currentItem = null;
-        $total = 0;
+        $total = $amount = 0;
         /** @var StagingInterface $item*/
         foreach ($result->getItems() as $item) {
             $currentKey = $this->getCurrentKey($item);
@@ -100,14 +100,17 @@ class ConvertAction
             if ($key != $currentKey && $total) {
                 $this->convertToIncomes($currentItem, $total);
                 $key = $currentKey;
-            } else {
-                $total += $item->getTotal();
+                $total = 0;
+                $amount++;
             }
 
+            $total += $item->getTotal();
             $currentItem = $item;
+
+            $this->stagingRepository->delete($item);
         }
 
-        //@todo DELETE
+        return $amount;
     }
 
     /**
@@ -214,6 +217,7 @@ class ConvertAction
         /* @var IncomesInterface $incomes **/
         $incomes = $this->incomesFactory->create(['data' => $currentItem->getData()]);
         $incomes->setTotal($total);
+        $incomes->setCommentary('');
 
         // @todo possibly we need to catch exception to allow go further and show errors after
         $this->incomesRepository->save($incomes);

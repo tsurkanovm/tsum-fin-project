@@ -12,6 +12,7 @@ class Outcome extends AbstractDocumentMap
     public const TRANSPORT_OUT_ID = 17;
     public const LEARNING_OUT_ID = 14;
     public const UTILITIES_OUT_ID = 29;
+    public const CHARITY_OUT_ID = 43;
 
     public const DICTIONARY = [
         self::GLOSHERY_OUT_ID => [
@@ -34,10 +35,17 @@ class Outcome extends AbstractDocumentMap
         ],
         self::LEARNING_OUT_ID => [
             'CHATGPT',
+            'OPENAI',
             'UDEMY',
         ],
         self::UTILITIES_OUT_ID => [
             'Oplata komunal',
+        ],
+        self::CHARITY_OUT_ID => [
+            'Броніцька',
+            'Климчук',
+            'Кучмієв',
+            'Міжнародний рух єдності',
         ],
     ];
 
