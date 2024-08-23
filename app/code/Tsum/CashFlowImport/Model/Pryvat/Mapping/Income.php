@@ -13,8 +13,8 @@ class Income extends AbstractDocumentMap
 
     public const DICTIONARY = [
         self::RENT_IN_ID => [
-            'Від Іваненко Андрій Федорович',
             'Olena Petrova',
+            'Іваненко',
         ]
     ];
 

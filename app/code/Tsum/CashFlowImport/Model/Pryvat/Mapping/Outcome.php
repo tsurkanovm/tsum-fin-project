@@ -13,6 +13,7 @@ class Outcome extends AbstractDocumentMap
     public const LEARNING_OUT_ID = 14;
     public const UTILITIES_OUT_ID = 29;
     public const CHARITY_OUT_ID = 43;
+    public const MEDICAL_OUT_ID = 31;
 
     public const DICTIONARY = [
         self::GLOSHERY_OUT_ID => [
@@ -40,6 +41,9 @@ class Outcome extends AbstractDocumentMap
         ],
         self::UTILITIES_OUT_ID => [
             'Oplata komunal',
+            'VEGA',
+            'Комунальні платежі',
+            'UTILITIESV_APGP',
         ],
         self::CHARITY_OUT_ID => [
             'Броніцька',
@@ -47,6 +51,11 @@ class Outcome extends AbstractDocumentMap
             'Кучмієв',
             'Міжнародний рух єдності',
         ],
+        self::MEDICAL_OUT_ID => [
+            'АПТЕКА',
+            'Аптека',
+            'TOV GHARMONIJA ZDOROVJA',
+        ]
     ];
 
     public function map(RowDocument $documentData): void

@@ -216,7 +216,7 @@ class ConvertAction
 
         /* @var IncomesInterface $incomes **/
         $incomes = $this->incomesFactory->create(['data' => $currentItem->getData()]);
-        $incomes->setTotal($total);
+        $incomes->setTotal(round($total));
         $incomes->setCommentary('');
 
         // @todo possibly we need to catch exception to allow go further and show errors after
