@@ -18,6 +18,8 @@ class Convert implements HttpGetActionInterface
     }
     public function execute(): Redirect
     {
+        // @todo get only checked items in grid, like mass action
+        // or another button for convert transfers separately
         try {
             if ($convertedDocsAmount = $this->convertAction->convert()) {
                 $this->messageManager->addSuccessMessage("Successfully converted $convertedDocsAmount documents");

@@ -7,16 +7,16 @@ use Magento\Framework\Api\FilterBuilder;
 use Magento\Framework\Api\Search\FilterGroupBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SortOrderBuilder;
+use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\LocalizedException;
-use Tsum\CashFlow\Api\Data\CfItemInterface;
 use Tsum\CashFlow\Api\Data\IncomesInterface;
 use Tsum\CashFlow\Api\IncomesRepositoryInterface;
-use Tsum\CashFlow\Model\Incomes;
+use Tsum\CashFlow\Api\TransferRepositoryInterface;
 use Tsum\CashFlow\Model\IncomesFactory;
+use Tsum\CashFlow\Model\TransferFactory;
 use Tsum\CashFlowImport\Api\Data\StagingInterface;
 use Tsum\CashFlowImport\Api\StagingRepositoryInterface;
-use Tsum\CashFlowImport\Model\ResourceModel\Staging\CollectionFactory;
 
 class ConvertAction
 {
@@ -45,8 +45,9 @@ class ConvertAction
         private readonly FilterGroupBuilder $filterGroupBuilder,
         private readonly SortOrderBuilder $sortOrderBuilder,
         private readonly IncomesFactory $incomesFactory,
-        // @phpstan-ignore-next-line
+        private readonly TransferFactory $transferFactory,
         private readonly IncomesRepositoryInterface $incomesRepository,
+        private readonly TransferRepositoryInterface $transferRepository,
     ) {
     }
 
@@ -56,59 +57,8 @@ class ConvertAction
     public function convert(): int
     {
         $this->validate();
-        $filterGroups = [];
-        // @todo include project to key
-        $docTypeFilter = $this->getTypeFilter(StagingInterface::TRANSFER_TYPE_ID, 'neq');
-        $filterGroups[] = $this->filterGroupBuilder->setFilters([$this->getIsActiveFilter()])->create();
-        $filterGroups[] = $this->filterGroupBuilder->setFilters([$docTypeFilter])->create();
-
-        $typeSortOrder = $this->sortOrderBuilder
-            ->setField(StagingInterface::TYPE_ID)
-            ->setAscendingDirection()
-            ->create();
-        $storageSortOrder = $this->sortOrderBuilder
-            ->setField(StagingInterface::STORAGE_ID)
-            ->setAscendingDirection()
-            ->create();
-        $cfItemSortOrder = $this->sortOrderBuilder
-            ->setField(StagingInterface::CF_ITEM_ID)
-            ->setAscendingDirection()
-            ->create();
-        $currencySortOrder = $this->sortOrderBuilder
-            ->setField(StagingInterface::CURRENCY)
-            ->setAscendingDirection()
-            ->create();
-
-        // @phpstan-ignore-next-line
-        $this->searchCriteriaBuilder->setFilterGroups($filterGroups);
-        $this->searchCriteriaBuilder->setSortOrders(
-            [$typeSortOrder, $storageSortOrder, $cfItemSortOrder, $currencySortOrder]
-        );
-
-        $result = $this->stagingRepository->getList($this->searchCriteriaBuilder->create());
-
-        $key = '';
-        $currentItem = null;
-        $total = $amount = 0;
-        /** @var StagingInterface $item*/
-        foreach ($result->getItems() as $item) {
-            $currentKey = $this->getCurrentKey($item);
-            if (!$key) {
-                $key = $currentKey;
-            }
-
-            if ($key != $currentKey && $total) {
-                $this->convertToIncomes($currentItem, $total);
-                $key = $currentKey;
-                $total = 0;
-                $amount++;
-            }
-
-            $total += $item->getTotal();
-            $currentItem = $item;
-
-            $this->stagingRepository->delete($item);
-        }
+        $amount = $this->convertToIncomes();
+        $amount += $this->convertToTransfers();
 
         return $amount;
     }
@@ -208,7 +158,7 @@ class ConvertAction
     /**
      * @throws CouldNotSaveException
      */
-    private function convertToIncomes(?StagingInterface $currentItem, float|int $total): void
+    private function saveAsIncomeDocument(?StagingInterface $currentItem, float|int $total): void
     {
         if (!$currentItem || !$total) {
             return;
@@ -221,5 +171,113 @@ class ConvertAction
 
         // @todo possibly we need to catch exception to allow go further and show errors after
         $this->incomesRepository->save($incomes);
+    }
+
+    /**
+     * @return int
+     * @throws CouldNotSaveException
+     * @throws CouldNotDeleteException
+     */
+    public function convertToIncomes(): int
+    {
+        $filterGroups = [];
+        // @todo include project to key
+        $docTypeFilter = $this->getTypeFilter(StagingInterface::TRANSFER_TYPE_ID, 'neq');
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$this->getIsActiveFilter()])->create();
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$docTypeFilter])->create();
+
+        $typeSortOrder = $this->sortOrderBuilder
+            ->setField(StagingInterface::TYPE_ID)
+            ->setAscendingDirection()
+            ->create();
+        $storageSortOrder = $this->sortOrderBuilder
+            ->setField(StagingInterface::STORAGE_ID)
+            ->setAscendingDirection()
+            ->create();
+        $cfItemSortOrder = $this->sortOrderBuilder
+            ->setField(StagingInterface::CF_ITEM_ID)
+            ->setAscendingDirection()
+            ->create();
+        $currencySortOrder = $this->sortOrderBuilder
+            ->setField(StagingInterface::CURRENCY)
+            ->setAscendingDirection()
+            ->create();
+
+        // @phpstan-ignore-next-line
+        $this->searchCriteriaBuilder->setFilterGroups($filterGroups);
+        $this->searchCriteriaBuilder->setSortOrders(
+            [$typeSortOrder, $storageSortOrder, $cfItemSortOrder, $currencySortOrder]
+        );
+
+        $result = $this->stagingRepository->getList($this->searchCriteriaBuilder->create());
+
+        $key = '';
+        $currentItem = null;
+        $total = $amount = 0;
+        /** @var StagingInterface $item */
+        foreach ($result->getItems() as $item) {
+            $currentKey = $this->getCurrentKey($item);
+            if (!$key) {
+                $key = $currentKey;
+            }
+
+            if ($key != $currentKey && $total) {
+                $this->saveAsIncomeDocument($currentItem, $total);
+                $key = $currentKey;
+                $total = 0;
+                $amount++;
+            }
+
+            $total += $item->getTotal();
+            $currentItem = $item;
+
+            $this->stagingRepository->delete($item);
+        }
+
+        return $amount;
+    }
+
+    /**
+     * @throws CouldNotDeleteException
+     * @throws CouldNotSaveException
+     */
+    private function convertToTransfers(): int
+    {
+        $amount = 0;
+        $filterGroups = [];
+        $docTypeFilter = $this->getTypeFilter(StagingInterface::TRANSFER_TYPE_ID);
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$this->getIsActiveFilter()])->create();
+        $filterGroups[] = $this->filterGroupBuilder->setFilters([$docTypeFilter])->create();
+
+        // @phpstan-ignore-next-line
+        $this->searchCriteriaBuilder->setFilterGroups($filterGroups);
+
+        $result = $this->stagingRepository->getList($this->searchCriteriaBuilder->create());
+        /** @var StagingInterface $item */
+        foreach ($result->getItems() as $item) {
+            $this->saveAsTransferDocument($item);
+            $this->stagingRepository->delete($item);
+            $amount++;
+        }
+
+        return $amount;
+    }
+
+    /**
+     * @throws CouldNotSaveException
+     */
+    private function saveAsTransferDocument(StagingInterface $stageItem): void
+    {
+        $stageData =  $stageItem->getData();
+
+        // if set by this way Abstract Model won`t save it, cause it think that data has not changed,
+        // needs to change something manually in model
+        $transfer = $this->transferFactory->create(['data' => $stageData]);
+        $transfer->setStorage((int)$stageItem->getStorageId());
+        $transfer->setTotal((float)$stageItem->getTotal());
+        $transfer->setCurrency((string)$stageItem->getCurrency());
+
+        // @todo possibly we need to catch exception to allow go further and show errors after
+        $this->transferRepository->save($transfer);
     }
 }
