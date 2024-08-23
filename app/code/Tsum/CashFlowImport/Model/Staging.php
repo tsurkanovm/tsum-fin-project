@@ -3,7 +3,6 @@
 namespace Tsum\CashFlowImport\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Tsum\CashFlow\Api\Data\IncomesInterface;
 use Tsum\CashFlowImport\Api\Data\StagingInterface;
 
 class Staging extends AbstractModel implements StagingInterface

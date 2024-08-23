@@ -11,7 +11,7 @@ use Tsum\CashFlowImport\Model\StagingFactory;
 abstract class AbstractDocumentMap
 {
     // by default for out CF_id - others
-    public const DEFAULT_CF_ID = 9;
+    public const DEFAULT_ITEM_ID = 9;
 
     public const DICTIONARY = []; // will be defined in children
     public const DEFAULT_CURRENCY = 'UAH';
@@ -34,6 +34,8 @@ abstract class AbstractDocumentMap
         $stage->setCommentary($documentData->getCategory() . ' | ' . $documentData->getCommentary());
         $stage->setCurrency(self::DEFAULT_CURRENCY);
         $stage->setTotal($documentData->getTotal() > 0 ? $documentData->getTotal() : -$documentData->getTotal());
+        $stage->setData('currency_in', self::DEFAULT_CURRENCY);
+        $stage->setData('total_in', $stage->getTotal());
 
         return $stage;
     }
@@ -46,7 +48,7 @@ abstract class AbstractDocumentMap
         $this->stagingRepository->save($stagingModel);
     }
 
-    public function mapCfItemByCommentary(string $commentary): int|false
+    public function mapItemByCommentary(string $commentary): int
     {
         foreach (static::DICTIONARY as $id => $commentaries) {
             foreach ($commentaries as $dictCommentary) {
@@ -56,11 +58,10 @@ abstract class AbstractDocumentMap
             }
         }
 
-        return static::DEFAULT_CF_ID;
+        return static::DEFAULT_ITEM_ID;
     }
 
     /**
-     * @todo needs to check on contains
      * Check if the dictionary commentary matches the given commentary.
      *
      * @param string $dictCommentary The commentary from the dictionary.
@@ -69,6 +70,6 @@ abstract class AbstractDocumentMap
      */
     private function isMatch(string $dictCommentary, string $commentary): bool
     {
-        return str_starts_with($commentary, $dictCommentary);
+        return str_contains($commentary, $dictCommentary);
     }
 }

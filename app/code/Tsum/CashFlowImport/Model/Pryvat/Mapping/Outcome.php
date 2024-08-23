@@ -44,6 +44,7 @@ class Outcome extends AbstractDocumentMap
             'VEGA',
             'Комунальні платежі',
             'UTILITIESV_APGP',
+            'ДомофонСервіс',
         ],
         self::CHARITY_OUT_ID => [
             'Броніцька',
@@ -62,8 +63,9 @@ class Outcome extends AbstractDocumentMap
     {
         $stage = $this->createStagingModel($documentData);
         $stage->setTypeId(CfItemInterface::MOVE_OUT_ID);
+
         $stage->setCfItemId(
-            (int)$this->mapCfItemByCommentary($documentData->getCommentary())
+            (int)$this->mapItemByCommentary($documentData->getCommentary())
         );
 
         $this->saveStagingModel($stage);

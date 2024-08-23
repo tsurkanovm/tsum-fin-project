@@ -22,7 +22,9 @@ class DocumentTypeResolver
      */
     public function resolve(RowDocument $documentData): void
     {
-        if ($documentData->getCategory() === Transfer::TRANSFER_CATEGORY) {
+        if ($documentData->getCategory() === Transfer::TRANSFER_CATEGORY ||
+                $this->transferMapper->mapItemByCommentary($documentData->getCommentary())) {
+
             $this->transferMapper->map($documentData);
             return;
         }
