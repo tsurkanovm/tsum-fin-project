@@ -41,7 +41,8 @@ class Outcome extends AbstractDocumentMap
         ],
         self::UTILITIES_OUT_ID => [
             'Oplata komunal',
-            'VEGA',
+            'Vega',
+            'Фрінет',
             'Комунальні платежі',
             'UTILITIESV_APGP',
             'ДомофонСервіс',
