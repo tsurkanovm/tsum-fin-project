@@ -14,6 +14,9 @@
 !/build_options.ini
 !/composer.json
 !/composer.lock
+!Gruntfile.js
+!grunt-config.json
+!package.json
 !/magento-vars.php
 !/m2-hotfixes
 !/m2-hotfixes/**
@@ -25,3 +28,7 @@
 !/.github
 !/.github/*
 !/op-exclude.txt
+!.eslintrc
+!.prettierrc
+!.stylelintrc
+!/dev/tools/gulp/**
