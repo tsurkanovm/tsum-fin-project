@@ -1,0 +1,29 @@
+<div id="digits-render-block" data-bind="scope: 'struppMainModel'">
+    <div>
+        <span data-bind="text:currentColour, style: {color:currentColour}">TEXT HERE</span>
+        <div>
+            <button data-bind="click:onYesClick">YES</button>
+        </div>
+        <div>
+            <button data-bind="click:onNopeClick">NOPE</button>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "struppMainModel": {
+                        "component": "Tsum_Digits/js/strupp-test",
+                        "deps": [
+                            "digitsTimer"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+</script>
