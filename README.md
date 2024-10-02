@@ -15,6 +15,9 @@ The main extension (Tsum_CashFlow) allows an accounting of home cash flow.
 2.1.0
 - added Tsum_Digits module - interactive game by knockout
 
+2.2.0
+- added odocker support
+
 3.0.0
 - added DEG_CustomReports for reports
 - fixed small bugs
