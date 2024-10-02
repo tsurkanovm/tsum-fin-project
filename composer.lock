@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04926575b55191c89d29dcd10766e8da",
+    "content-hash": "7e25661bdddf91398f54aae901463af7",
     "packages": [
         {
             "name": "2tvenom/cborencode",
@@ -2005,6 +2005,60 @@
                 "source": "https://github.com/google/recaptcha"
             },
             "time": "2023-02-18T17:41:46+00:00"
+        },
+        {
+            "name": "graycore/magento2-cors",
+            "version": "v2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/graycoreio/magento2-cors.git",
+                "reference": "357a8a0564639d1c462367006d6cdf705b263d14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/graycoreio/magento2-cors/zipball/357a8a0564639d1c462367006d6cdf705b263d14",
+                "reference": "357a8a0564639d1c462367006d6cdf705b263d14",
+                "shasum": ""
+            },
+            "require": {
+                "magento/framework": "^102.0 || ^103.0"
+            },
+            "require-dev": {
+                "magento/magento-coding-standard": ">=6.0",
+                "phpunit/phpunit": "^8.2 || ^9.0",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "type": "magento2-module",
+            "autoload": {
+                "files": [
+                    "registration.php"
+                ],
+                "psr-4": {
+                    "Graycore\\Cors\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Damien Retzinger",
+                    "email": "damienwebdev@gmail.com"
+                }
+            ],
+            "description": "A Magento 2 module that enables CORS on the GraphQL and REST Apis",
+            "support": {
+                "issues": "https://github.com/graycoreio/magento2-cors/issues",
+                "source": "https://github.com/graycoreio/magento2-cors/tree/v2.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/graycoreio",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-02-07T22:04:57+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
