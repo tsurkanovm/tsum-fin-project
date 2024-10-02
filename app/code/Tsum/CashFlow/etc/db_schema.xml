@@ -114,6 +114,7 @@
     <!--
     - Remains calculates for every month, for every storage aggregation_date = endOfTheMonth
      - for storage currency and for USD (default currency from config)
+     @todo delete this table, I dont use it, or implement by index
     -->
     <table name="tsum_cf_remains" resource="default" engine="innodb">
         <column xsi:type="smallint" name="cf_remains_id" padding="6" unsigned="true" nullable="false" identity="true"

@@ -1,13 +1,13 @@
 <?php
 
-namespace Tsum\CashFlow\Controller\Adminhtml\Transfer;
+namespace Tsum\CashFlowImport\Controller\Adminhtml\Staging;
 
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Backend\App\Action;
 
-class Index extends Action
+class Grid extends Action
 {
     public const ADMIN_RESOURCE = 'Tsum_CashFlow::incomes';
 
@@ -33,8 +33,8 @@ class Index extends Action
     {
         $page = $this->resultPageFactory->create();
 
-        $page->setActiveMenu('Tsum_CashFlow::transfer');
-        $page->getConfig()->getTitle()->prepend(__('Transfers'));
+        $page->setActiveMenu('Tsum_CashFlow::incomes');
+        $page->getConfig()->getTitle()->prepend(__('Staging Cash Flow'));
 
         return $page;
     }

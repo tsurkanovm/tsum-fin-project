@@ -334,6 +334,7 @@ return [
         'PayPal_BraintreeGraphQl' => 1,
         'Temando_ShippingRemover' => 1,
         'Tsum_CashFlow' => 1,
+        'Tsum_CashFlowImport' => 1,
         'Tsum_Digits' => 1,
         'Tsum_Knowledge' => 1
     ],
