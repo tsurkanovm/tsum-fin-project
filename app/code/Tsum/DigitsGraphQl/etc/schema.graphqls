@@ -1,0 +1,30 @@
+type Query {
+    bestResults(
+        size: Int @doc(description: "The requested size of game results.")
+    ): [Result] @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult")
+#        @cache(cacheIdentity: "Tsum\\DigitsGraphQl\\Model\\Resolver\\ShippingPolicies\\Identity")
+        @doc(description: "Return best results")
+}
+
+type Result @doc(description: "Game result") {
+    size: Int!
+    hits: Int!
+    time: Int!
+}
+
+type Mutation {
+    setCurrentResult(
+        currentResult: ResultInput!
+    ): ResultOutput @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\SetCurrentResult")
+        @doc(description: "")
+}
+
+input ResultInput {
+    size: Int
+    hits: Int!
+    time: Int!
+}
+
+type ResultOutput {
+    creation_time: String @doc(description: "The date and time the result was registered")
+}

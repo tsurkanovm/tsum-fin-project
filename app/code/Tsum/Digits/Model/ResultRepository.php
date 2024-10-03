@@ -63,8 +63,14 @@ class ResultRepository implements ResultRepositoryInterface
         return $searchResults;
     }
 
-    public function getThreeVeryBest(): array
+    public function getThreeVeryBest(?int $size = self::DEFAULT_SIZE): array
     {
+        $sizeFilter = $this->filterBuilder
+            ->setField(ResultInterface::SIZE)
+            ->setValue((string)$size)
+            ->setConditionType('eq')
+            ->create();
+
         $hitSortOrder = $this->sortOrderBuilder
             ->setField(ResultInterface::HITS)
             ->setAscendingDirection()
@@ -73,6 +79,8 @@ class ResultRepository implements ResultRepositoryInterface
             ->setField(ResultInterface::TIME)
             ->setAscendingDirection()
             ->create();
+
+        $this->searchCriteriaBuilder->addFilters([$sizeFilter]);
         $this->searchCriteriaBuilder->setSortOrders([$hitSortOrder, $timeSortOrder]);
         $this->searchCriteriaBuilder->setPageSize(3);
 

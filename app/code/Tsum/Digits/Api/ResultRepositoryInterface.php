@@ -14,6 +14,7 @@ use Tsum\Digits\Api\Data\ResultInterface;
  */
 interface ResultRepositoryInterface
 {
+    public const DEFAULT_SIZE = 4;
     /**
      * Save result.
      *
@@ -38,7 +39,7 @@ interface ResultRepositoryInterface
      * @return ResultInterface[]
      * @throws LocalizedException
      */
-    public function getThreeVeryBest(): array;
+    public function getThreeVeryBest(?int $size = self::DEFAULT_SIZE): array;
 
     /**
      * Retrieve the last results for user.
