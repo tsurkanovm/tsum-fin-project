@@ -2,7 +2,7 @@ type Query {
     bestResults(
         size: Int @doc(description: "The requested size of game results.")
     ): [Result] @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult")
-#        @cache(cacheIdentity: "Tsum\\DigitsGraphQl\\Model\\Resolver\\ShippingPolicies\\Identity")
+#        @cache(cacheIdentity: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult\\Identity")
         @doc(description: "Return best results")
 }
 
@@ -28,3 +28,4 @@ input ResultInput {
 type ResultOutput {
     creation_time: String @doc(description: "The date and time the result was registered")
 }
+#todo add Enum for size (4.5)

@@ -2,7 +2,6 @@
 
 namespace Tsum\Digits\Api;
 
-use Magento\Framework\Api\Search\SearchResultFactory;
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\LocalizedException;

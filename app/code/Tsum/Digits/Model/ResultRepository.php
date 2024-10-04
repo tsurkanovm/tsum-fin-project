@@ -13,7 +13,6 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Tsum\Digits\Api\ResultRepositoryInterface;
 use Tsum\Digits\Api\Data\ResultInterface;
 use Tsum\Digits\Model\ResourceModel\Result as ResultResource;
-use Tsum\Digits\Model\ResourceModel\Result\Collection;
 use Tsum\Digits\Model\ResourceModel\Result\CollectionFactory;
 use Magento\Framework\Api\Search\SearchCriteriaInterfaceFactory;
 
@@ -35,6 +34,7 @@ class ResultRepository implements ResultRepositoryInterface
     {
         try {
             $this->resource->save($result);
+            $this->resource->load($result, $result->getId());
 
             return $result;
         } catch (\Exception $exception) {
