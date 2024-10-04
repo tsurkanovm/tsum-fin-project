@@ -6,9 +6,8 @@ use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Tsum\Digits\Api\ResultRepositoryInterface;
-use Tsum\Digits\Model\ResultRepository;
 use Tsum\DigitsGraphQl\Model\Resolver\Service\CurrentResultSaver;
+use Tsum\DigitsGraphQl\Model\SizeEnum;
 
 class SetCurrentResult implements ResolverInterface
 {
@@ -33,7 +32,7 @@ class SetCurrentResult implements ResolverInterface
 
         $hits = $args['currentResult']['hits'];
         $time = $args['currentResult']['time'];
-        $size = $args['currentResult']['size'] ?? ResultRepositoryInterface::DEFAULT_SIZE;
+        $size = SizeEnum::fromName($args['currentResult']['size'] ?? null);
 
         return $this->resultSaver->execute($hits, $time, $size);
     }

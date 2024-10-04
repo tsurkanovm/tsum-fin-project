@@ -5,6 +5,7 @@ namespace Tsum\DigitsGraphQl\Model\Resolver\DataProvider;
 use Magento\Framework\Exception\LocalizedException;
 use Tsum\Digits\Api\Data\ResultInterface;
 use Tsum\Digits\Api\ResultRepositoryInterface;
+use Tsum\DigitsGraphQl\Model\SizeEnum;
 
 readonly class BestResultProvider
 {
@@ -17,7 +18,7 @@ readonly class BestResultProvider
     {
         $result = [];
         try {
-            $bestResults = $this->resultRepository->getThreeVeryBest($size ?: null);
+            $bestResults = $this->resultRepository->getThreeVeryBest($size);
             foreach ($bestResults as $bestResult) {
                 $result[] = $this->formatResponse($bestResult);
             }
@@ -31,7 +32,7 @@ readonly class BestResultProvider
     private function formatResponse(ResultInterface $result): array
     {
         return [
-            'size' => $result->getSize(),
+            'size' => SizeEnum::from($result->getSize())->name,
             'hits' => $result->getHits(),
             'time' => $result->getTime(),
         ];
