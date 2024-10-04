@@ -366,6 +366,7 @@ return [
         'Tsum_CashFlow' => 1,
         'Tsum_CashFlowImport' => 1,
         'Tsum_Digits' => 1,
+        'Tsum_DigitsGraphQl' => 1,
         'Tsum_Knowledge' => 1
     ],
     'scopes' => [

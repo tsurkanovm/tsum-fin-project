@@ -35,6 +35,9 @@ interface ResultInterface
      */
     public function getCustomerId() : int;
 
+    /**
+     * @return string
+     */
     public function getCreationTime() : string;
 
     /**
