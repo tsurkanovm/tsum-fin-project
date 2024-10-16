@@ -18,9 +18,11 @@
         }
     },
     "require": {
+        "php": "~8.2.0 || ~8.3.0",
+        "graycore/magento2-cors": "^2.0",
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
-        "magento/product-community-edition": "2.4.6",
+        "magento/product-community-edition": "2.4.7-p2",
         "magespices/mage2dark": "^1.1",
         "phpoffice/phpspreadsheet": "^2.1"
     },

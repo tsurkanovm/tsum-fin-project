@@ -13,7 +13,7 @@ class Result extends AbstractModel implements ResultInterface
      */
     public function _construct()
     {
-        $this->_init('Tsum\Digits\Model\ResourceModel\Result');
+        $this->_init(ResourceModel\Result::class);
     }
 
     public function getHits() : int
@@ -72,5 +72,10 @@ class Result extends AbstractModel implements ResultInterface
         $this->setData(self::SIZE, $size);
 
         return $this;
+    }
+
+    public function getCreationTime(): string
+    {
+        return $this->getData(self::CREATION_TIME);
     }
 }

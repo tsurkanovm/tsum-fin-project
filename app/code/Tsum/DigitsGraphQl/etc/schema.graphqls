@@ -1,0 +1,35 @@
+enum SizeEnum {
+    size_4
+    size_5
+}
+
+type Query {
+    bestResults(
+        size: SizeEnum @doc(description: "The requested size of game results.")
+    ): [Result] @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult")
+#        @cache(cacheIdentity: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult\\Identity")
+        @doc(description: "Return best results")
+}
+
+type Result @doc(description: "Game result") {
+    size: SizeEnum!
+    hits: Int!
+    time: Int!
+}
+
+type Mutation {
+    setCurrentResult(
+        currentResult: ResultInput!
+    ): ResultOutput @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\SetCurrentResult")
+        @doc(description: "")
+}
+
+input ResultInput {
+    size: SizeEnum
+    hits: Int!
+    time: Int!
+}
+
+type ResultOutput {
+    creation_time: String @doc(description: "The date and time the result was registered")
+}

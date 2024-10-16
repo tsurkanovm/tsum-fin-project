@@ -13,7 +13,6 @@ use Magento\Framework\Exception\CouldNotSaveException;
 use Tsum\Digits\Api\ResultRepositoryInterface;
 use Tsum\Digits\Api\Data\ResultInterface;
 use Tsum\Digits\Model\ResourceModel\Result as ResultResource;
-use Tsum\Digits\Model\ResourceModel\Result\Collection;
 use Tsum\Digits\Model\ResourceModel\Result\CollectionFactory;
 use Magento\Framework\Api\Search\SearchCriteriaInterfaceFactory;
 
@@ -35,6 +34,7 @@ class ResultRepository implements ResultRepositoryInterface
     {
         try {
             $this->resource->save($result);
+            $this->resource->load($result, $result->getId());
 
             return $result;
         } catch (\Exception $exception) {
@@ -63,8 +63,14 @@ class ResultRepository implements ResultRepositoryInterface
         return $searchResults;
     }
 
-    public function getThreeVeryBest(): array
+    public function getThreeVeryBest(?int $size = self::DEFAULT_SIZE): array
     {
+        $sizeFilter = $this->filterBuilder
+            ->setField(ResultInterface::SIZE)
+            ->setValue((string)$size)
+            ->setConditionType('eq')
+            ->create();
+
         $hitSortOrder = $this->sortOrderBuilder
             ->setField(ResultInterface::HITS)
             ->setAscendingDirection()
@@ -73,6 +79,8 @@ class ResultRepository implements ResultRepositoryInterface
             ->setField(ResultInterface::TIME)
             ->setAscendingDirection()
             ->create();
+
+        $this->searchCriteriaBuilder->addFilters([$sizeFilter]);
         $this->searchCriteriaBuilder->setSortOrders([$hitSortOrder, $timeSortOrder]);
         $this->searchCriteriaBuilder->setPageSize(3);
 
