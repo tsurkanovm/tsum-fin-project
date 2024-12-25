@@ -4,14 +4,24 @@
                  type="Tsum\CashFlow\Model\Source\CfItem">
         <arguments>
             <argument name="cfType" xsi:type="string">IN</argument>
+            <argument name="onlyActive" xsi:type="boolean">1</argument>
         </arguments>
     </virtualType>
     <virtualType name="Tsum\CashFlow\CfItemOut"
                  type="Tsum\CashFlow\Model\Source\CfItem">
         <arguments>
             <argument name="cfType" xsi:type="string">OUT</argument>
+            <argument name="onlyActive" xsi:type="boolean">1</argument>
         </arguments>
     </virtualType>
+
+    <virtualType name="Tsum\CashFlow\OnlyActiveStorage"
+                 type="Tsum\CashFlow\Model\Source\Storage">
+        <arguments>
+            <argument name="onlyActive" xsi:type="boolean">1</argument>
+        </arguments>
+    </virtualType>
+
     <!-- Admin theme. Start -->
     <type name="Magento\Theme\Model\View\Design">
         <arguments>
