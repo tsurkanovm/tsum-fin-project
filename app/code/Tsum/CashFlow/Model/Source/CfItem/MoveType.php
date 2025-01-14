@@ -26,7 +26,7 @@ class MoveType implements OptionSourceInterface
      *
      * @return array
      */
-    public function getAllOptions()
+    public function getAllOptions(): array
     {
         $res = $this->getOptions();
         array_unshift($res, ['value' => '', 'label' => '']);
