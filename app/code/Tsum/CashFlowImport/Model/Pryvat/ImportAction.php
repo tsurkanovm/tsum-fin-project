@@ -9,9 +9,9 @@ use Tsum\CashFlowImport\Model\RowDocumentFactory;
 
 class ImportAction
 {
-    public const CATEGORY_COLUMN = 2;
-    public const COMMENTARY_COLUMN = 4;
-    public const TOTAL_COLUMN = 5;
+    public const CATEGORY_COLUMN = 1;
+    public const COMMENTARY_COLUMN = 3;
+    public const TOTAL_COLUMN = 4;
 
     public function __construct(
         private readonly DocumentTypeResolver $resolver,

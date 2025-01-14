@@ -85,7 +85,7 @@
             <formElements>
                 <select>
                     <settings>
-                        <options class="Tsum\CashFlow\Model\Source\Storage"/>
+                        <options class="Tsum\CashFlow\OnlyActiveStorage"/>
                         <caption translate="true">-- Please Select --</caption>
                     </settings>
                 </select>

@@ -13,26 +13,12 @@ class CfItem implements OptionSourceInterface
     const IN_TYPE = 'IN';
     const OUT_TYPE = 'OUT';
 
-    /**
-     * @var CollectionFactory
-     */
-    private $collectionFactory;
 
-    /**
-     * @var string
-     */
-    private $cfType;
-
-    /**
-     * @param CollectionFactory $collectionFactory
-     * @param string $cfType
-     */
     public function __construct(
-        CollectionFactory $collectionFactory,
-        string $cfType = self::ALL_TYPES
+        private readonly CollectionFactory $collectionFactory,
+        private readonly string            $cfType = self::ALL_TYPES,
+        private readonly bool              $onlyActive = false,
     ) {
-        $this->collectionFactory = $collectionFactory;
-        $this->cfType = $cfType;
     }
 
     /**
@@ -52,16 +38,18 @@ class CfItem implements OptionSourceInterface
     /**
      * {@inheritdoc}
      */
-    public function toOptionArray()
+    public function toOptionArray(): array
     {
         return $this->getOptions();
     }
 
     public function getCfItems() : array
     {
-        /** @var Collection $collection */
         $collection = $this->collectionFactory->create();
-        $collection->addFilter('is_active', 1);
+        if ($this->onlyActive) {
+            $collection->addFilter('is_active', 1);
+        }
+
         switch ($this->cfType) {
             case self::IN_TYPE:
                 $collection->addFilter('type_id', 0);
