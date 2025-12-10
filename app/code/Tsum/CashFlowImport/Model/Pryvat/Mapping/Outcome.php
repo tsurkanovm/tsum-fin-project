@@ -30,6 +30,8 @@ class Outcome extends AbstractDocumentMap
             'MAHAZYN MIASA RUBKA, KYIV',
             'Kovbasna Liniia, m. KYIV',
             'Фора',
+            'Супермаркет',
+
         ],
         self::TRANSPORT_OUT_ID => [
             'Київський метрополітен',
@@ -38,6 +40,8 @@ class Outcome extends AbstractDocumentMap
             'CHATGPT',
             'OPENAI',
             'UDEMY',
+            'Spotify',
+            'Netflix'
         ],
         self::UTILITIES_OUT_ID => [
             'Oplata komunal',
@@ -46,12 +50,14 @@ class Outcome extends AbstractDocumentMap
             'Комунальні платежі',
             'UTILITIESV_APGP',
             'ДомофонСервіс',
+            'мобільного',
         ],
         self::CHARITY_OUT_ID => [
             'Броніцька',
             'Климчук',
             'Кучмієв',
             'Міжнародний рух єдності',
+            'Благодійність',
         ],
         self::MEDICAL_OUT_ID => [
             'АПТЕКА',

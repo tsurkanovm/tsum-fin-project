@@ -171,7 +171,7 @@
         </column>
         <column name="storage_id" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <options class="Tsum\CashFlow\Model\Source\Storage"/>
+                <options class="Tsum\CashFlow\OnlyActiveStorage"/>
                 <filter>select</filter>
                 <editor>
                     <editorType>select</editorType>
@@ -236,7 +236,7 @@
         </column>
         <column name="storage_id_in" component="Magento_Ui/js/grid/columns/select">
             <settings>
-                <options class="Tsum\CashFlow\Model\Source\Storage"/>
+                <options class="Tsum\CashFlow\OnlyActiveStorage"/>
                 <filter>select</filter>
                 <editor>
                     <editorType>select</editorType>
@@ -276,5 +276,12 @@
                 <label translate="true">Status</label>
             </settings>
         </column>
+        <actionsColumn name="actions">
+            <settings>
+                <indexField>cf_staging_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>

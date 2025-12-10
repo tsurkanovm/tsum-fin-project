@@ -20,7 +20,7 @@ use Tsum\CashFlowImport\Api\StagingRepositoryInterface;
 
 class ConvertAction
 {
-    public const COMMON_REQUIRED_FIELDS = [
+    public const array COMMON_REQUIRED_FIELDS = [
         'storage_id',
         'type_id',
         'total',
@@ -28,11 +28,11 @@ class ConvertAction
         'registration_time',
     ];
 
-    public const INCOMES_REQUIRED_FIELDS = [
+    public const array INCOMES_REQUIRED_FIELDS = [
         'cf_item_id',
     ];
 
-    public const TRANSFERS_REQUIRED_FIELDS = [
+    public const array TRANSFERS_REQUIRED_FIELDS = [
         'storage_id_in',
         'total_in',
         'currency_in',

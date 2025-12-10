@@ -265,5 +265,12 @@
                 <label translate="true">Modified</label>
             </settings>
         </column>
+        <actionsColumn name="actions">
+            <settings>
+                <indexField>cf_incomes_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
     </columns>
 </listing>
