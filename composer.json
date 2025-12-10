@@ -7,24 +7,31 @@
         "AFL-3.0"
     ],
     "config": {
+        "platform-check": false,
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "magento/magento-composer-installer": true,
-            "magento/inventory-composer-installer": true,
             "laminas/laminas-dependency-plugin": true,
+            "magento/composer-dependency-version-audit-plugin": true,
             "magento/composer-root-update-plugin": true,
-            "magento/composer-dependency-version-audit-plugin": true
+            "magento/inventory-composer-installer": true,
+            "magento/magento-composer-installer": true,
+            "php-http/discovery": true
         }
     },
     "require": {
-        "php": "~8.2.0 || ~8.3.0",
+        "php": "~8.4.0",
         "graycore/magento2-cors": "^2.0",
         "magento/composer-dependency-version-audit-plugin": "~0.1",
         "magento/composer-root-update-plugin": "~2.0",
-        "magento/product-community-edition": "2.4.7-p2",
-        "magespices/mage2dark": "^1.1",
+        "magento/product-community-edition": "2.4.8",
         "phpoffice/phpspreadsheet": "^2.1"
+    },
+    "require-dev": {
+        "allure-framework/allure-phpunit": "^1.4",
+        "composer/xdebug-handler": "^2.0",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpunit/phpunit": "^9.5"
     },
     "replace": {
         "vertex/module-tax": "*"
