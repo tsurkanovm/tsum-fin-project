@@ -28,22 +28,12 @@ class CustomReport extends AbstractModel implements CustomReportInterface, Ident
      */
     private $genericReportCollectionFactory;
 
-    /**
-     * CustomReport constructor.
-     *
-     * @param \Magento\Framework\Model\Context                             $context
-     * @param \Magento\Framework\Registry                                  $registry
-     * @param \DEG\CustomReports\Model\GenericReportCollectionFactory|null $genericReportCollectionFactory
-     * @param \Magento\Framework\Model\ResourceModel\AbstractResource|null $resource
-     * @param \Magento\Framework\Data\Collection\AbstractDb|null           $resourceCollection
-     * @param array                                                        $data
-     */
     public function __construct(
         Context $context,
         Registry $registry,
         GenericReportCollectionFactory $genericReportCollectionFactory,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
+        ?AbstractResource $resource = null,
+        ?AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
