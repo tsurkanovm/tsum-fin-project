@@ -28,7 +28,7 @@ class Processor
         }
 
         $newStatusString = serialize($statusListClass);
-        if ($newStatusString <> $statusString) {
+        if ($newStatusString <> $statusString) { // todo - test is it working??
             $this->flagManager->saveFlag(self::FLAG_NAME, $newStatusString);
         }
     }
