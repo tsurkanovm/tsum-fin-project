@@ -22,13 +22,13 @@ class Processor
             $statusListClass = $this->statusListFactory->create();
         }
 
-        $statusListClass->setRemains($date);
+        $statusListClass->remains = $date;
         if ($withTurnovers) {
-            $statusListClass->setTurnovers($date);
+            $statusListClass->turnovers = $date;
         }
 
         $newStatusString = serialize($statusListClass);
-        if ($newStatusString <> $statusString) { // todo - test is it working??
+        if ($newStatusString <> $statusString) {
             $this->flagManager->saveFlag(self::FLAG_NAME, $newStatusString);
         }
     }
