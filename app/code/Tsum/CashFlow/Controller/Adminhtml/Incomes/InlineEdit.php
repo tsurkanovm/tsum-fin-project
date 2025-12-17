@@ -71,7 +71,8 @@ class InlineEdit extends \Magento\Backend\App\Action
             $model = $this->incomesFactory->create();
             $this->incomesResource->load($model, $itemId);
             try {
-                $model->setData($incomes[$itemId]);
+                //$model->setData($incomes[$itemId]);
+                $model->addData($incomes[$itemId]);
                 $this->incomesResource->save($model);
             } catch (\Magento\Framework\Exception\LocalizedException $e) {
                 $messages[] = $this->getErrorWithPageId($model, $e->getMessage());
