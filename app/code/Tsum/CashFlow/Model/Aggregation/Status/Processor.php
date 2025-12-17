@@ -22,9 +22,9 @@ class Processor
             $statusListClass = $this->statusListFactory->create();
         }
 
-        $statusListClass->remains = $date;
+        $statusListClass->setRemains($date);
         if ($withTurnovers) {
-            $statusListClass->turnovers = $date;
+            $statusListClass->setTurnovers($date);
         }
 
         $newStatusString = serialize($statusListClass);
