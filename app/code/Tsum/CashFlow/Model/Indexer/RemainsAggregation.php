@@ -3,7 +3,7 @@
 namespace Tsum\CashFlow\Model\Indexer;
 
 use Magento\Framework\Indexer\ActionInterface;
-use Tsum\CashFlow\Model\RemainsAggregation\Processor;
+use Tsum\CashFlow\Model\Aggregation\Processor;
 
 class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\ActionInterface
 {

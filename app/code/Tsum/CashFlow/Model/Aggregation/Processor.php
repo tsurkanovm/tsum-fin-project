@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Tsum\CashFlow\Model\RemainsAggregation;
+namespace Tsum\CashFlow\Model\Aggregation;
 
 class Processor
 {
-    public function fullProcessing()
+    public function fullProcessing(): void
     {
         // get first date from config
         $systemStartDate = '';//$this->scopeConfig->getDateFromStarAggregation();
