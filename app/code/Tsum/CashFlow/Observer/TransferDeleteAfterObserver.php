@@ -28,8 +28,6 @@ class TransferDeleteAfterObserver implements ObserverInterface
     {
         /** @var RegistrationDocumentInterface $registrationDocument */
         $registrationDocument = $observer->getData('object');
-        if ($registrationDocument->isActive()) {
-            $this->statusProcessor->process($registrationDocument->getRegistrationTime());
-        }
+        $this->statusProcessor->process($registrationDocument, true);
     }
 }

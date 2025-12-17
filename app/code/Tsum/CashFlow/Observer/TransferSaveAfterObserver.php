@@ -28,6 +28,6 @@ class TransferSaveAfterObserver implements ObserverInterface
     {
         /** @var RegistrationDocumentInterface $registrationDocument */
         $registrationDocument = $observer->getData('object');
-        $this->statusProcessor->process($registrationDocument->getRegistrationTime());
+        $this->statusProcessor->process($registrationDocument);
     }
 }

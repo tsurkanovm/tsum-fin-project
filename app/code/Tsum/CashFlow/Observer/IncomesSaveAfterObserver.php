@@ -28,6 +28,6 @@ class IncomesSaveAfterObserver implements ObserverInterface
     {
         /** @var RegistrationDocumentInterface $registrationDocument */
         $registrationDocument = $observer->getData('object');
-        $this->statusProcessor->process($registrationDocument->getRegistrationTime(), true);
+        $this->statusProcessor->process($registrationDocument);
     }
 }

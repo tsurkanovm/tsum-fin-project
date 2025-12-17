@@ -29,8 +29,6 @@ class IncomesDeleteAfterObserver implements ObserverInterface
     {
         /** @var RegistrationDocumentInterface $registrationDocument */
         $registrationDocument = $observer->getData('object');
-        if ($registrationDocument->isActive()) {
-            $this->statusProcessor->process($registrationDocument->getRegistrationTime(), true);
-        }
+        $this->statusProcessor->process($registrationDocument, true);
     }
 }

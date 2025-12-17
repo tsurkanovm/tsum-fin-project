@@ -3,7 +3,9 @@
 namespace Tsum\CashFlow\Model\Aggregation\Status;
 
 use Magento\Framework\FlagManager;
-// todo - probably we dont need this class, delete?
+use Tsum\CashFlow\Api\Data\RegistrationDocumentInterface;
+use Tsum\CashFlow\Model\Incomes;
+
 class Processor
 {
 
@@ -11,9 +13,16 @@ class Processor
         private readonly StatusListManager $statusListManager,
     ) {
     }
-    public function process(string $date, bool $withTurnovers = false): void
+    public function process(RegistrationDocumentInterface $registrationDocument, $deleteOperation = false): void
     {
-
-        $this->statusListManager->update($date, $withTurnovers ? $date : null);
+        $date = $registrationDocument->getRegistrationTime();
+        $withTurnovers = $registrationDocument instanceof Incomes;
+        if ($deleteOperation) {
+            if ($registrationDocument->isActive()) {
+                $this->statusListManager->update($date, $withTurnovers ? $date : null);
+            }
+        } else {
+            $this->statusListManager->update($date, $withTurnovers ? $date : null);
+        }
     }
 }
