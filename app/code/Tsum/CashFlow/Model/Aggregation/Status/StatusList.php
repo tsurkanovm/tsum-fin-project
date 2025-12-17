@@ -17,7 +17,11 @@ class StatusList
 
     public array $turnovers = [] {
         set(string|array $value) {
-            $this->turnovers = $this->provider->provideTurnoverValue($value, $this->turnovers);
+            if (is_string($value)) {
+                $this->turnovers = $this->provider->provideTurnoverValue($value, $this->turnovers);
+            } else {
+                $this->turnovers = $value;
+            }
         }
     }
 }
