@@ -17,7 +17,7 @@ use Tsum\CashFlow\Api\Data\TransferInterfaceFactory;
 use Tsum\CashFlow\Api\IncomesRepositoryInterface;
 use Tsum\CashFlow\Api\StorageRepositoryInterface;
 use Tsum\CashFlow\Api\TransferRepositoryInterface;
-use Tsum\CashFlow\Model\Config;
+use Tsum\CashFlow\Model\ConfigProvider;
 
 class Ones
 {
@@ -166,7 +166,7 @@ class Ones
         $storage->setTitle(trim($storageName));
         $storage->setIsActive(1);
         $storage->setType(1); // cashless for all, then manually needs to change
-        $storage->setData(Config::ONES_CODE_FIELD, $onesId);
+        $storage->setData(ConfigProvider::ONES_CODE_FIELD, $onesId);
         $this->storageRepo->save($storage);
 
         return $storage;
@@ -193,7 +193,7 @@ class Ones
         $cfItem->setTitle(trim($itemName));
         $cfItem->setIsActive(1);
         $cfItem->setMove((int)$type);
-        $cfItem->setData(Config::ONES_CODE_FIELD, $onesId);
+        $cfItem->setData(ConfigProvider::ONES_CODE_FIELD, $onesId);
         $this->itemRepo->save($cfItem);
 
         return $cfItem;

@@ -7,7 +7,7 @@ use Tsum\CashFlow\Model\StorageRepository;
 use Tsum\CashFlow\Model\ResourceModel\Storage as ResourceStorage;
 use Tsum\CashFlow\Model\StorageFactory;
 use Tsum\CashFlow\Model\Storage;
-use Tsum\CashFlow\Model\Config;
+use Tsum\CashFlow\Model\ConfigProvider;
 
 class StorageRepositoryTest extends TestCase
 {
@@ -55,7 +55,7 @@ class StorageRepositoryTest extends TestCase
         // Resource loads storage with onesId and field
         $this->resourceMock->expects($this->once())
             ->method('load')
-            ->with($this->storageMock, $onesId, Config::ONES_CODE_FIELD);
+            ->with($this->storageMock, $onesId, ConfigProvider::ONES_CODE_FIELD);
 
         // Storage should return an ID
         $this->storageMock->expects($this->once())
@@ -72,7 +72,7 @@ class StorageRepositoryTest extends TestCase
 
         $this->resourceMock->expects($this->once())
             ->method('load')
-            ->with($this->storageMock, $onesId, Config::ONES_CODE_FIELD);
+            ->with($this->storageMock, $onesId, ConfigProvider::ONES_CODE_FIELD);
 
         // Storage returns null (not found)
         $this->storageMock->expects($this->once())

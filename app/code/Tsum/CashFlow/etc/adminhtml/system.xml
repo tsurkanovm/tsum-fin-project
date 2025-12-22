@@ -6,18 +6,24 @@
         <tab id="tsum" translate="label" sortOrder="300">
             <label> <![CDATA[TSUM]]></label>
         </tab>
-        <section id="cash_flow" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1"
+        <section id="cash_flow" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1"
                  showInStore="1">
             <class>separator-top</class>
             <label>Cash Flow</label>
             <tab>tsum</tab>
             <resource>Magento_Backend::admin</resource>
-            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>General</label>
-                <field id="storage_attribute_set" translate="label" type="select" sortOrder="10" showInDefault="1"
-                       showInWebsite="1" showInStore="1" canRestore="1">
-                    <label>Storages attribute set</label>
-                    <source_model>Magento\Catalog\Model\Product\AttributeSet\Options</source_model>
+            <group id="aggregation" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Aggregation</label>
+                <field id="begin_date" translate="label" type="datetime" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Begin Date Of Aggregation</label>
+                    <frontend_model>Tsum\CashFlow\Block\Adminhtml\Config\Field\Date</frontend_model>
+                    <validate>validate-date</validate>
+                </field>
+                <field id="close_date" translate="label" type="datetime" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Close Date</label>
+                    <frontend_model>Tsum\CashFlow\Block\Adminhtml\Config\Field\Date</frontend_model>
+                    <validate>validate-date</validate>
+                    <comment>Before this date, all cash flow documents will be closed to edit.</comment>
                 </field>
             </group>
         </section>

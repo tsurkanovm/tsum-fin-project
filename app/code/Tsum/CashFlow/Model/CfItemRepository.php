@@ -61,7 +61,7 @@ class CfItemRepository implements CfItemRepositoryInterface
     public function getIdByOnesId(int $onesId): ?int
     {
         $cfItem = $this->cfItemFactory->create();
-        $this->resource->load($cfItem, $onesId, Config::ONES_CODE_FIELD);
+        $this->resource->load($cfItem, $onesId, ConfigProvider::ONES_CODE_FIELD);
 
         return $cfItem->getId();
     }

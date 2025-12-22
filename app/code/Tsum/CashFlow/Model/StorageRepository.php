@@ -61,7 +61,7 @@ class StorageRepository implements StorageRepositoryInterface
     public function getIdByOnesId(int $onesId): ?int
     {
         $storage = $this->storageFactory->create();
-        $this->resource->load($storage, $onesId, Config::ONES_CODE_FIELD);
+        $this->resource->load($storage, $onesId, ConfigProvider::ONES_CODE_FIELD);
 
         return $storage->getId();
     }

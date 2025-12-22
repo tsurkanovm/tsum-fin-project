@@ -3,13 +3,13 @@
 namespace Tsum\CashFlow\Model\Indexer;
 
 use Magento\Framework\Indexer\ActionInterface;
-use Tsum\CashFlow\Model\Aggregation\Processor;
+use Tsum\CashFlow\Model\Aggregation\Calculator;
 
 class RemainsAggregation implements ActionInterface, \Magento\Framework\Mview\ActionInterface
 {
     const INDEXER_ID = 'tsum_remains_aggregate';
 
-    public function __construct(private readonly Processor $processor) {
+    public function __construct(private readonly Calculator $processor) {
     }
 
     /**
