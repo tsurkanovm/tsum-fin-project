@@ -2,11 +2,14 @@
 
 namespace Tsum\Digits\Model;
 
+use Magento\Framework\DataObject\IdentityInterface;
 use \Magento\Framework\Model\AbstractModel;
 use Tsum\Digits\Api\Data\ResultInterface;
 
-class Result extends AbstractModel implements ResultInterface
+class Result extends AbstractModel implements ResultInterface, IdentityInterface
 {
+    const CACHE_TAG = 'tsum_digits_result';
+
     /**
      * Initialize resource model
      * @return void
@@ -77,5 +80,10 @@ class Result extends AbstractModel implements ResultInterface
     public function getCreationTime(): string
     {
         return $this->getData(self::CREATION_TIME);
+    }
+
+    public function getIdentities(): array
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 }

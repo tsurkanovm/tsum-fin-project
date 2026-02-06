@@ -19,10 +19,22 @@ class BestResult implements ResolverInterface
      * @inheritDoc
      * @phpstan-ignore-next-line
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
-        $size = SizeEnum::fromName($args['size'] ?? null);
+        sleep(4);
+//        $size = SizeEnum::fromName($args['size'] ?? null);
+//
+//        return $this->bestResultProvider->get($size);
 
-        return $this->bestResultProvider->get($size);
+        file_put_contents(BP . '/var/log/test.log', print_r($field->getCache(), true), FILE_APPEND);
+        return [
+            [
+                'id' => 1,
+                'size' => 'size_4',
+                'hits' => 2,
+                'time' => 100
+            ]
+        ];
+
     }
 }

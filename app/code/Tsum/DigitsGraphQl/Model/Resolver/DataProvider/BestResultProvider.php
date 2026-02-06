@@ -32,6 +32,7 @@ readonly class BestResultProvider
     private function formatResponse(ResultInterface $result): array
     {
         return [
+            'id' => $result->getId(),
             'size' => SizeEnum::from($result->getSize())->name,
             'hits' => $result->getHits(),
             'time' => $result->getTime(),

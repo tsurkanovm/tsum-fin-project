@@ -4,10 +4,9 @@ enum SizeEnum {
 }
 
 type Query {
-    bestResults(
-        size: SizeEnum @doc(description: "The requested size of game results.")
-    ): [Result] @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult")
-#        @cache(cacheIdentity: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult\\Identity")
+    bestResults(size: SizeEnum @doc(description: "The requested size of game results.")):
+    [Result] @resolver(class: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult")
+        @cache(cacheIdentity: "Tsum\\DigitsGraphQl\\Model\\Resolver\\BestResult\\Identity")
         @doc(description: "Return best results")
 }
 

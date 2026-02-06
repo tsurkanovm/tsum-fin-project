@@ -20,7 +20,7 @@ class SetCurrentResult implements ResolverInterface
      * @inheritDoc
      * @phpstan-ignore-next-line
      */
-    public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
+    public function resolve(Field $field, $context, ResolveInfo $info, ?array $value = null, ?array $args = null)
     {
         if (!isset($args['currentResult']['hits'])) {
             throw new GraphQlInputException(__('Hits quantity is required to register a result'));
