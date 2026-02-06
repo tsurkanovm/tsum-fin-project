@@ -5,20 +5,20 @@
 needs to use more complex logic for aggregation triggering,
 for now use very simple logic - triggers by any changing
 -->
-    <event name="tsum_cf_incomes_save_after">
-        <observer name="tsum_cf_incomes_save_after_observer"
-                  instance="Tsum\CashFlow\Observer\IncomesSaveAfterObserver"/>
-    </event>
-    <event name="tsum_cf_incomes_delete_after">
-        <observer name="tsum_cf_incomes_delete_after_observer"
-                  instance="Tsum\CashFlow\Observer\IncomesDeleteAfterObserver"/>
-    </event>
-    <event name="tsum_cf_transfer_save_after">
-        <observer name="tsum_cf_transfer_save_after_observer"
-                  instance="Tsum\CashFlow\Observer\TransferSaveAfterObserver"/>
-    </event>
-    <event name="tsum_cf_transfer_delete_after">
-        <observer name="tsum_cf_transfer_delete_after_observer"
-                  instance="Tsum\CashFlow\Observer\TransferDeleteAfterObserver"/>
-    </event>
+<!--    <event name="tsum_cf_incomes_save_after">-->
+<!--        <observer name="tsum_cf_incomes_save_after_observer"-->
+<!--                  instance="Tsum\CashFlow\Observer\IncomesSaveAfterObserver"/>-->
+<!--    </event>-->
+<!--    <event name="tsum_cf_incomes_delete_after">-->
+<!--        <observer name="tsum_cf_incomes_delete_after_observer"-->
+<!--                  instance="Tsum\CashFlow\Observer\IncomesDeleteAfterObserver"/>-->
+<!--    </event>-->
+<!--    <event name="tsum_cf_transfer_save_after">-->
+<!--        <observer name="tsum_cf_transfer_save_after_observer"-->
+<!--                  instance="Tsum\CashFlow\Observer\TransferSaveAfterObserver"/>-->
+<!--    </event>-->
+<!--    <event name="tsum_cf_transfer_delete_after">-->
+<!--        <observer name="tsum_cf_transfer_delete_after_observer"-->
+<!--                  instance="Tsum\CashFlow\Observer\TransferDeleteAfterObserver"/>-->
+<!--    </event>-->
 </config>

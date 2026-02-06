@@ -152,7 +152,8 @@ class ConvertAction
     public function getCurrentKey(StagingInterface $item): string
     {
         return
-            $item->getTypeId() . '_' . $item->getStorageId() . '_' . $item->getCfItemId() . '_' . $item->getCurrency();
+            $item->getTypeId() . '_' . $item->getStorageId() . '_' . $item->getCfItemId() .
+            '_' . $item->getProjectId() . '_' . $item->getCurrency();
     }
 
     /**

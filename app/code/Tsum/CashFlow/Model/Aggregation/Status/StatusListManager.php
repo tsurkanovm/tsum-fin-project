@@ -39,4 +39,9 @@ class StatusListManager implements StatusListManagerInterface
             $this->flagManager->saveFlag(self::FLAG_NAME, $newStatusString);
         }
     }
+
+    public function delete(): void
+    {
+        $this->flagManager->deleteFlag(self::FLAG_NAME);
+    }
 }
