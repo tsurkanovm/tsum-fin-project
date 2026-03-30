@@ -2,7 +2,7 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Tsum\CashFlow\Api\Data\StorageSearchResultsInterface"
-                type="Magento\Framework\Api\SearchResults" />
+                type="Tsum\CashFlow\Model\StorageSearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\CfItemSearchResultsInterface"
                 type="Magento\Framework\Api\SearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\IncomesSearchResultsInterface"

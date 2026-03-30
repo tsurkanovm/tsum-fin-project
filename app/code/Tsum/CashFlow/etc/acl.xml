@@ -16,6 +16,7 @@
                     <resource id="Tsum_CashFlow::cfitem_config" title="Cash Flow Item options" />
                 </resource>
                 <resource id="Tsum_CashFlow::incomes" title="Incomes and Transfers"/>
+                <resource id="Tsum_CashFlow::cashflow_api" title="CashFlow REST API"/>
             </resource>
         </resources>
     </acl>

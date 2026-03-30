@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/cashflow/storage/all" method="GET">
+        <service class="Tsum\CashFlow\Api\StorageRepositoryInterface" method="getAll"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+    <route url="/V1/cashflow/storage/:storageId" method="GET">
+        <service class="Tsum\CashFlow\Api\StorageRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+    <route url="/V1/cashflow/cfitem/list" method="GET">
+        <service class="Tsum\CashFlow\Api\CfItemRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+    <route url="/V1/cashflow/incomes/list" method="GET">
+        <service class="Tsum\CashFlow\Api\IncomesRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+    <route url="/V1/cashflow/transfer/list" method="GET">
+        <service class="Tsum\CashFlow\Api\TransferRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+</routes>
