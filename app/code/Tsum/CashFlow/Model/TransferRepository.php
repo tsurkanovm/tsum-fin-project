@@ -78,6 +78,17 @@ class TransferRepository implements TransferRepositoryInterface
         return $searchResults;
     }
 
+    public function getAll(): TransferSearchResultsInterface
+    {
+        $collection = $this->transferCollectionFactory->create();
+        /** @var TransferSearchResultsInterface $searchResults */
+        $searchResults = $this->searchResultsFactory->create();
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
+    }
+
     /**
      * @inheritDoc
      */

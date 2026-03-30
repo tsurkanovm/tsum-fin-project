@@ -4,11 +4,11 @@
     <preference for="Tsum\CashFlow\Api\Data\StorageSearchResultsInterface"
                 type="Tsum\CashFlow\Model\StorageSearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\CfItemSearchResultsInterface"
-                type="Magento\Framework\Api\SearchResults" />
+                type="Tsum\CashFlow\Model\CfItemSearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\IncomesSearchResultsInterface"
-                type="Magento\Framework\Api\SearchResults" />
+                type="Tsum\CashFlow\Model\IncomesSearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\TransferSearchResultsInterface"
-                type="Magento\Framework\Api\SearchResults" />
+                type="Tsum\CashFlow\Model\TransferSearchResults" />
     <preference for="Tsum\CashFlow\Api\Data\StorageInterface" type="Tsum\CashFlow\Model\Storage" />
     <preference for="Tsum\CashFlow\Api\Data\CfItemInterface" type="Tsum\CashFlow\Model\CfItem" />
     <preference for="Tsum\CashFlow\Api\Data\IncomesInterface" type="Tsum\CashFlow\Model\Incomes" />

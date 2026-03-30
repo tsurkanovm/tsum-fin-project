@@ -16,6 +16,27 @@
         </resources>
     </route>
 
+    <route url="/V1/cashflow/cfitem/all" method="GET">
+        <service class="Tsum\CashFlow\Api\CfItemRepositoryInterface" method="getAll"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+    <route url="/V1/cashflow/incomes/all" method="GET">
+        <service class="Tsum\CashFlow\Api\IncomesRepositoryInterface" method="getAll"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
+    <route url="/V1/cashflow/transfer/all" method="GET">
+        <service class="Tsum\CashFlow\Api\TransferRepositoryInterface" method="getAll"/>
+        <resources>
+            <resource ref="Tsum_CashFlow::cashflow_api"/>
+        </resources>
+    </route>
+
     <route url="/V1/cashflow/cfitem/list" method="GET">
         <service class="Tsum\CashFlow\Api\CfItemRepositoryInterface" method="getList"/>
         <resources>

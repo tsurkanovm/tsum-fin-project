@@ -78,6 +78,17 @@ class IncomesRepository implements IncomesRepositoryInterface
         return $searchResults;
     }
 
+    public function getAll(): IncomesSearchResultsInterface
+    {
+        $collection = $this->incomesCollectionFactory->create();
+        /** @var IncomesSearchResultsInterface $searchResults */
+        $searchResults = $this->searchResultsFactory->create();
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
+    }
+
     /**
      * @inheritDoc
      */

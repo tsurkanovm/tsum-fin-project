@@ -86,6 +86,17 @@ class CfItemRepository implements CfItemRepositoryInterface
         return $searchResults;
     }
 
+    public function getAll(): CfItemSearchResultsInterface
+    {
+        $collection = $this->cfItemCollectionFactory->create();
+        /** @var CfItemSearchResultsInterface $searchResults */
+        $searchResults = $this->searchResultsFactory->create();
+        $searchResults->setItems($collection->getItems());
+        $searchResults->setTotalCount($collection->getSize());
+
+        return $searchResults;
+    }
+
     /**
      * @inheritDoc
      */
