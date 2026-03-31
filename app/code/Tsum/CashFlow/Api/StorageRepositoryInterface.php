@@ -23,7 +23,7 @@ interface StorageRepositoryInterface
      * @return \Tsum\CashFlow\Api\Data\StorageInterface
      * @throws NoSuchEntityException
      */
-    public function getById(int|string $storageId): StorageInterface;
+    public function getById(int $storageId): StorageInterface;
 
     /**
      * @param int $onesId
@@ -54,5 +54,5 @@ interface StorageRepositoryInterface
      * @return bool
      * @throws NoSuchEntityException|CouldNotDeleteException
      */
-    public function deleteById(int|string $storageId): bool;
+    public function deleteById(int $storageId): bool;
 }

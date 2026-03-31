@@ -47,7 +47,7 @@ class StorageRepository implements StorageRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getById(int|string $storageId): StorageInterface
+    public function getById(int $storageId): StorageInterface
     {
         $storage = $this->storageFactory->create();
         $this->resource->load($storage, $storageId);
@@ -120,7 +120,7 @@ class StorageRepository implements StorageRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function deleteById(int|string $storageId): bool
+    public function deleteById(int $storageId): bool
     {
         return $this->delete($this->getById($storageId));
     }
